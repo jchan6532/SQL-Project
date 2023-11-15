@@ -9,6 +9,18 @@
     <Grid
         Margin="20">
 
+        <Button
+            Content="Add"
+            Margin="15"
+            MaxHeight="20"
+            MinHeight="20"
+            MaxWidth="60"
+            MinWidth="60"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Right"
+            x:Name="AddConfigurationBtn"
+            Click="AddConfigurationBtn_Click"
+            />
 
         <StackPanel
             Orientation="Vertical"
@@ -17,6 +29,7 @@
             Margin="0 20"
             x:Name="Configurations"
             >
+
             <StackPanel 
                 Orientation="Horizontal"
                 HorizontalAlignment="Center"

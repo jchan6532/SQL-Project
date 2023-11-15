@@ -28,13 +28,28 @@
                         Margin="10"
                         />
                     <TextBox
-                        x:Name="NameTextBox"
+                        x:Name="PropertyNameTextBox"
                         Margin="10"
                         MinWidth="100"
+                        PreviewTextInput="PropertyNameTextBox_PreviewTextInput"
                         />
                 </StackPanel>
 
-            
+                <StackPanel
+                    Orientation="Horizontal">
+                    <Label
+                        Content="Property Value"
+                        Margin="10"
+                        />
+                    <TextBox
+                        x:Name="PropertyValueBox"
+                        Margin="10"
+                        MinWidth="100"
+                        PreviewTextInput="PropertyValueBox_PreviewTextInput"
+                        />
+                </StackPanel>
+
+
                 <Button
                     x:Name="AddConfigBtn"
                     Click="AddConfigBtn_Click"
@@ -42,7 +57,13 @@
                     Margin="40"
                     MaxWidth="100"
                     />
-            
+
+                <TextBlock
+                    Text=""
+                    Foreground="Red"
+                    x:Name="ErrorMsg"
+                    />
+
             </StackPanel>
         </StackPanel>
     </Grid>

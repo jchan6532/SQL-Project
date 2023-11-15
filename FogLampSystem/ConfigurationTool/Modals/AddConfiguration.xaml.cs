@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,9 +30,32 @@ namespace ConfigurationTool.Modals
 
         private void AddConfigBtn_Click(object sender, RoutedEventArgs e)
         {
-            ConfigurationName = "dfs";
-            ConfigurationValue = "Dg";
+            ConfigurationName = PropertyNameTextBox.Text;
+            ConfigurationValue = PropertyValueBox.Text;
             Close();
+        }
+
+        
+        private void PropertyValueBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex _regex = new Regex("[^0-9.-]+");
+            e.Handled = _regex.IsMatch(e.Text);
+
+            if (e.Handled)
+                ErrorMsg.Text = "Input must be numeric";
+            else
+                ErrorMsg.Text = "";
+        }
+
+        private void PropertyNameTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex _regex = new Regex("[^A-Za-z]+");
+            e.Handled = _regex.IsMatch(e.Text);
+
+            if (e.Handled)
+                ErrorMsg.Text = "Input must be numeric";
+            else
+                ErrorMsg.Text = "";
         }
     }
 }

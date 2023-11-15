@@ -49,9 +49,56 @@ namespace ConfigurationTool
             
             (DataContext as ConfigurationOptions).CreateConfigurationFile();
 
+
+        }
+
+        private void AddConfigurationBtn_Click(object sender, RoutedEventArgs e)
+        {
             var addConfig = new AddConfiguration();
             addConfig.ShowDialog();
-            ErrorMsg.Text = $"{addConfig.ConfigurationName} = {addConfig.ConfigurationValue}";
+
+            Label nameLabel = new Label();
+            nameLabel.Content = addConfig.ConfigurationName;
+            nameLabel.Margin = new Thickness
+            {
+                Left = 10,
+                Right = 10,
+                Bottom = 0,
+                Top = 0
+            };
+            nameLabel.FontSize = 15;
+
+            TextBox nameTextBox = new TextBox();
+            nameTextBox.Width = 100;
+            nameTextBox.Margin = new Thickness
+            {
+                Left = 10,
+                Right = 10,
+                Bottom = 0,
+                Top = 0
+            };
+            nameTextBox.FontSize = 15;
+            nameTextBox.Text = addConfig.ConfigurationValue;
+            nameTextBox.PreviewTextInput += TextBox_PreviewTextInput;
+
+            StackPanel configStackPanel = new StackPanel();
+            configStackPanel.Orientation = Orientation.Horizontal;
+            configStackPanel.HorizontalAlignment = HorizontalAlignment.Center;
+            configStackPanel.Margin = new Thickness
+            {
+                Left = 0,
+                Right = 0,
+                Bottom = 5,
+                Top = 5
+            };
+
+            configStackPanel.Children.Add(nameLabel);
+            configStackPanel.Children.Add(nameTextBox);
+
+            int buttonIndex = Configurations.Children.IndexOf(ExportDataBtn);
+            Configurations.Children.Insert(buttonIndex, configStackPanel);
+
+            
         }
     }
 }
