@@ -5,8 +5,140 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConfigurationTool"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Height="800" Width="600">
+    <Grid
+        Margin="20">
+
+
+        <StackPanel
+            Orientation="Vertical"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Margin="0 20"
+            x:Name="Configurations"
+            >
+            <StackPanel 
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                Margin="0 5"
+                >
+                <Label 
+                    Content="Harness" 
+                    Margin="10 0"
+                    FontSize="15"
+                    />
+                <TextBox
+                    Width="100" 
+                    Margin="10 0"
+                    FontSize="15"
+                    PreviewTextInput="TextBox_PreviewTextInput"
+                    />
+            </StackPanel>
+
+            <StackPanel 
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                Margin="0 5"
+                >
+                <Label 
+                    Content="Reflector" 
+                    Margin="10 0"
+                    FontSize="15"
+                    />
+                <TextBox
+                    Width="100" 
+                    Margin="10 0"
+                    FontSize="15"
+                    PreviewTextInput="TextBox_PreviewTextInput"
+                    />
+            </StackPanel>
+
+            <StackPanel 
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                Margin="0 5"
+                >
+                <Label 
+                    Content="Housing" 
+                    Margin="10 0"
+                    FontSize="15"
+                    />
+                <TextBox
+                    Width="100" 
+                    Margin="10 0"
+                    FontSize="15"
+                    PreviewTextInput="TextBox_PreviewTextInput"
+                    />
+            </StackPanel>
+
+            <StackPanel 
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                Margin="0 5"
+                >
+                <Label 
+                    Content="Lens" 
+                    Margin="10 0"
+                    FontSize="15"
+                    />
+                <TextBox
+                    Width="100" 
+                    Margin="10 0"
+                    FontSize="15"
+                    PreviewTextInput="TextBox_PreviewTextInput"
+                    />
+            </StackPanel>
+
+            <StackPanel 
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                Margin="0 5"
+                >
+                <Label 
+                    Content="Bulb" 
+                    Margin="10 0"
+                    FontSize="15"
+                    />
+                <TextBox
+                    Width="100" 
+                    Margin="10 0"
+                    FontSize="15"
+                    PreviewTextInput="TextBox_PreviewTextInput"
+                    />
+            </StackPanel>
+
+            <StackPanel 
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                Margin="0 5"
+                >
+                <Label 
+                    Content="Bezel" 
+                    Margin="10 0"
+                    FontSize="15"
+                    />
+                <TextBox
+                    Width="100" 
+                    Margin="10 0"
+                    FontSize="15"
+                    PreviewTextInput="TextBox_PreviewTextInput"
+                    />
+            </StackPanel>
+
+            <Button
+                Content="Export Configuration"
+                x:Name="ExportDataBtn"
+                Click="ExportDataBtn_Click"
+                Margin="10"
+                />
+
+            <TextBlock
+                Text=""
+                Foreground="Red"
+                x:Name="ErrorMsg"
+                />
+
+        </StackPanel>
+
     </Grid>
 </Window>
