@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Xml;
 
 using ConfigurationTool.ViewModel;
+using ConfigurationTool.Modals;
 
 namespace ConfigurationTool
 {
@@ -43,7 +44,14 @@ namespace ConfigurationTool
 
         private void ExportDataBtn_Click(object sender, RoutedEventArgs e)
         {
+            Dictionary<string, string> configData = new Dictionary<string, string>();
+
+            
             (DataContext as ConfigurationOptions).CreateConfigurationFile();
+
+            var addConfig = new AddConfiguration();
+            addConfig.ShowDialog();
+            ErrorMsg.Text = $"{addConfig.ConfigurationName} = {addConfig.ConfigurationValue}";
         }
     }
 }
