@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConfigurationTool"
+        xmlns:vm="clr-namespace:ConfigurationTool.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="600">
     <Grid
@@ -30,113 +31,55 @@
             x:Name="Configurations"
             >
 
-            <StackPanel 
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                Margin="0 5"
+            <DataGrid
+                x:Name="ConfigurationsDataGrid"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                AutoGenerateColumns="False"
+                ItemsSource="{Binding ConfigurationData}"
+                MinWidth="400"
+                MinColumnWidth="200"
+                GridLinesVisibility="None"
+                MinRowHeight="40"
                 >
-                <Label 
-                    Content="Harness" 
-                    Margin="10 0"
-                    FontSize="15"
-                    />
-                <TextBox
-                    Width="100" 
-                    Margin="10 0"
-                    FontSize="15"
-                    PreviewTextInput="TextBox_PreviewTextInput"
-                    />
-            </StackPanel>
-
-            <StackPanel 
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                Margin="0 5"
-                >
-                <Label 
-                    Content="Reflector" 
-                    Margin="10 0"
-                    FontSize="15"
-                    />
-                <TextBox
-                    Width="100" 
-                    Margin="10 0"
-                    FontSize="15"
-                    PreviewTextInput="TextBox_PreviewTextInput"
-                    />
-            </StackPanel>
-
-            <StackPanel 
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                Margin="0 5"
-                >
-                <Label 
-                    Content="Housing" 
-                    Margin="10 0"
-                    FontSize="15"
-                    />
-                <TextBox
-                    Width="100" 
-                    Margin="10 0"
-                    FontSize="15"
-                    PreviewTextInput="TextBox_PreviewTextInput"
-                    />
-            </StackPanel>
-
-            <StackPanel 
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                Margin="0 5"
-                >
-                <Label 
-                    Content="Lens" 
-                    Margin="10 0"
-                    FontSize="15"
-                    />
-                <TextBox
-                    Width="100" 
-                    Margin="10 0"
-                    FontSize="15"
-                    PreviewTextInput="TextBox_PreviewTextInput"
-                    />
-            </StackPanel>
-
-            <StackPanel 
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                Margin="0 5"
-                >
-                <Label 
-                    Content="Bulb" 
-                    Margin="10 0"
-                    FontSize="15"
-                    />
-                <TextBox
-                    Width="100" 
-                    Margin="10 0"
-                    FontSize="15"
-                    PreviewTextInput="TextBox_PreviewTextInput"
-                    />
-            </StackPanel>
-
-            <StackPanel 
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                Margin="0 5"
-                >
-                <Label 
-                    Content="Bezel" 
-                    Margin="10 0"
-                    FontSize="15"
-                    />
-                <TextBox
-                    Width="100" 
-                    Margin="10 0"
-                    FontSize="15"
-                    PreviewTextInput="TextBox_PreviewTextInput"
-                    />
-            </StackPanel>
+                <DataGrid.Columns>
+                    <DataGridTextColumn 
+                        Header="Key" 
+                        Binding="{Binding Key}"
+                        
+                        >
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn 
+                        Header="Value" 
+                        Binding="{Binding Value}" 
+                        >
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
 
             <Button
                 Content="Export Configuration"

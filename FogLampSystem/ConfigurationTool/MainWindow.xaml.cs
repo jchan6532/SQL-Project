@@ -29,6 +29,13 @@ namespace ConfigurationTool
         {
             InitializeComponent();
             DataContext = new ConfigurationOptions();
+
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data.Add("justin", "hfghfg");
+            data.Add("sdf", "hfghfg");
+            data.Add("jushfghtin", "hfghfg");
+            data.Add("jushjkjktin", "hfghfg");
+            (DataContext as ConfigurationOptions).ConfigurationData = data;
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
