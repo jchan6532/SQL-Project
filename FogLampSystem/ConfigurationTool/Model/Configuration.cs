@@ -8,6 +8,9 @@ namespace ConfigurationTool.Model
 {
     public class Configuration
     {
-        public int Harness { get; set; }
+        public string ConfigurationKey { get; set; }
+        public int ConfigurationValue_Int { get; set; }
+        public float ConfigurationValue_Float { get; set; }
+        public string ConfigurationValue_String { get; set; }
     }
 }

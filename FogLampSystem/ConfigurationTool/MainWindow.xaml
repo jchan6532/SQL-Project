@@ -10,19 +10,6 @@
     <Grid
         Margin="20">
 
-        <Button
-            Content="Add"
-            Margin="15"
-            MaxHeight="20"
-            MinHeight="20"
-            MaxWidth="60"
-            MinWidth="60"
-            VerticalAlignment="Top"
-            HorizontalAlignment="Right"
-            x:Name="AddConfigurationBtn"
-            Click="AddConfigurationBtn_Click"
-            />
-
         <StackPanel
             Orientation="Vertical"
             HorizontalAlignment="Center"
@@ -36,16 +23,16 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 AutoGenerateColumns="False"
-                ItemsSource="{Binding ConfigurationData}"
+                ItemsSource="{Binding ConfigurationData, Mode=TwoWay}"
                 MinWidth="400"
-                MinColumnWidth="200"
+                MinColumnWidth="100"
                 GridLinesVisibility="None"
                 MinRowHeight="40"
                 >
                 <DataGrid.Columns>
                     <DataGridTextColumn 
                         Header="Key" 
-                        Binding="{Binding Key}"
+                        Binding="{Binding [0]}"
                         
                         >
                         <DataGridTextColumn.CellStyle>
@@ -63,7 +50,7 @@
                     </DataGridTextColumn>
                     <DataGridTextColumn 
                         Header="Value" 
-                        Binding="{Binding Value}" 
+                        Binding="{Binding [1]}" 
                         >
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
@@ -78,13 +65,47 @@
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
+                    <DataGridTextColumn 
+                        Header="Value" 
+                        Binding="{Binding [2]}" 
+                        >
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn 
+                        Header="Value" 
+                        Binding="{Binding [3]}" 
+                        >
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
 
             <Button
-                Content="Export Configuration"
-                x:Name="ExportDataBtn"
-                Click="ExportDataBtn_Click"
+                Content="Save"
+                x:Name="SaveBtn"
+                Click="SaveBtn_Click"
                 Margin="10"
                 />
 

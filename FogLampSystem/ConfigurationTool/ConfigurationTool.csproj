@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,7 +60,7 @@
       <DependentUpon>AddConfiguration.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Configuration.cs" />
-    <Compile Include="ViewModel\ConfigurationOptions.cs" />
+    <Compile Include="ViewModel\ConfigurationViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
