@@ -10,6 +10,8 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Collections.ObjectModel;
 
+using ConfigurationTool.Model;
+
 namespace ConfigurationTool.ViewModel
 {
     public class ConfigurationViewModel : INotifyPropertyChanged
@@ -19,7 +21,7 @@ namespace ConfigurationTool.ViewModel
         /// <summary>
         /// Configuration key value pairs binding to the XAML page
         /// </summary>
-        private ObservableCollection<DataRow> _configurationData = null;
+        private ObservableCollection<ConfigurationRow> _configurationData = null;
 
         /// <summary>
         /// Local instance of the SQL connection
@@ -45,7 +47,7 @@ namespace ConfigurationTool.ViewModel
 
         #region Public Properties
 
-        public ObservableCollection<DataRow> ConfigurationData
+        public ObservableCollection<ConfigurationRow> ConfigurationData
         {
             get
             {
@@ -109,7 +111,35 @@ namespace ConfigurationTool.ViewModel
                 DataSet dataset = new DataSet();
                 _adapter.Fill(dataset);
 
-                ConfigurationData = new ObservableCollection<DataRow>(dataset.Tables[0].AsEnumerable());
+                //ConfigurationData = new ObservableCollection<DataRow>(dataset.Tables[0].AsEnumerable());
+                ConfigurationData = new ObservableCollection<ConfigurationRow>();
+                var columns = dataset.Tables[0].Columns;
+
+                foreach (var propertyRow in dataset.Tables[0].AsEnumerable())
+                {
+                    ConfigurationRow configurationRow = new ConfigurationRow();
+                    configurationRow.ConfigurationValue_String = "";
+                    configurationRow.ConfigurationKey = propertyRow.ItemArray.First().ToString();
+                    for (int i = 0; i < propertyRow.ItemArray.Length; i++)
+                    {
+                        if (columns[i].ColumnName.ToLower().Contains(nameof(String).ToLower()))
+                        {
+                            if (!(propertyRow.ItemArray[i] is DBNull))
+                                configurationRow.ConfigurationValue_String = propertyRow.ItemArray[i].ToString();
+                        }
+                        else if (columns[i].ColumnName.ToLower().Contains(typeof(double).Name.ToLower()))
+                        {
+                            if (!(propertyRow.ItemArray[i] is DBNull))
+                                configurationRow.ConfigurationValue_Float = (float)Convert.ToDouble(propertyRow.ItemArray[i]);
+                        }
+                        else if (columns[i].ColumnName.ToLower().Contains(typeof(int).Name.ToLower()))
+                        {
+                            if (!(propertyRow.ItemArray[i] is DBNull))
+                                configurationRow.ConfigurationValue_Int = Convert.ToInt32(propertyRow.ItemArray[i]);
+                        }
+                    }
+                    ConfigurationData.Add(configurationRow);
+                }
             }
         }
 

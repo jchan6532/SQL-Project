@@ -29,13 +29,21 @@ namespace ConfigurationTool
         {
             InitializeComponent();
             DataContext = new ConfigurationViewModel();
-            (DataContext as ConfigurationViewModel).GetConfigurationData();
-
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ConfigurationsDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as ConfigurationViewModel).GetConfigurationData();
         }
     }
 }

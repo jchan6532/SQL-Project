@@ -1,7 +1,6 @@
 C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\ConfigurationTool\bin\Debug\ConfigurationTool.exe.config
 C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\ConfigurationTool\bin\Debug\ConfigurationTool.exe
 C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\ConfigurationTool\bin\Debug\ConfigurationTool.pdb
-C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\ConfigurationTool\obj\Debug\ConfigurationTool.csproj.AssemblyReference.cache
 C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\ConfigurationTool\obj\Debug\MainWindow.g.cs
 C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\ConfigurationTool\obj\Debug\App.g.cs
 C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\ConfigurationTool\obj\Debug\ConfigurationTool_MarkupCompile.cache
@@ -32,3 +31,4 @@ C:\Users\Theo Chan\Source\Repos\jchan6532\SQL-Project\FogLampSystem\Configuratio
 C:\Users\Theo Chan\Source\Repos\jchan6532\SQL-Project\FogLampSystem\ConfigurationTool\obj\Debug\ConfigurationTool.csproj.CoreCompileInputs.cache
 C:\Users\Theo Chan\Source\Repos\jchan6532\SQL-Project\FogLampSystem\ConfigurationTool\obj\Debug\ConfigurationTool.exe
 C:\Users\Theo Chan\Source\Repos\jchan6532\SQL-Project\FogLampSystem\ConfigurationTool\obj\Debug\ConfigurationTool.pdb
+C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\ConfigurationTool\obj\Debug\ConfigurationTool.csproj.AssemblyReference.cache

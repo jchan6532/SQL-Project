@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConfigurationTool.Model
 {
-    public class Configuration
+    public class ConfigurationRow
     {
         public string ConfigurationKey { get; set; }
         public int ConfigurationValue_Int { get; set; }

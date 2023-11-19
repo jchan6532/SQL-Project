@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:ConfigurationTool"
         xmlns:vm="clr-namespace:ConfigurationTool.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="600">
+        Title="MainWindow"
+        Height="800"
+        Width="1000"
+        Background="DarkSlateGray"
+        Loaded="Window_Loaded"
+        >
     <Grid
         Margin="20">
 
@@ -20,85 +25,36 @@
 
             <DataGrid
                 x:Name="ConfigurationsDataGrid"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                AutoGenerateColumns="False"
                 ItemsSource="{Binding ConfigurationData, Mode=TwoWay}"
-                MinWidth="400"
-                MinColumnWidth="100"
+                Foreground="Red"
                 GridLinesVisibility="None"
-                MinRowHeight="40"
+                Opacity="0.75"
+                ColumnWidth="*"
+                IsReadOnly="True"
+                SelectionMode="Single"
+                Grid.RowSpan="2"
+                AutoGenerateColumns="True"
+                Margin="20"
+                CanUserSortColumns="False"
+                CanUserAddRows="True"
+                CanUserDeleteRows="True"
+                CellEditEnding="ConfigurationsDataGrid_CellEditEnding"
                 >
+
                 <DataGrid.Columns>
-                    <DataGridTextColumn 
-                        Header="Key" 
-                        Binding="{Binding [0]}"
-                        
-                        >
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
+                    <DataGridTextColumn Width="auto">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="5"/>
                             </Style>
-                        </DataGridTextColumn.CellStyle>
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style TargetType="DataGridColumnHeader">
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Padding" Value="0 1 0 1"/>
                             </Style>
-                        </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn 
-                        Header="Value" 
-                        Binding="{Binding [1]}" 
-                        >
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style TargetType="DataGridColumnHeader">
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn 
-                        Header="Value" 
-                        Binding="{Binding [2]}" 
-                        >
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style TargetType="DataGridColumnHeader">
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn 
-                        Header="Value" 
-                        Binding="{Binding [3]}" 
-                        >
-                    <DataGridTextColumn.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="VerticalAlignment" Value="Center" />
-                        </Style>
-                    </DataGridTextColumn.CellStyle>
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="VerticalAlignment" Value="Center" />
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </DataGridTextColumn>
+
                 </DataGrid.Columns>
             </DataGrid>
 
