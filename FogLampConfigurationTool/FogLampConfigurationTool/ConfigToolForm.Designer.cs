@@ -1,4 +1,13 @@
-﻿namespace FogLampConfigurationTool
+﻿/*
+* FILE : ConfigToolForm.cs
+* PROJECT : PROG3070 - Gerritt Hooyer, Justin Chan
+* PROGRAMMER : Gerritt Hooyer, Justin Chan
+* FIRST VERSION : 2023-11-20
+* DESCRIPTION :
+* Adds functionality to the form for the config tool.
+*/
+
+namespace FogLampConfigurationTool
 {
     partial class ConfigToolForm
     {
