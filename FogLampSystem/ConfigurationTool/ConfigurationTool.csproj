@@ -59,8 +59,7 @@
     <Compile Include="Modals\AddConfiguration.xaml.cs">
       <DependentUpon>AddConfiguration.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\ConfigurationRow.cs" />
-    <Compile Include="ViewModel\ConfigurationViewModel.cs" />
+    <Compile Include="ViewModel\ConfigSettingsViewModel .cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

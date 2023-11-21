@@ -10,69 +10,25 @@
         Height="800"
         Width="1000"
         Background="DarkSlateGray"
-        Loaded="Window_Loaded"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         >
     <Grid
         Margin="20">
 
-        <StackPanel
-            Orientation="Vertical"
+        <DataGrid 
+            x:Name="configDataGrid" 
+            AutoGenerateColumns="True" 
+            CanUserAddRows="True" 
+            ItemsSource="{Binding ConfigSettingsCollection}"
+            />
+
+        <Button 
+            Content="Save" 
+            Click="SaveBtn_Click" 
+            VerticalAlignment="Bottom"
+            Margin="300"
             HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Margin="0 20"
-            x:Name="Configurations"
-            >
-
-            <DataGrid
-                x:Name="ConfigurationsDataGrid"
-                ItemsSource="{Binding ConfigurationData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Foreground="Red"
-                GridLinesVisibility="None"
-                Opacity="0.75"
-                ColumnWidth="*"
-                IsReadOnly="False"
-                SelectionMode="Single"
-                Grid.RowSpan="2"
-                AutoGenerateColumns="True"
-                Margin="20"
-                CanUserSortColumns="False"
-                CanUserAddRows="True"
-                CanUserDeleteRows="True"
-                >
-
-                <DataGrid.Columns>
-                    <DataGridTextColumn Width="auto">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Margin" Value="5"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                        <DataGridTextColumn.EditingElementStyle>
-                            <Style TargetType="TextBox">
-                                <Setter Property="Padding" Value="0 1 0 1"/>
-                            </Style>
-                        </DataGridTextColumn.EditingElementStyle>
-                    </DataGridTextColumn>
-
-                </DataGrid.Columns>
-            </DataGrid>
-
-            <Button
-                Content="Save"
-                x:Name="SaveBtn"
-                Click="SaveBtn_Click"
-                Margin="10"
-                Width="100"
-                Height="30"
-                />
-
-            <TextBlock
-                Text=""
-                Foreground="Red"
-                x:Name="ErrorMsg"
-                />
-
-        </StackPanel>
+            />
 
     </Grid>
 </Window>
