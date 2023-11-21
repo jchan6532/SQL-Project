@@ -27,7 +27,14 @@ namespace FogLampConfigurationTool
 
         private void ConfigToolForm_Load(object sender, EventArgs e)
         {
-            UpdateDataGridView();
+            try
+            {
+                UpdateDataGridView();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void UpdateDataGridView()
@@ -38,13 +45,29 @@ namespace FogLampConfigurationTool
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            UpdateDataGridView();
+            try
+            {
+                UpdateDataGridView();
+                MessageBox.Show("Configuration table refreshed.","Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            DatabaseManager.UpdateConfigData((DataTable)configTableDataGridView.DataSource);
-            UpdateDataGridView();
+            try
+            {
+                DatabaseManager.UpdateConfigData((DataTable)configTableDataGridView.DataSource);
+                UpdateDataGridView();
+                MessageBox.Show("Configuration saved!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
         }
     }
 }
