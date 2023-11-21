@@ -15,10 +15,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 
-using ConfigurationTool.ViewModel;
 using System.Data;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace ConfigurationTool
 {
@@ -27,7 +27,6 @@ namespace ConfigurationTool
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const string ConnectionString = @"Data Source=DESKTOP-UMCIMBB\SQLEXPRESS;Initial Catalog=SQL-PROJECT;Integrated Security=True";
         public MainWindow()
         {
             InitializeComponent();
@@ -37,8 +36,36 @@ namespace ConfigurationTool
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
+            DataTable dataTable = ((DataView)configDataGrid.ItemsSource).ToTable();
+            DataTable dataTableToFixException =((DataView)configDataGrid.ItemsSource).Table;
             // Save changes to the database
-            SaveData();
+            SaveData(dataTableToFixException);
+        }
+
+        // Implement the SaveChangesToDatabase method
+        public void SaveData(DataTable table)
+        {
+            // Create SQL connection
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+
+            // Create SQL adapter
+            SqlDataAdapter adapter = new SqlDataAdapter($"SELECT * FROM { ConfigurationManager.AppSettings["ConfigTable"] }", conn);
+
+            // Create SQL builder
+            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+
+            // Setting the prefix and suffix for database objects
+            builder.QuotePrefix = "[";
+            builder.QuoteSuffix = "]";
+
+            // Open the connection
+            conn.Open();
+
+            // Update the adapter with the data table
+            adapter.Update(table);
+
+            // Close the connection
+            conn.Close();
         }
 
         public void LoadData()
@@ -48,7 +75,7 @@ namespace ConfigurationTool
             string sql = "SELECT * FROM ConfigSettings";
 
             // Create a connection
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString))
             {
                 connection.Open();
                 // Create a command
@@ -71,41 +98,6 @@ namespace ConfigurationTool
                 }
                 connection.Close();
             }
-        }
-
-        // Implement the SaveChangesToDatabase method
-        public void SaveData()
-        {
-            // Create a connection
-            // Create SQL connection
-            SqlConnection conn = new SqlConnection(ConnectionString);
-
-            // Create SQL adapter
-            SqlDataAdapter adapter = new SqlDataAdapter($"SELECT config_key, int32_value, double_value, string_value FROM ConfigSettings", conn);
-
-            // Create SQL builder
-            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
-
-            // Setting the prefix and suffix for database objects
-            builder.QuotePrefix = "[";
-            builder.QuoteSuffix = "]";
-
-            adapter.UpdateCommand = builder.GetUpdateCommand(false);
-            adapter.DeleteCommand = builder.GetDeleteCommand(false);
-            adapter.InsertCommand = builder.GetInsertCommand(false);
-
-            // Open the connection
-            conn.Open();
-
-            DataTable table = ((DataView)configDataGrid.ItemsSource).Table;
-            //DataTable table = dataView.ToTable();
-
-
-            // Update the adapter with the data table
-            adapter.Update(table);
-
-            // Close the connection
-            conn.Close();
         }
 
     }
