@@ -1,13 +1,13 @@
-CREATE TABLE DefaultSettings (
-	config_key NVARCHAR(60) PRIMARY KEY NOT NULL,
-	int_value INT,
-	float_value FLOAT,
-	string_value NVARCHAR(60)
-)
-
+/*
+* FILE : TermProjectDatabaseCreation.sql
+* PROJECT : PROG3070 - Gerritt Hooyer
+* PROGRAMMER : Gerritt Hooyer
+* FIRST VERSION : 2023-11-20
+* DESCRIPTION :
+* Creates the database schema for the final term project.
+* As of 2023-11-20, only covers creation of configuration table.
+*/
 CREATE TABLE ConfigSettings (
-	config_key NVARCHAR(60) PRIMARY KEY FOREIGN KEY REFERENCES DefaultSettings(config_key) NOT NULL,
-	int_value INT,
-	float_value FLOAT,
-	string_value NVARCHAR(60)
+	config_key NVARCHAR(60) PRIMARY KEY NOT NULL,
+	config_value FLOAT
 )
