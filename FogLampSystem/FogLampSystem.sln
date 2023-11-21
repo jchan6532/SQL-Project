@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.34114.132
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationTool", "ConfigurationTool\ConfigurationTool.csproj", "{A989D49C-DF87-409E-88D8-B8E1577C18B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyStationSimulation", "AssemblyStationSimulation\AssemblyStationSimulation.csproj", "{D4F5E06F-A933-46C0-B661-FF7D36E67A7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A989D49C-DF87-409E-88D8-B8E1577C18B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A989D49C-DF87-409E-88D8-B8E1577C18B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A989D49C-DF87-409E-88D8-B8E1577C18B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4F5E06F-A933-46C0-B661-FF7D36E67A7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4F5E06F-A933-46C0-B661-FF7D36E67A7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4F5E06F-A933-46C0-B661-FF7D36E67A7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4F5E06F-A933-46C0-B661-FF7D36E67A7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
