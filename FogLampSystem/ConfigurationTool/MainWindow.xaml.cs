@@ -16,7 +16,9 @@ using System.Windows.Shapes;
 using System.Xml;
 
 using ConfigurationTool.ViewModel;
-using ConfigurationTool.Modals;
+using ConfigurationTool.Model;
+using System.Data;
+using System.Collections.ObjectModel;
 
 namespace ConfigurationTool
 {
@@ -25,6 +27,7 @@ namespace ConfigurationTool
     /// </summary>
     public partial class MainWindow : Window
     {
+        public bool ConfigurationKeyAdded { get; set; } = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -33,12 +36,11 @@ namespace ConfigurationTool
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
+            var configs = (DataContext as ConfigurationViewModel).ConfigurationData;
+            var nullConfigs = configs.Where(configItem => configItem.ConfigurationKey == null);
+            nullConfigs.ToList().ForEach(nullConfig => configs.RemoveAt(configs.IndexOf(nullConfig)));
 
-        }
-
-        private void ConfigurationsDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-
+            (DataContext as ConfigurationViewModel).UpdateData();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

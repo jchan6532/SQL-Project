@@ -25,12 +25,12 @@
 
             <DataGrid
                 x:Name="ConfigurationsDataGrid"
-                ItemsSource="{Binding ConfigurationData, Mode=TwoWay}"
+                ItemsSource="{Binding ConfigurationData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Foreground="Red"
                 GridLinesVisibility="None"
                 Opacity="0.75"
                 ColumnWidth="*"
-                IsReadOnly="True"
+                IsReadOnly="False"
                 SelectionMode="Single"
                 Grid.RowSpan="2"
                 AutoGenerateColumns="True"
@@ -38,7 +38,6 @@
                 CanUserSortColumns="False"
                 CanUserAddRows="True"
                 CanUserDeleteRows="True"
-                CellEditEnding="ConfigurationsDataGrid_CellEditEnding"
                 >
 
                 <DataGrid.Columns>
@@ -63,6 +62,8 @@
                 x:Name="SaveBtn"
                 Click="SaveBtn_Click"
                 Margin="10"
+                Width="100"
+                Height="30"
                 />
 
             <TextBlock
