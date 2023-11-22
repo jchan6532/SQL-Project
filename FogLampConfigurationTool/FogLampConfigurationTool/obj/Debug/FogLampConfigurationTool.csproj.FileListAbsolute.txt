@@ -1,3 +1,0 @@
-C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampConfigurationTool\FogLampConfigurationTool\obj\Debug\FogLampConfigurationTool.ConfigToolForm.resources
-C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampConfigurationTool\FogLampConfigurationTool\obj\Debug\FogLampConfigurationTool.csproj.GenerateResource.cache
-C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampConfigurationTool\FogLampConfigurationTool\obj\Debug\FogLampConfigurationTool.csproj.AssemblyReference.cache

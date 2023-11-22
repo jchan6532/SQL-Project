@@ -1,7 +1,0 @@
-C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\AssemblyStationSimulation\bin\Debug\AssemblyStationSimulation.exe.config
-C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\AssemblyStationSimulation\bin\Debug\AssemblyStationSimulation.exe
-C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\AssemblyStationSimulation\bin\Debug\AssemblyStationSimulation.pdb
-C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\AssemblyStationSimulation\obj\Debug\AssemblyStationSimulation.csproj.AssemblyReference.cache
-C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\AssemblyStationSimulation\obj\Debug\AssemblyStationSimulation.csproj.CoreCompileInputs.cache
-C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\AssemblyStationSimulation\obj\Debug\AssemblyStationSimulation.exe
-C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\AssemblyStationSimulation\obj\Debug\AssemblyStationSimulation.pdb
