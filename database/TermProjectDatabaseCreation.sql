@@ -1,7 +1,7 @@
 /*
 * FILE : TermProjectDatabaseCreation.sql
-* PROJECT : PROG3070 - Gerritt Hooyer
-* PROGRAMMER : Gerritt Hooyer
+* PROJECT : PROG3070 - Gerritt Hooyer, Justin Chan
+* PROGRAMMER : Gerritt Hooyer, Justin Chan
 * FIRST VERSION : 2023-11-20
 * DESCRIPTION :
 * Creates the database schema for the final term project.
