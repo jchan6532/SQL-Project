@@ -1,0 +1,7 @@
+C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\WorkStationSimulator\bin\Debug\WorkStationSimulator.exe.config
+C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\WorkStationSimulator\bin\Debug\WorkStationSimulator.exe
+C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\WorkStationSimulator\bin\Debug\WorkStationSimulator.pdb
+C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\WorkStationSimulator\obj\Debug\WorkStationSimulator.csproj.CoreCompileInputs.cache
+C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\WorkStationSimulator\obj\Debug\WorkStationSimulator.exe
+C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\WorkStationSimulator\obj\Debug\WorkStationSimulator.pdb
+C:\Users\Justin Chan\source\repos\jchan6532\SQL-Project\FogLampSystem\WorkStationSimulator\obj\Debug\WorkStationSimulator.csproj.AssemblyReference.cache
