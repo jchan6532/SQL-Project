@@ -10,6 +10,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System;
 
 namespace ConfigurationTool
 {
@@ -73,11 +74,40 @@ namespace ConfigurationTool
             // Open the connection
             conn.Open();
 
+            foreach (DataRow row in table.AsEnumerable())
+            {
+                if (row.RowState == DataRowState.Added)
+                    InsertIntoDefaultSettings(row);
+            }
+
             // Update the adapter with the data table
             adapter.Update(table);
 
             // Close the connection
             conn.Close();
+        }
+
+        private static void InsertIntoDefaultSettings(DataRow row)
+        {
+            string configKey = row["config_key"].ToString();
+            string configValue = row.ItemArray[1].ToString();
+
+            int rowsAffected = 0;
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.CommandText = $"INSERT INTO {ConfigurationManager.AppSettings.Get("DefaultConfigTable")} (config_key, config_value) VALUES ('{configKey}', {configValue})";
+                    rowsAffected = cmd.ExecuteNonQuery();
+                }
+            }
+
+            if (rowsAffected == 0)
+                throw new Exception("The insert did not work");
         }
 
     }
