@@ -44,6 +44,7 @@ namespace FogLampConfigurationTool
         /// <param name="e">event arguments</param>
         private void ConfigToolForm_Load(object sender, EventArgs e)
         {
+            
             try
             {
                 UpdateDataGridView();
@@ -59,7 +60,7 @@ namespace FogLampConfigurationTool
         /// </summary>
         private void UpdateDataGridView()
         {
-            configTableDataGridView.DataSource = DatabaseManager.GetConfigData();
+            configTableDataGridView.DataSource = DatabaseManager.GetConfigData(searchTextBox.Text);
         }
 
         /// <summary>
@@ -100,5 +101,10 @@ namespace FogLampConfigurationTool
         }
 
         #endregion
+
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            UpdateDataGridView();
+        }
     }
 }
