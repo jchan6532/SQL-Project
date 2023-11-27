@@ -29,7 +29,7 @@ namespace FogLampConfigurationTool
             // Add the search text if it's been set to anything
             if (searchText.Length != 0)
             {
-                cmd_str += $" WHERE config_key LIKE '{searchText}%'";
+                cmd_str += $" WHERE config_key LIKE '%{searchText}%'";
             }
 
             // Create new data table
