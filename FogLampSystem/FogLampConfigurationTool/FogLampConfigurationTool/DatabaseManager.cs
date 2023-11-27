@@ -22,8 +22,16 @@ namespace FogLampConfigurationTool
         /// Gets current data stored in the configuration table in the SQL server database
         /// </summary>
         /// <returns>A data table encapsulating all the necessary data</returns>
-        public static DataTable GetConfigData()
+        public static DataTable GetConfigData(string searchText)
         {
+            // String create the command string
+            string cmd_str = $"SELECT * FROM {ConfigurationManager.AppSettings["ConfigTable"]}";
+            // Add the search text if it's been set to anything
+            if (searchText.Length != 0)
+            {
+                cmd_str += $" WHERE config_key LIKE '{searchText}%'";
+            }
+
             // Create new data table
             DataTable dt = new DataTable();
 
@@ -31,7 +39,7 @@ namespace FogLampConfigurationTool
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
 
             // Create SQL command
-            SqlCommand command = new SqlCommand($"SELECT * FROM {ConfigurationManager.AppSettings["ConfigTable"]}",conn);
+            SqlCommand command = new SqlCommand(cmd_str,conn);
 
             // Create SQL adapter for data manipulation
             SqlDataAdapter adapter = new SqlDataAdapter();
