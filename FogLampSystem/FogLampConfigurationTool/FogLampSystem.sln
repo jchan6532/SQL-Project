@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.7.34031.279
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.34114.132
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FogLampConfigurationTool", "FogLampConfigurationTool\FogLampConfigurationTool.csproj", "{0DAA12D7-B4CF-405B-8325-8FF79267A6C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkStationSimulator", "WorkStationSimulator\WorkStationSimulator.csproj", "{9844F4DB-7E3D-4079-9AAF-98275AAE0818}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0DAA12D7-B4CF-405B-8325-8FF79267A6C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DAA12D7-B4CF-405B-8325-8FF79267A6C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DAA12D7-B4CF-405B-8325-8FF79267A6C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9844F4DB-7E3D-4079-9AAF-98275AAE0818}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9844F4DB-7E3D-4079-9AAF-98275AAE0818}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9844F4DB-7E3D-4079-9AAF-98275AAE0818}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9844F4DB-7E3D-4079-9AAF-98275AAE0818}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
