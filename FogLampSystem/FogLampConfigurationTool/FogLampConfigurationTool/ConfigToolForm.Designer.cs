@@ -47,21 +47,25 @@ namespace FogLampConfigurationTool
             // 
             // configTableDataGridView
             // 
+            this.configTableDataGridView.AllowUserToResizeRows = false;
             this.configTableDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.configTableDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.configTableDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.configTableDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.configTableDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.configTableDataGridView.Location = new System.Drawing.Point(13, 30);
             this.configTableDataGridView.Name = "configTableDataGridView";
-            this.configTableDataGridView.Size = new System.Drawing.Size(364, 369);
+            this.configTableDataGridView.RowHeadersVisible = false;
+            this.configTableDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.configTableDataGridView.Size = new System.Drawing.Size(337, 369);
             this.configTableDataGridView.TabIndex = 0;
             // 
             // saveButton
             // 
             this.saveButton.Location = new System.Drawing.Point(13, 405);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(177, 26);
+            this.saveButton.Size = new System.Drawing.Size(171, 26);
             this.saveButton.TabIndex = 1;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -69,9 +73,9 @@ namespace FogLampConfigurationTool
             // 
             // refreshButton
             // 
-            this.refreshButton.Location = new System.Drawing.Point(200, 405);
+            this.refreshButton.Location = new System.Drawing.Point(190, 405);
             this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(177, 26);
+            this.refreshButton.Size = new System.Drawing.Size(160, 26);
             this.refreshButton.TabIndex = 2;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
@@ -81,7 +85,7 @@ namespace FogLampConfigurationTool
             // 
             this.searchTextBox.Location = new System.Drawing.Point(59, 4);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(318, 20);
+            this.searchTextBox.Size = new System.Drawing.Size(291, 20);
             this.searchTextBox.TabIndex = 3;
             this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
             // 
@@ -98,7 +102,7 @@ namespace FogLampConfigurationTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(389, 443);
+            this.ClientSize = new System.Drawing.Size(362, 443);
             this.Controls.Add(this.searchLabel);
             this.Controls.Add(this.searchTextBox);
             this.Controls.Add(this.refreshButton);
