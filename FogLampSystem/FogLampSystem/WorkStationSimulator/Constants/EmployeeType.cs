@@ -8,6 +8,9 @@ namespace WorkStationSimulator.Constants
 {
     public enum EmployeeType
     {
-
+        Experienced,
+        New,
+        Super,
+        Invalid
     }
 }
