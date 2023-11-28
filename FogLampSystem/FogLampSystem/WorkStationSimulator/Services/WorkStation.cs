@@ -81,7 +81,7 @@ namespace WorkStationSimulator.Services
             LampsBuilt = Convert.ToInt32(results[3]);
             DefectCount = Convert.ToInt32(results[4]);
 
-            //PartsCount = GetPartTypesAndCounts();
+            PartsCount = GetPartTypesAndCounts();
             EmployeeType = GetEmployeeType(EmployeeID);
 
 
@@ -134,15 +134,14 @@ namespace WorkStationSimulator.Services
                 {
                     cmd.Connection = conn;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = $"SELECT part_id, config_value FROM {ConfigurationManager.AppSettings.Get("PartTable")} JOIN " +
-                        $"{ConfigurationManager.AppSettings.Get("DefaultConfigTable")} ON part_id = config_key";
+                    cmd.CommandText = $"SELECT part_name, bin_size FROM {ConfigurationManager.AppSettings.Get("PartTable")}";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            string partID = reader.GetValue(0).ToString();
-                            string count = reader.GetValue(1).ToString();
+                            string partID = reader["part_name"].ToString();
+                            string count = reader["bin_size"].ToString();
                             partsCount.Add(partID, Convert.ToInt32(count));
                         }
                     }
@@ -174,8 +173,14 @@ namespace WorkStationSimulator.Services
             return employeeType;
         }
 
+        public static void GetEmployeeMetrics()
+        {
+
+        }
+
         public void ProcessWorkStation()
         {
+            int simInterval = Convert.ToInt32(ConfigurationManager.AppSettings.Get("SimulationInterval"));
 
             Console.ForegroundColor = ConsoleColor.Blue;
             while (true)
@@ -186,7 +191,7 @@ namespace WorkStationSimulator.Services
                     Console.WriteLine($"{partIDtoCount.Key}: {partIDtoCount.Value}");
                 }
                 Console.WriteLine("Processing ...\n");
-                Thread.Sleep(10000);
+                Thread.Sleep(simInterval*1000);
                 CreateFogLamps();
             }
             Console.ForegroundColor = ConsoleColor.White;
