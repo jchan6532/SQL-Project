@@ -19,7 +19,9 @@ CREATE TABLE ConfigSettings (
 
 CREATE TABLE EmployeeType (
 	type_id INT PRIMARY KEY IDENTITY(1,1),
-	type_name NVARCHAR(64) NOT NULL
+	type_name NVARCHAR(64) NOT NULL,
+	defect_rate FLOAT NOT NULL,
+	build_speed FLOAT NOT NULL
 )
 
 CREATE TABLE Employee (
@@ -53,11 +55,12 @@ CREATE TABLE Bin (
 INSERT INTO ConfigSettings VALUES('system.tickrate', '60', 'INT')
 INSERT INTO ConfigSettings VALUES('system.sim_speed', '1', 'INT')
 INSERT INTO ConfigSettings VALUES('refill_increment', '300', 'INT')
+INSERT INTO ConfigSettings VALUES('average_build_time', '60', 'INT')
 
 -- Add our employee types
-INSERT INTO EmployeeType VALUES('New')
-INSERT INTO EmployeeType VALUES('Average')
-INSERT INTO EmployeeType VALUES('Experienced')
+INSERT INTO EmployeeType VALUES('New', 0.85, 1)
+INSERT INTO EmployeeType VALUES('Average', 0.5, 1.5)
+INSERT INTO EmployeeType VALUES('Experienced', 0.15, 0.85)
 
 -- Add our parts w/ their bin refill amounts (no description atm.)
 INSERT INTO Part VALUES ('Harness',NULL,55)
