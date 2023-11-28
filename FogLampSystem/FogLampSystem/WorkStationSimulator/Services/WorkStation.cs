@@ -95,15 +95,6 @@ namespace WorkStationSimulator.Services
         /// <summary>
         /// 
         /// </summary>
-        public bool IsRealTime
-        {
-            get;
-            set;
-        } = false;
-
-        /// <summary>
-        /// 
-        /// </summary>
         public int SimSpeed
         {
             get;
@@ -181,7 +172,8 @@ namespace WorkStationSimulator.Services
 
             if (!configMetrics.ContainsKey("system.sim_speed"))
             {
-                IsRealTime = true;
+                // sim is real time
+                SimSpeed = -1;
             }
             else
             {
@@ -353,7 +345,6 @@ namespace WorkStationSimulator.Services
 
         public void ProcessWorkStation()
         {
-            int simInterval = Convert.ToInt32(ConfigurationManager.AppSettings.Get("SimulationInterval"));
 
             Console.ForegroundColor = ConsoleColor.Blue;
             while (true)
@@ -364,24 +355,36 @@ namespace WorkStationSimulator.Services
                     Console.WriteLine($"{partIDtoCount.Key}: {partIDtoCount.Value}");
                 }
                 Console.WriteLine("Processing ...\n");
-                Thread.Sleep(simInterval*1000);
+
+                // Sleep to simulate time
+                if (SimSpeed != -1)
+                    Thread.Sleep(SimulationSleepInterval);
                 
-                CreateFogLamps();
+                CreateFogLamp();
             }
-            Console.ForegroundColor = ConsoleColor.White;
         }
 
-        private void CreateFogLamps()
+        private void CreateFogLamp()
         {
-
-        }
-
-        private void CreatedLampDefected()
-        {
+            bool fogLampIsDefect = false;
             Random random = new Random();
 
-            // Generate a random number between 0 and 100
-            int randomNumber = random.Next(0, 101);
+            // Generate a random number between 0 (inclusive) and 1 (inclusive)
+            int randomNumber = random.Next();
+            int defectRatePercentage = (int)(EmployeeDefectRate * 100);
+
+
+            if (randomNumber > defectRatePercentage)
+            {
+                fogLampIsDefect = false;
+            }
+            else
+            {
+                fogLampIsDefect = true;
+                DefectCount++;
+            }
+
+            LampsBuilt++;
         }
     }
 }
