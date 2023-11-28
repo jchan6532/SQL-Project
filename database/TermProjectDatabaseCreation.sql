@@ -52,9 +52,6 @@ CREATE TABLE Bin (
 -- Add our config keys
 INSERT INTO ConfigSettings VALUES('system.tickrate', '60', 'INT')
 INSERT INTO ConfigSettings VALUES('system.sim_speed', '1', 'INT')
-INSERT INTO ConfigSettings VALUES('system.real_time', '0', 'INT')
-INSERT INTO ConfigSettings VALUES('fanTickCount', '0', 'INT')
-INSERT INTO ConfigSettings VALUES('refillTickCount', '300', 'INT')
 
 -- Add our employee types
 INSERT INTO EmployeeType VALUES('New')
