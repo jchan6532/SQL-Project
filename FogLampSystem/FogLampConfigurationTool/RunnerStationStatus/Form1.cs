@@ -1,4 +1,5 @@
 using System.Configuration;
+using System.Drawing;
 using System.Media;
 
 namespace RunnerStationStatus
@@ -10,6 +11,8 @@ namespace RunnerStationStatus
         private bool playedBeep = false;
         private int elapsed = 0;
         private bool beepEnabled = bool.Parse(ConfigurationManager.AppSettings["BeepEnabled"]);
+        private object lockObj;
+        private bool debugMode = false;
 
         public Form1()
         {
@@ -19,9 +22,26 @@ namespace RunnerStationStatus
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            lockObj = new object();
+            dbManager.InsertBinWarningAmount();
             SetWorkstationComboBoxItems();
             SetPartsCountLabels();
+            SetLegendLabels();
+            SetDebugVisibility();
             Task.Run(UpdateGUI);
+        }
+
+        private void SetDebugVisibility()
+        {
+            enableDebugModeToolStripMenuItem.Visible = bool.Parse(ConfigurationManager.AppSettings["EnableDebugMode"]);
+        }
+
+        private void SetLegendLabels()
+        {
+            legendLabel3.Text = $"Last {dbManager.GetBinWarningAmount().ToString()} Items";
+            legendPanel1.BackColor = ParseColor("colour1");
+            legendPanel2.BackColor = ParseColor("colour2");
+            legendPanel3.BackColor = ParseColor("colour3");
         }
 
         private void SetWorkstationComboBoxItems()
@@ -61,14 +81,29 @@ namespace RunnerStationStatus
             }
         }
 
+        private Color ParseColor(string colourKey)
+        {
+            string[] colourStrings = ConfigurationManager.AppSettings[colourKey].Split(',');
+            int r = Int32.Parse(colourStrings[0]);
+            int g = Int32.Parse(colourStrings[1]);
+            int b = Int32.Parse(colourStrings[2]);
+
+
+            return Color.FromArgb(r, g, b);
+        }
+
         private Color GetPanelColor(int count, string partName)
         {
             int binSize = dbManager.GetPartBinSize(partName);
             int binWarning = dbManager.GetBinWarningAmount();
+            string[] colourStrings = new string[3];
+            int r = 0;
+            int g = 0;
+            int b = 0;
             Color color = new Color();
             if (count <= binWarning)
             {
-                color = Color.FromArgb(255, 128, 128);
+                color = ParseColor("colour3");
                 // If we notice a panel in the red, we play a beep sound to notify the user
                 if (!playedBeep && beepEnabled) // Use this boolean to avoid constant beeping
                 {
@@ -79,11 +114,11 @@ namespace RunnerStationStatus
             }
             else if (count <= binSize / 2)
             {
-                color = Color.FromArgb(255, 255, 128);
+                color = ParseColor("colour2");
             }
             else
             {
-                color = Color.FromArgb(128, 255, 128);
+                color = ParseColor("colour1");
             }
             return color;
         }
@@ -95,7 +130,7 @@ namespace RunnerStationStatus
             warningLabel.Text = message;
             if (warning && !playedBeep && beepEnabled)// If we received a warning and haven't played a beep, played a beep
             {
-                Console.Beep(1000,50);
+                Console.Beep(1000, 50);
                 playedBeep = true;
             }
         }
@@ -104,8 +139,11 @@ namespace RunnerStationStatus
         {
             while (true)
             {
-                BeginInvoke(SetPartsCountLabels);
-                BeginInvoke(SetWarningMessage);
+                lock (lockObj)
+                {
+                    BeginInvoke(SetPartsCountLabels);
+                    BeginInvoke(SetWarningMessage);
+                }
                 // Use the UpdateGUI event to track elapsed ms
                 elapsed += 100;
                 if (elapsed >= Int32.Parse(ConfigurationManager.AppSettings["BeepDelay"]))
@@ -114,6 +152,77 @@ namespace RunnerStationStatus
                     elapsed = 0;
                 }
                 Thread.Sleep(100);
+            }
+        }
+
+        private void harnessCountLabel_DoubleClick(object sender, EventArgs e)
+        {
+            if (debugMode)
+            {
+                int workstationId = ((KeyValuePair<int, string>)workstationComboBox.SelectedItem).Key;
+                dbManager.RefillBin("Harness",workstationId);
+            }
+        }
+
+        private void lensCountLabel_DoubleClick(object sender, EventArgs e)
+        {
+            if (debugMode)
+            {
+                int workstationId = ((KeyValuePair<int, string>)workstationComboBox.SelectedItem).Key;
+                dbManager.RefillBin("Lens", workstationId);
+            }
+        }
+
+        private void bezelCountLabel_DoubleClick(object sender, EventArgs e)
+        {
+            if (debugMode)
+            {
+                int workstationId = ((KeyValuePair<int, string>)workstationComboBox.SelectedItem).Key;
+                dbManager.RefillBin("Bezel", workstationId);
+            }
+        }
+
+        private void reflectorCountLabel_DoubleClick(object sender, EventArgs e)
+        {
+            if (debugMode)
+            {
+                int workstationId = ((KeyValuePair<int, string>)workstationComboBox.SelectedItem).Key;
+                dbManager.RefillBin("Reflector", workstationId);
+            }
+        }
+        private void bulbCountLabel_DoubleClick(object sender, EventArgs e)
+        {
+            if (debugMode)
+            {
+                int workstationId = ((KeyValuePair<int, string>)workstationComboBox.SelectedItem).Key;
+                dbManager.RefillBin("Bulb", workstationId);
+            }
+        }
+
+        private void housingCountLabel_DoubleClick(object sender, EventArgs e)
+        {
+            if (debugMode)
+            {
+                int workstationId = ((KeyValuePair<int, string>)workstationComboBox.SelectedItem).Key;
+                dbManager.RefillBin("Housing", workstationId);
+            }
+        }
+
+        private void refreshWorkstationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetWorkstationComboBoxItems();
+        }
+
+        private void enableDebugModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            debugMode = enableDebugModeToolStripMenuItem.Checked;
+            if (debugMode)
+            {
+                debugModeLabel.Text = "Debug Mode : ENABLED";
+            }
+            else
+            {
+                debugModeLabel.Text = "";
             }
         }
     }

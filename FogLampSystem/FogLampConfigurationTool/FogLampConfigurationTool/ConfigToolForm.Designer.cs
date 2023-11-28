@@ -56,7 +56,6 @@ namespace FogLampConfigurationTool
             this.configTableDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.configTableDataGridView.Location = new System.Drawing.Point(13, 30);
             this.configTableDataGridView.Name = "configTableDataGridView";
-            this.configTableDataGridView.RowHeadersVisible = false;
             this.configTableDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.configTableDataGridView.Size = new System.Drawing.Size(337, 369);
             this.configTableDataGridView.TabIndex = 0;

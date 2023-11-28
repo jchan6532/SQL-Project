@@ -30,12 +30,12 @@
         {
             binGroupBox = new GroupBox();
             groupBox1 = new GroupBox();
-            label15 = new Label();
-            panel10 = new Panel();
-            label14 = new Label();
-            panel9 = new Panel();
-            label13 = new Label();
-            panel7 = new Panel();
+            legendLabel3 = new Label();
+            legendPanel3 = new Panel();
+            legendLabel2 = new Label();
+            legendPanel2 = new Panel();
+            legendLabel1 = new Label();
+            legendPanel1 = new Panel();
             panel8 = new Panel();
             label10 = new Label();
             label11 = new Label();
@@ -55,8 +55,14 @@
             bulbCountLabel = new Label();
             housingPanel = new Panel();
             housingCountLabel = new Label();
+            statusStrip1 = new StatusStrip();
+            warningLabel = new ToolStripStatusLabel();
+            debugModeLabel = new ToolStripStatusLabel();
+            menuStrip1 = new MenuStrip();
+            optionsToolStripMenuItem = new ToolStripMenuItem();
+            refreshWorkstationsToolStripMenuItem = new ToolStripMenuItem();
+            enableDebugModeToolStripMenuItem = new ToolStripMenuItem();
             workstationComboBox = new ComboBox();
-            warningLabel = new Label();
             binGroupBox.SuspendLayout();
             groupBox1.SuspendLayout();
             panel8.SuspendLayout();
@@ -66,6 +72,8 @@
             reflectorPanel.SuspendLayout();
             bulbPanel.SuspendLayout();
             housingPanel.SuspendLayout();
+            statusStrip1.SuspendLayout();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // binGroupBox
@@ -73,21 +81,21 @@
             binGroupBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             binGroupBox.Controls.Add(groupBox1);
             binGroupBox.Controls.Add(panel8);
-            binGroupBox.Location = new Point(12, 40);
+            binGroupBox.Location = new Point(12, 56);
             binGroupBox.Name = "binGroupBox";
-            binGroupBox.Size = new Size(494, 304);
+            binGroupBox.Size = new Size(493, 302);
             binGroupBox.TabIndex = 0;
             binGroupBox.TabStop = false;
             binGroupBox.Text = "Parts Bin Status";
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(label15);
-            groupBox1.Controls.Add(panel10);
-            groupBox1.Controls.Add(label14);
-            groupBox1.Controls.Add(panel9);
-            groupBox1.Controls.Add(label13);
-            groupBox1.Controls.Add(panel7);
+            groupBox1.Controls.Add(legendLabel3);
+            groupBox1.Controls.Add(legendPanel3);
+            groupBox1.Controls.Add(legendLabel2);
+            groupBox1.Controls.Add(legendPanel2);
+            groupBox1.Controls.Add(legendLabel1);
+            groupBox1.Controls.Add(legendPanel1);
             groupBox1.Location = new Point(372, 90);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(108, 122);
@@ -95,59 +103,59 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Legend";
             // 
-            // label15
+            // legendLabel3
             // 
-            label15.AutoSize = true;
-            label15.Location = new Point(32, 94);
-            label15.Name = "label15";
-            label15.Size = new Size(69, 15);
-            label15.TabIndex = 5;
-            label15.Text = "Last 5 Items";
+            legendLabel3.AutoSize = true;
+            legendLabel3.Location = new Point(32, 94);
+            legendLabel3.Name = "legendLabel3";
+            legendLabel3.Size = new Size(69, 15);
+            legendLabel3.TabIndex = 5;
+            legendLabel3.Text = "Last 5 Items";
             // 
-            // panel10
+            // legendPanel3
             // 
-            panel10.BackColor = Color.FromArgb(255, 128, 128);
-            panel10.BorderStyle = BorderStyle.FixedSingle;
-            panel10.Location = new Point(6, 92);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(20, 20);
-            panel10.TabIndex = 4;
+            legendPanel3.BackColor = Color.FromArgb(255, 128, 128);
+            legendPanel3.BorderStyle = BorderStyle.FixedSingle;
+            legendPanel3.Location = new Point(6, 92);
+            legendPanel3.Name = "legendPanel3";
+            legendPanel3.Size = new Size(20, 20);
+            legendPanel3.TabIndex = 4;
             // 
-            // label14
+            // legendLabel2
             // 
-            label14.AutoSize = true;
-            label14.Location = new Point(32, 60);
-            label14.Name = "label14";
-            label14.Size = new Size(62, 15);
-            label14.TabIndex = 4;
-            label14.Text = "< 50% Full";
+            legendLabel2.AutoSize = true;
+            legendLabel2.Location = new Point(32, 60);
+            legendLabel2.Name = "legendLabel2";
+            legendLabel2.Size = new Size(62, 15);
+            legendLabel2.TabIndex = 4;
+            legendLabel2.Text = "< 50% Full";
             // 
-            // panel9
+            // legendPanel2
             // 
-            panel9.BackColor = Color.FromArgb(255, 255, 128);
-            panel9.BorderStyle = BorderStyle.FixedSingle;
-            panel9.Location = new Point(6, 57);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(20, 20);
-            panel9.TabIndex = 3;
+            legendPanel2.BackColor = Color.FromArgb(255, 255, 128);
+            legendPanel2.BorderStyle = BorderStyle.FixedSingle;
+            legendPanel2.Location = new Point(6, 57);
+            legendPanel2.Name = "legendPanel2";
+            legendPanel2.Size = new Size(20, 20);
+            legendPanel2.TabIndex = 3;
             // 
-            // label13
+            // legendLabel1
             // 
-            label13.AutoSize = true;
-            label13.Location = new Point(32, 25);
-            label13.Name = "label13";
-            label13.Size = new Size(59, 15);
-            label13.TabIndex = 3;
-            label13.Text = ">50% Full";
+            legendLabel1.AutoSize = true;
+            legendLabel1.Location = new Point(32, 25);
+            legendLabel1.Name = "legendLabel1";
+            legendLabel1.Size = new Size(59, 15);
+            legendLabel1.TabIndex = 3;
+            legendLabel1.Text = ">50% Full";
             // 
-            // panel7
+            // legendPanel1
             // 
-            panel7.BackColor = Color.FromArgb(128, 255, 128);
-            panel7.BorderStyle = BorderStyle.FixedSingle;
-            panel7.Location = new Point(6, 22);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(20, 20);
-            panel7.TabIndex = 2;
+            legendPanel1.BackColor = Color.FromArgb(128, 255, 128);
+            legendPanel1.BorderStyle = BorderStyle.FixedSingle;
+            legendPanel1.Location = new Point(6, 22);
+            legendPanel1.Name = "legendPanel1";
+            legendPanel1.Size = new Size(20, 20);
+            legendPanel1.TabIndex = 2;
             // 
             // panel8
             // 
@@ -247,6 +255,7 @@
             harnessCountLabel.TabIndex = 1;
             harnessCountLabel.Text = "--";
             harnessCountLabel.TextAlign = ContentAlignment.MiddleCenter;
+            harnessCountLabel.DoubleClick += harnessCountLabel_DoubleClick;
             // 
             // lensPanel
             // 
@@ -267,6 +276,7 @@
             lensCountLabel.TabIndex = 1;
             lensCountLabel.Text = "--";
             lensCountLabel.TextAlign = ContentAlignment.MiddleCenter;
+            lensCountLabel.DoubleClick += lensCountLabel_DoubleClick;
             // 
             // bezelPanel
             // 
@@ -287,6 +297,7 @@
             bezelCountLabel.TabIndex = 1;
             bezelCountLabel.Text = "--";
             bezelCountLabel.TextAlign = ContentAlignment.MiddleCenter;
+            bezelCountLabel.DoubleClick += bezelCountLabel_DoubleClick;
             // 
             // reflectorPanel
             // 
@@ -307,6 +318,7 @@
             reflectorCountLabel.TabIndex = 1;
             reflectorCountLabel.Text = "--";
             reflectorCountLabel.TextAlign = ContentAlignment.MiddleCenter;
+            reflectorCountLabel.DoubleClick += reflectorCountLabel_DoubleClick;
             // 
             // bulbPanel
             // 
@@ -327,6 +339,7 @@
             bulbCountLabel.TabIndex = 1;
             bulbCountLabel.Text = "--";
             bulbCountLabel.TextAlign = ContentAlignment.MiddleCenter;
+            bulbCountLabel.DoubleClick += bulbCountLabel_DoubleClick;
             // 
             // housingPanel
             // 
@@ -347,37 +360,82 @@
             housingCountLabel.TabIndex = 1;
             housingCountLabel.Text = "--";
             housingCountLabel.TextAlign = ContentAlignment.MiddleCenter;
+            housingCountLabel.DoubleClick += housingCountLabel_DoubleClick;
             // 
-            // workstationComboBox
+            // statusStrip1
             // 
-            workstationComboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
-            workstationComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
-            workstationComboBox.FormattingEnabled = true;
-            workstationComboBox.Location = new Point(12, 12);
-            workstationComboBox.Name = "workstationComboBox";
-            workstationComboBox.Size = new Size(271, 23);
-            workstationComboBox.TabIndex = 1;
+            statusStrip1.Items.AddRange(new ToolStripItem[] { warningLabel, debugModeLabel });
+            statusStrip1.Location = new Point(0, 361);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(517, 22);
+            statusStrip1.TabIndex = 4;
+            statusStrip1.Text = "statusStrip1";
             // 
             // warningLabel
             // 
-            warningLabel.AutoSize = true;
             warningLabel.ForeColor = Color.Red;
-            warningLabel.Location = new Point(289, 15);
             warningLabel.Name = "warningLabel";
-            warningLabel.Size = new Size(223, 15);
-            warningLabel.TabIndex = 2;
-            warningLabel.Text = "Workstation 1 needs a refill on harnesses!";
+            warningLabel.Size = new Size(118, 17);
+            warningLabel.Text = "toolStripStatusLabel1";
+            // 
+            // debugModeLabel
+            // 
+            debugModeLabel.Name = "debugModeLabel";
+            debugModeLabel.Size = new Size(0, 17);
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { optionsToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(517, 24);
+            menuStrip1.TabIndex = 5;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // optionsToolStripMenuItem
+            // 
+            optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { refreshWorkstationsToolStripMenuItem, enableDebugModeToolStripMenuItem });
+            optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            optionsToolStripMenuItem.Size = new Size(61, 20);
+            optionsToolStripMenuItem.Text = "Options";
+            // 
+            // refreshWorkstationsToolStripMenuItem
+            // 
+            refreshWorkstationsToolStripMenuItem.Name = "refreshWorkstationsToolStripMenuItem";
+            refreshWorkstationsToolStripMenuItem.Size = new Size(185, 22);
+            refreshWorkstationsToolStripMenuItem.Text = "Refresh Workstations";
+            refreshWorkstationsToolStripMenuItem.Click += refreshWorkstationsToolStripMenuItem_Click;
+            // 
+            // enableDebugModeToolStripMenuItem
+            // 
+            enableDebugModeToolStripMenuItem.CheckOnClick = true;
+            enableDebugModeToolStripMenuItem.Name = "enableDebugModeToolStripMenuItem";
+            enableDebugModeToolStripMenuItem.Size = new Size(185, 22);
+            enableDebugModeToolStripMenuItem.Text = "Enable Debug Mode";
+            enableDebugModeToolStripMenuItem.Click += enableDebugModeToolStripMenuItem_Click;
+            // 
+            // workstationComboBox
+            // 
+            workstationComboBox.FormattingEnabled = true;
+            workstationComboBox.Location = new Point(12, 27);
+            workstationComboBox.Name = "workstationComboBox";
+            workstationComboBox.Size = new Size(493, 23);
+            workstationComboBox.TabIndex = 6;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(518, 356);
-            Controls.Add(warningLabel);
+            ClientSize = new Size(517, 383);
             Controls.Add(workstationComboBox);
+            Controls.Add(statusStrip1);
+            Controls.Add(menuStrip1);
             Controls.Add(binGroupBox);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MainMenuStrip = menuStrip1;
+            MaximizeBox = false;
             Name = "Form1";
-            Text = "Form1";
+            Text = "Runner Station Status";
             Load += Form1_Load;
             binGroupBox.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
@@ -390,6 +448,10 @@
             reflectorPanel.ResumeLayout(false);
             bulbPanel.ResumeLayout(false);
             housingPanel.ResumeLayout(false);
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -409,10 +471,8 @@
         private Panel lensPanel;
         private Label lensCountLabel;
         private Label harnessCountLabel;
-        private ComboBox workstationComboBox;
-        private Label warningLabel;
         private Panel panel8;
-        private Panel panel7;
+        private Panel legendPanel1;
         private Label label7;
         private Label label8;
         private Label label10;
@@ -420,10 +480,18 @@
         private Label label12;
         private Label label9;
         private GroupBox groupBox1;
-        private Label label13;
-        private Label label15;
-        private Panel panel10;
-        private Label label14;
-        private Panel panel9;
+        private Label legendLabel1;
+        private Label legendLabel3;
+        private Panel legendPanel3;
+        private Label legendLabel2;
+        private Panel legendPanel2;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel warningLabel;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem optionsToolStripMenuItem;
+        private ToolStripMenuItem refreshWorkstationsToolStripMenuItem;
+        private ComboBox workstationComboBox;
+        private ToolStripMenuItem enableDebugModeToolStripMenuItem;
+        private ToolStripStatusLabel debugModeLabel;
     }
 }

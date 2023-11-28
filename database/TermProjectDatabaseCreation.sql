@@ -47,6 +47,22 @@ CREATE TABLE Bin (
 	part_count INT NOT NULL DEFAULT 0
 )
 
+CREATE TABLE LampOrder
+(
+	order_id INT PRIMARY KEY IDENTITY(1,1),
+	order_amount INT DEFAULT 0 CHECK (order_amount > 0),
+	order_fulfilled INT DEFAULT 0 CHECK (order_fulfilled >= 0),
+	defects INT DEFAULT 0 CHECK (defects >= 0)
+)
+
+CREATE TABLE WorkstationSession
+(
+	workstation_id INT FOREIGN KEY REFERENCES Workstation(workstation_id),
+	order_id INT FOREIGN KEY REFERENCES LampOrder(order_id),
+	lamps_built INT DEFAULT 0 CHECK (lamps_built >= 0),
+	defect
+)
+
 -- Add our employee types
 INSERT INTO EmployeeType VALUES('New')
 INSERT INTO EmployeeType VALUES('Average')
