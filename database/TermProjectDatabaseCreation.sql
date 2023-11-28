@@ -8,6 +8,8 @@
 * As of 2023-11-20, only covers creation of configuration table.
 */
 USE Sql_Term_Project
+DROP DATABASE IF EXISTS [SQL-PROJECT];
+CREATE DATABASE [SQL-PROJECT];
 
 CREATE TABLE ConfigSettings (
 	config_key NVARCHAR(60) PRIMARY KEY NOT NULL,

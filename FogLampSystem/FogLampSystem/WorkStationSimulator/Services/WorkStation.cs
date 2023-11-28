@@ -60,6 +60,34 @@ namespace WorkStationSimulator.Services
             PartsCount = GetPartTypesAndCounts();
         }
 
+        public WorkStation(string employeeId)
+        {
+            WorkStation.CheckForEmployeeID(employeeId);
+        }
+
+        public static bool CheckForEmployeeID(string empId)
+        {
+            bool isValidEmployee = false;
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.CommandText = $"SELECT employee_id FROM {ConfigurationManager.AppSettings.Get("WorkStationTable")} WHERE employee_id = {empId}";
+                    if (cmd.ExecuteScalar() is DBNull)
+                        isValidEmployee = false;
+                    else
+                        isValidEmployee = true;
+
+                }
+            }
+
+            return isValidEmployee;
+        }
+
         private static bool CheckAvailability()
         {
             bool stationAvailable = false;
