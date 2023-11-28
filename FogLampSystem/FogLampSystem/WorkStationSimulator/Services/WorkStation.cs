@@ -61,35 +61,85 @@ namespace WorkStationSimulator.Services
             set;
         } = 0;
 
-        public Dictionary<string, int> PartsCount { get; set; }
+
+        public int FanTickCount
+        {
+            get;
+            set;
+        } = 0;
+
+        public int BinRefillTickCount
+        {
+            get;
+            set;
+        } = 0;
+
+        public bool IsRealTime
+        {
+            get;
+            set;
+        } = false;
+
+        public int SimSpeed
+        {
+            get;
+            set;
+        } = 0;
+
+        public int TicksPerMinute
+        {
+            get;
+            set;
+        } = 0;
+
+        public int RefillIntervalSeconds
+        {
+            get;
+            set;
+        } = 0;
+
+        public Dictionary<string, int> PartsCount 
+        {
+            get;
+            set;
+        }
 
         public WorkStation()
         {
-
             PartsCount = GetPartTypesAndCounts();
         }
 
         public WorkStation(string employeeId)
         {
-            var results = WorkStation.GetEmployeeData(employeeId);
-            if (results.Count == 0)
+            var empResults = WorkStation.GetEmployeeData(employeeId);
+            if (empResults.Count == 0)
                 throw new Exception("Currently no work station is associated with that employee ID");
 
-            EmployeeID = results[0];
-            WorkStationID = results[1];
-            EmployeeName = results[2];
-            LampsBuilt = Convert.ToInt32(results[3]);
-            DefectCount = Convert.ToInt32(results[4]);
+            EmployeeID = empResults[0];
+            WorkStationID = empResults[1];
+            EmployeeName = empResults[2];
+            LampsBuilt = Convert.ToInt32(empResults[3]);
+            DefectCount = Convert.ToInt32(empResults[4]);
 
             PartsCount = GetPartTypesAndCounts();
             EmployeeType = GetEmployeeType(EmployeeID);
 
+            var simResults = GetSimulationMetrics();
 
+            if (!simResults.ContainsKey("system.sim_speed"))
+            {
+                IsRealTime = true;
+            }
+            else
+            {
+                SimSpeed = Convert.ToInt32(simResults["system.sim_speed"]);
+            }
+            RefillIntervalSeconds = Convert.ToInt32(simResults["refill_increment"]);
+            TicksPerMinute = Convert.ToInt32(simResults["system.tickrate"]);
         }
 
         public static List<string> GetEmployeeData(string empId)
         {
-            bool isValidEmployee = false;
             string workStationTable = ConfigurationManager.AppSettings.Get("WorkStationTable");
             string employeeTable = ConfigurationManager.AppSettings.Get("EmployeeTable");
 
@@ -173,6 +223,32 @@ namespace WorkStationSimulator.Services
             return employeeType;
         }
 
+        private static Dictionary<string, string> GetSimulationMetrics()
+        {
+            string configTable = ConfigurationManager.AppSettings.Get("ConfigTable");
+
+            Dictionary<string, string> results = new Dictionary<string, string>();
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["justin"].ConnectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.CommandText = $"SELECT config_key, config_value FROM {configTable}";
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            results.Add(reader["config_key"].ToString(), reader["config_value"].ToString());
+                        }
+                    }
+
+                }
+            }
+            return results;
+        }
         public static void GetEmployeeMetrics()
         {
 
@@ -192,6 +268,7 @@ namespace WorkStationSimulator.Services
                 }
                 Console.WriteLine("Processing ...\n");
                 Thread.Sleep(simInterval*1000);
+                
                 CreateFogLamps();
             }
             Console.ForegroundColor = ConsoleColor.White;
@@ -200,6 +277,14 @@ namespace WorkStationSimulator.Services
         private void CreateFogLamps()
         {
 
+        }
+
+        private void CreatedLampDefected()
+        {
+            Random random = new Random();
+
+            // Generate a random number between 0 and 100
+            int randomNumber = random.Next(0, 101);
         }
     }
 }
