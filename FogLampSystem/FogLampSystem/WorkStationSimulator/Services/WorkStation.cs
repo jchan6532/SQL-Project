@@ -21,7 +21,7 @@ namespace WorkStationSimulator.Services
             get;
             set;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -49,20 +49,29 @@ namespace WorkStationSimulator.Services
             set;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public float EmployeeBuildSpeed
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public float EmployeeDefectRate
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int AverageBuildSpeed
-        { 
+        {
             get;
             set;
         }
@@ -146,7 +155,7 @@ namespace WorkStationSimulator.Services
         /// <summary>
         /// 
         /// </summary>
-        public Dictionary<string, List<string>> PartsCount 
+        public Dictionary<string, List<string>> PartsCount
         {
             get;
             set;
@@ -258,7 +267,7 @@ namespace WorkStationSimulator.Services
                 {
                     cmd.Connection = conn;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = $"SELECT part_name, bin_size FROM {ConfigurationManager.AppSettings.Get("PartTable")}";
+                    cmd.CommandText = $"SELECT part_id, part_name, bin_size FROM {ConfigurationManager.AppSettings.Get("PartTable")}";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -390,6 +399,7 @@ namespace WorkStationSimulator.Services
                     {
                         CreatedFogLamp();
                         CurrentLampFinished = true;
+                        LampTickCount = 0;
                     }
                 }
             }
@@ -470,4 +480,5 @@ namespace WorkStationSimulator.Services
             if (rowsAffected == 0)
                 throw new Exception("operation was not successful");
         }
+    }
 }
