@@ -61,6 +61,12 @@ namespace WorkStationSimulator.Services
             set;
         }
 
+        public int AverageBuildSpeed
+        { 
+            get;
+            set;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -80,7 +86,7 @@ namespace WorkStationSimulator.Services
         } = 0;
 
 
-        public int FanTickCount
+        public int LampTickCount
         {
             get;
             set;
@@ -169,6 +175,8 @@ namespace WorkStationSimulator.Services
             List<string> defaultEmpMetrics = GetEmployeeMetrics(EmployeeType);
 
             var configMetrics = GetConfigMetrics();
+
+            AverageBuildSpeed = Convert.ToInt32(configMetrics["average_build_time"]);
 
             if (!configMetrics.ContainsKey("system.sim_speed"))
             {
@@ -345,26 +353,49 @@ namespace WorkStationSimulator.Services
 
         public void ProcessWorkStation()
         {
-
+            bool CurrentLampFinished = false;
             Console.ForegroundColor = ConsoleColor.Blue;
             while (true)
             {
-                Console.WriteLine($"Working Station: ID{WorkStationID}\n");
-                foreach (var partIDtoCount in PartsCount)
+                if (CurrentLampFinished)
                 {
-                    Console.WriteLine($"{partIDtoCount.Key}: {partIDtoCount.Value}");
+                    Console.WriteLine($"Working Station: ID{WorkStationID}\n");
+                    foreach (var partIDtoCount in PartsCount)
+                    {
+                        Console.WriteLine($"{partIDtoCount.Key}: {partIDtoCount.Value}");
+                    }
+                    Console.WriteLine("Processing ...\n");
+                    CurrentLampFinished = false;
                 }
-                Console.WriteLine("Processing ...\n");
 
                 // Sleep to simulate time
                 if (SimSpeed != -1)
+                {
                     Thread.Sleep(SimulationSleepInterval);
-                
-                CreateFogLamp();
+                    BinRefillTickCount += (SimulationSleepInterval / 1000) / SecondsPerTick;
+                    LampTickCount += (SimulationSleepInterval / 1000) / SecondsPerTick;
+
+                    if (BinRefillTickCount * SecondsPerTick >= RefillIntervalSeconds)
+                    {
+                        BinRefillTickCount = 0;
+                        RefillBin();
+                    }
+
+                    if (LampTickCount * SecondsPerTick >= AverageBuildSpeed * EmployeeBuildSpeed)
+                    {
+                        CreatedFogLamp();
+                        CurrentLampFinished = true;
+                    }
+                }
             }
         }
 
-        private void CreateFogLamp()
+        private void RefillBin()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CreatedFogLamp()
         {
             bool fogLampIsDefect = false;
             Random random = new Random();
@@ -385,6 +416,8 @@ namespace WorkStationSimulator.Services
             }
 
             LampsBuilt++;
+
+            //Insert new fog lamp into database
         }
     }
 }
