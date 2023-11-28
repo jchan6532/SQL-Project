@@ -92,7 +92,19 @@ namespace WorkStationSimulator.Services
             set;
         } = 0;
 
+        public int SecondsPerTick
+        {
+            get;
+            set;
+        } = 0;
+
         public int RefillIntervalSeconds
+        {
+            get;
+            set;
+        } = 0;
+
+        public int SimulationSleepInterval
         {
             get;
             set;
@@ -136,6 +148,10 @@ namespace WorkStationSimulator.Services
             }
             RefillIntervalSeconds = Convert.ToInt32(simResults["refill_increment"]);
             TicksPerMinute = Convert.ToInt32(simResults["system.tickrate"]);
+            SecondsPerTick = 60 / TicksPerMinute;
+            SimulationSleepInterval = (SecondsPerTick * 1000) / SimSpeed;
+
+
         }
 
         public static List<string> GetEmployeeData(string empId)
