@@ -9,6 +9,7 @@ namespace RunnerStationStatus
         private int selectedWorkstation = 1;
         private bool playedBeep = false;
         private int elapsed = 0;
+        private bool beepEnabled = bool.Parse(ConfigurationManager.AppSettings["BeepEnabled"]);
 
         public Form1()
         {
@@ -69,7 +70,7 @@ namespace RunnerStationStatus
             {
                 color = Color.FromArgb(255, 128, 128);
                 // If we notice a panel in the red, we play a beep sound to notify the user
-                if (!playedBeep) // Use this boolean to avoid constant beeping
+                if (!playedBeep && beepEnabled) // Use this boolean to avoid constant beeping
                 {
                     Console.Beep();
                     playedBeep = true; // Set 'playedBeep' to true to avoid constant beeping
@@ -92,7 +93,7 @@ namespace RunnerStationStatus
             string message = string.Empty;
             bool warning = dbManager.GetWarningMessage(out message);
             warningLabel.Text = message;
-            if (warning && !playedBeep)// If we received a warning and haven't played a beep, played a beep
+            if (warning && !playedBeep && beepEnabled)// If we received a warning and haven't played a beep, played a beep
             {
                 Console.Beep(1000,50);
                 playedBeep = true;
