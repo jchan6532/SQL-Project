@@ -13,48 +13,66 @@ namespace WorkStationSimulator.Services
 {
     public class WorkStation
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string WorkStationID
         {
             get;
             set;
         }
-
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public string EmployeeID
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string EmployeeName
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string EmployeeType
         {
             get;
             set;
         }
 
-        public int EmployeeBuildSpeed
+        public float EmployeeBuildSpeed
         {
             get;
             set;
         }
 
-        public int EmployeeDefectRate
+        public float EmployeeDefectRate
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int LampsBuilt
         {
             get;
             set;
         } = 0;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int DefectCount
         {
             get;
@@ -74,42 +92,63 @@ namespace WorkStationSimulator.Services
             set;
         } = 0;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IsRealTime
         {
             get;
             set;
         } = false;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int SimSpeed
         {
             get;
             set;
         } = 0;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int TicksPerMinute
         {
             get;
             set;
         } = 0;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int SecondsPerTick
         {
             get;
             set;
         } = 0;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int RefillIntervalSeconds
         {
             get;
             set;
         } = 0;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int SimulationSleepInterval
         {
             get;
             set;
         } = 0;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Dictionary<string, int> PartsCount 
         {
             get;
@@ -123,34 +162,53 @@ namespace WorkStationSimulator.Services
 
         public WorkStation(string employeeId)
         {
-            var empResults = WorkStation.GetEmployeeData(employeeId);
-            if (empResults.Count == 0)
+            var empData = WorkStation.GetEmployeeData(employeeId);
+            if (empData.Count == 0)
                 throw new Exception("Currently no work station is associated with that employee ID");
 
-            EmployeeID = empResults[0];
-            WorkStationID = empResults[1];
-            EmployeeName = empResults[2];
-            LampsBuilt = Convert.ToInt32(empResults[3]);
-            DefectCount = Convert.ToInt32(empResults[4]);
+            EmployeeID = empData[0];
+            WorkStationID = empData[1];
+            EmployeeName = empData[2];
+            LampsBuilt = Convert.ToInt32(empData[3]);
+            DefectCount = Convert.ToInt32(empData[4]);
 
             PartsCount = GetPartTypesAndCounts();
             EmployeeType = GetEmployeeType(EmployeeID);
 
-            var simResults = GetSimulationMetrics();
+            List<string> defaultEmpMetrics = GetEmployeeMetrics(EmployeeType);
 
-            if (!simResults.ContainsKey("system.sim_speed"))
+            var configMetrics = GetConfigMetrics();
+
+            if (!configMetrics.ContainsKey("system.sim_speed"))
             {
                 IsRealTime = true;
             }
             else
             {
-                SimSpeed = Convert.ToInt32(simResults["system.sim_speed"]);
+                SimSpeed = Convert.ToInt32(configMetrics["system.sim_speed"]);
             }
-            RefillIntervalSeconds = Convert.ToInt32(simResults["refill_increment"]);
-            TicksPerMinute = Convert.ToInt32(simResults["system.tickrate"]);
+            RefillIntervalSeconds = Convert.ToInt32(configMetrics["refill_increment"]);
+            TicksPerMinute = Convert.ToInt32(configMetrics["system.tickrate"]);
             SecondsPerTick = 60 / TicksPerMinute;
             SimulationSleepInterval = (SecondsPerTick * 1000) / SimSpeed;
 
+            if (!configMetrics.ContainsKey($"employee.{EmployeeType}.defect_rate"))
+            {
+                EmployeeDefectRate = (float)Convert.ToDouble(defaultEmpMetrics[0]);
+            }
+            else
+            {
+                EmployeeDefectRate = (float)Convert.ToDouble(configMetrics[$"employee.{EmployeeType}.defect_rate"]);
+            }
+
+            if (!configMetrics.ContainsKey($"employee.{EmployeeType}.build_speed"))
+            {
+                EmployeeBuildSpeed = (float)Convert.ToDouble(defaultEmpMetrics[1]);
+            }
+            else
+            {
+                EmployeeBuildSpeed = (float)Convert.ToDouble(configMetrics[$"employee.{EmployeeType}.build_speed"]);
+            }
 
         }
 
@@ -239,7 +297,7 @@ namespace WorkStationSimulator.Services
             return employeeType;
         }
 
-        private static Dictionary<string, string> GetSimulationMetrics()
+        private static Dictionary<string, string> GetConfigMetrics()
         {
             string configTable = ConfigurationManager.AppSettings.Get("ConfigTable");
 
@@ -265,9 +323,32 @@ namespace WorkStationSimulator.Services
             }
             return results;
         }
-        public static void GetEmployeeMetrics()
+        private static List<string> GetEmployeeMetrics(string empType)
         {
+            string employeeTypeTable = ConfigurationManager.AppSettings.Get("EmployeeTypeTable");
 
+            List<string> results = new List<string>();
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["justin"].ConnectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.CommandText = $"SELECT defect_rate, build_speed FROM {employeeTypeTable} WHERE type_name = '{empType}'";
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            results.Add(reader["defect_rate"].ToString());
+                            results.Add(reader["build_speed"].ToString());
+                        }
+                    }
+
+                }
+            }
+            return results;
         }
 
         public void ProcessWorkStation()
