@@ -7,7 +7,7 @@
 * Creates the database schema for the final term project.
 * As of 2023-11-20, only covers creation of configuration table.
 */
-USE Sql_Term_Project
+USE [SQL-PROJECT];
 DROP DATABASE IF EXISTS [SQL-PROJECT];
 CREATE DATABASE [SQL-PROJECT];
 
@@ -48,6 +48,13 @@ CREATE TABLE Bin (
 	workstation_id INT FOREIGN KEY REFERENCES Workstation(workstation_id) NOT NULL,
 	part_count INT NOT NULL DEFAULT 0
 )
+
+-- Add our config keys
+INSERT INTO ConfigSettings VALUES('system.tickrate', '60', 'INT')
+INSERT INTO ConfigSettings VALUES('system.sim_speed', '1', 'INT')
+INSERT INTO ConfigSettings VALUES('system.real_time', '0', 'INT')
+INSERT INTO ConfigSettings VALUES('fanTickCount', '0', 'INT')
+INSERT INTO ConfigSettings VALUES('refillTickCount', '300', 'INT')
 
 -- Add our employee types
 INSERT INTO EmployeeType VALUES('New')
@@ -91,3 +98,7 @@ BEGIN
 	END
 	SET @workstation_id = @workstation_id + 1
 END
+
+SELECT [type_name] FROM EmployeeType JOIN Employee ON [type_id] = employee_type WHERE Employee.employee_id = 2
+
+SELECT part_name, bin_size FROM Part
