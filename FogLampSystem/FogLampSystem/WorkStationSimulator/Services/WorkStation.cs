@@ -146,7 +146,7 @@ namespace WorkStationSimulator.Services
         /// <summary>
         /// 
         /// </summary>
-        public Dictionary<string, int> PartsCount 
+        public Dictionary<string, List<string>> PartsCount 
         {
             get;
             set;
@@ -246,9 +246,9 @@ namespace WorkStationSimulator.Services
             return results;
         }
 
-        private static Dictionary<string, int> GetPartTypesAndCounts()
+        private static Dictionary<string, List<string>> GetPartTypesAndCounts()
         {
-            Dictionary<string, int> partsCount = new Dictionary<string, int>();
+            Dictionary<string, List<string>> partsCount = new Dictionary<string, List<string>>();
 
             using (SqlConnection conn = new SqlConnection())
             {
@@ -264,9 +264,14 @@ namespace WorkStationSimulator.Services
                     {
                         while (reader.Read())
                         {
-                            string partID = reader["part_name"].ToString();
+                            string partID = reader["part_id"].ToString();
+                            string partName = reader["part_name"].ToString();
                             string count = reader["bin_size"].ToString();
-                            partsCount.Add(partID, Convert.ToInt32(count));
+
+                            var nameAndCount = new List<string>();
+                            nameAndCount.Add(partName);
+                            nameAndCount.Add(count);
+                            partsCount.Add(partID, nameAndCount);
                         }
                     }
 
@@ -417,7 +422,52 @@ namespace WorkStationSimulator.Services
 
             LampsBuilt++;
 
-            //Insert new fog lamp into database
+            // Decrement count
+            foreach (var partNameandCount in PartsCount)
+            {
+                int count = Convert.ToInt32(partNameandCount.Value[1]);
+                count = count - 1;
+                PartsCount[partNameandCount.Key][1] = count.ToString();
+            }
+
+            int rowsAffected = 0;
+            // Update new fog lamp into work station table
+            using (SqlConnection conn = new SqlConnection())
+            {
+                string workStationTable = ConfigurationManager.AppSettings.Get("WorkStationTable");
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["justin"].ConnectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.CommandText = $"UPDATE {workStationTable} SET lamps_built = lamps_built + 1 WHERE employee_id = {EmployeeID}";
+
+                    if (fogLampIsDefect)
+                        cmd.CommandText = $"UPDATE {workStationTable} SET lamps_built = lamps_built + 1 =, defects = defects + 1 WHERE employee_id = {EmployeeID}";
+
+                    rowsAffected = cmd.ExecuteNonQuery();
+                }
+            }
+            if (rowsAffected == 0)
+                throw new Exception("operation was not successful");
+
+            // Update new fog lamp into bin table
+            using (SqlConnection conn = new SqlConnection())
+            {
+                string binTable = ConfigurationManager.AppSettings.Get("BinTable");
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["justin"].ConnectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.CommandText = $"UPDATE {binTable} SET part_count = part_count - 1 WHERE workstation_id = {WorkStationID}";
+
+                    rowsAffected = cmd.ExecuteNonQuery();
+                }
+            }
+            if (rowsAffected == 0)
+                throw new Exception("operation was not successful");
         }
-    }
 }
