@@ -31,13 +31,25 @@ namespace WorkStationSimulator.Services
             set;
         }
 
-        public EmployeeType EmployeeType
+        public string EmployeeType
         {
             get;
             set;
-        } = EmployeeType.Invalid;
+        }
 
-        public int FansBuilt
+        public int EmployeeBuildSpeed
+        {
+            get;
+            set;
+        }
+
+        public int EmployeeDefectRate
+        {
+            get;
+            set;
+        }
+
+        public int LampsBuilt
         {
             get;
             set;
@@ -49,19 +61,10 @@ namespace WorkStationSimulator.Services
             set;
         } = 0;
 
-        public bool IsOccupied
-        {
-            get;
-            set;
-        } = false;
-
         public Dictionary<string, int> PartsCount { get; set; }
 
         public WorkStation()
         {
-            bool isAvailable = WorkStation.CheckAvailability();
-            if (!isAvailable)
-                throw new Exception("No working station are available at the moment");
 
             PartsCount = GetPartTypesAndCounts();
         }
@@ -75,6 +78,13 @@ namespace WorkStationSimulator.Services
             EmployeeID = results[0];
             WorkStationID = results[1];
             EmployeeName = results[2];
+            LampsBuilt = Convert.ToInt32(results[3]);
+            DefectCount = Convert.ToInt32(results[4]);
+
+            //PartsCount = GetPartTypesAndCounts();
+            EmployeeType = GetEmployeeType(EmployeeID);
+
+
         }
 
         public static List<string> GetEmployeeData(string empId)
@@ -92,7 +102,7 @@ namespace WorkStationSimulator.Services
                 {
                     cmd.Connection = conn;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = $"SELECT {workStationTable}.employee_id, workstation_id, {employeeTable}.employee_name" +
+                    cmd.CommandText = $"SELECT {workStationTable}.employee_id, workstation_id, {employeeTable}.employee_name, lamps_built, defects" +
                         $" FROM {workStationTable} JOIN {employeeTable} ON {workStationTable}.employee_id = {employeeTable}.employee_id" +
                         $" WHERE {workStationTable}.employee_id = {empId}";
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -102,6 +112,8 @@ namespace WorkStationSimulator.Services
                             results.Add(reader["employee_id"].ToString());
                             results.Add(reader["workstation_id"].ToString());
                             results.Add(reader["employee_name"].ToString());
+                            results.Add(reader["lamps_built"].ToString());
+                            results.Add(reader["defects"].ToString());
                         }
                     }
 
@@ -110,35 +122,13 @@ namespace WorkStationSimulator.Services
             return results;
         }
 
-        private static bool CheckAvailability()
-        {
-            bool stationAvailable = false;
-            using (SqlConnection conn = new SqlConnection())
-            {
-                conn.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = conn;
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = $"SELECT COUNT(*) FROM {ConfigurationManager.AppSettings.Get("WorkStationTable")} WHERE is_occupied = 0";
-                    int numEmptyStation = (int)cmd.ExecuteScalar();
-                    if (numEmptyStation > 0)
-                        stationAvailable = true;
-
-                }
-            }
-
-            return stationAvailable;
-        }
-
         private static Dictionary<string, int> GetPartTypesAndCounts()
         {
             Dictionary<string, int> partsCount = new Dictionary<string, int>();
 
             using (SqlConnection conn = new SqlConnection())
             {
-                conn.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["justin"].ConnectionString;
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
@@ -162,42 +152,35 @@ namespace WorkStationSimulator.Services
             return partsCount;
         }
 
-        public static List<string> GetEmployeeTypes()
+        public static string GetEmployeeType(string empId)
         {
-            List<string> employeeTypes = new List<string>();
+            string employeeTypeTable = ConfigurationManager.AppSettings.Get("EmployeeTypeTable");
+            string employeeTable = ConfigurationManager.AppSettings.Get("EmployeeTable");
 
+            string employeeType = null;
             using (SqlConnection conn = new SqlConnection())
             {
-                conn.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["justin"].ConnectionString;
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = conn;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = $"SELECT employee_type FROM {ConfigurationManager.AppSettings.Get("EmployeeTypesTable")}";
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            employeeTypes.Add(reader.GetValue(0).ToString());
-                        }
-                    }
+                    cmd.CommandText = $"SELECT [type_name] FROM {employeeTypeTable} JOIN {employeeTable} ON [type_id] = employee_type WHERE {employeeTable}.employee_id = {empId}";
+                    employeeType = cmd.ExecuteScalar().ToString();
+
                 }
             }
-
-            return employeeTypes;
+            return employeeType;
         }
 
         public void ProcessWorkStation()
         {
-            if (!IsOccupied)
-                throw new Exception("Work station is not even online yet");
 
             Console.ForegroundColor = ConsoleColor.Blue;
-            while (IsOccupied)
+            while (true)
             {
                 Console.WriteLine($"Working Station: ID{WorkStationID}\n");
-                Console.WriteLine($"Working Station: ID{EmployeeType}\n");
                 foreach (var partIDtoCount in PartsCount)
                 {
                     Console.WriteLine($"{partIDtoCount.Key}: {partIDtoCount.Value}");
