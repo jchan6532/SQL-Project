@@ -13,17 +13,23 @@ namespace WorkStationSimulator.Services
 {
     public class WorkStation
     {
-        public int WorkStationID
+        public string WorkStationID
         {
             get;
             set;
-        } = 0;
+        }
 
-        public int EmployeeID
+        public string EmployeeID
         {
             get;
             set;
-        } = 0;
+        }
+
+        public string EmployeeName
+        {
+            get;
+            set;
+        }
 
         public EmployeeType EmployeeType
         {
@@ -62,30 +68,46 @@ namespace WorkStationSimulator.Services
 
         public WorkStation(string employeeId)
         {
-            WorkStation.CheckForEmployeeID(employeeId);
+            var results = WorkStation.GetEmployeeData(employeeId);
+            if (results.Count == 0)
+                throw new Exception("Currently no work station is associated with that employee ID");
+
+            EmployeeID = results[0];
+            WorkStationID = results[1];
+            EmployeeName = results[2];
         }
 
-        public static bool CheckForEmployeeID(string empId)
+        public static List<string> GetEmployeeData(string empId)
         {
             bool isValidEmployee = false;
+            string workStationTable = ConfigurationManager.AppSettings.Get("WorkStationTable");
+            string employeeTable = ConfigurationManager.AppSettings.Get("EmployeeTable");
+
+            List<string> results = new List<string>();
             using (SqlConnection conn = new SqlConnection())
             {
-                conn.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["justin"].ConnectionString;
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = conn;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = $"SELECT employee_id FROM {ConfigurationManager.AppSettings.Get("WorkStationTable")} WHERE employee_id = {empId}";
-                    if (cmd.ExecuteScalar() is DBNull)
-                        isValidEmployee = false;
-                    else
-                        isValidEmployee = true;
+                    cmd.CommandText = $"SELECT {workStationTable}.employee_id, workstation_id, {employeeTable}.employee_name" +
+                        $" FROM {workStationTable} JOIN {employeeTable} ON {workStationTable}.employee_id = {employeeTable}.employee_id" +
+                        $" WHERE {workStationTable}.employee_id = {empId}";
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            results.Add(reader["employee_id"].ToString());
+                            results.Add(reader["workstation_id"].ToString());
+                            results.Add(reader["employee_name"].ToString());
+                        }
+                    }
 
                 }
             }
-
-            return isValidEmployee;
+            return results;
         }
 
         private static bool CheckAvailability()
@@ -164,85 +186,6 @@ namespace WorkStationSimulator.Services
             }
 
             return employeeTypes;
-        }
-
-        public void GoOnline()
-        {
-            int rowsAffected = 0;
-            using (SqlConnection conn = new SqlConnection())
-            {
-                conn.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = conn;
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = $"SELECT Top(1) workstation_id FROM {ConfigurationManager.AppSettings.Get("WorkStationTable")} WHERE is_occupied = 0";
-                    WorkStationID = (int)cmd.ExecuteScalar();
-
-                    cmd.CommandText = $"UPDATE Top(1) {ConfigurationManager.AppSettings.Get("WorkStationTable")} SET is_occupied = 1 WHERE is_occupied = 0";
-                    rowsAffected = cmd.ExecuteNonQuery();
-                }
-            }
-
-            if (rowsAffected == 0)
-            {
-                WorkStationID = 0;
-                throw new Exception("No available work station is available at the moment");
-            }
-
-            IsOccupied = true;
-        }
-
-        public void GoOffline()
-        {
-            int rowsAffected = 0;
-            using (SqlConnection conn = new SqlConnection())
-            {
-                conn.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = conn;
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = $"UPDATE {ConfigurationManager.AppSettings.Get("WorkStationTable")} SET is_occupied = 0 WHERE workstation_id = {WorkStationID}";
-                    rowsAffected = cmd.ExecuteNonQuery();
-                }
-            }
-
-            if (rowsAffected == 0)
-            {
-                WorkStationID = 0;
-                throw new Exception("No available work station is even online at the moment");
-            }
-
-            IsOccupied = false;
-        }
-
-        public bool IsOnline()
-        {
-            int isOnline = 0;
-            if (WorkStationID == 0)
-                return false;
-
-            using (SqlConnection conn = new SqlConnection())
-            {
-                conn.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = conn;
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = $"SELECT is_occupied FROM {ConfigurationManager.AppSettings.Get("WorkStationTable")} WHERE workstation_id = {WorkStationID}";
-
-                    object result = cmd.ExecuteScalar();
-                    if (result != null)
-                        isOnline = Convert.ToInt32(result);
-                }
-            }
-
-            IsOccupied = (isOnline == 1) ? true : false;
-            return (isOnline == 1) ? true : false;
         }
 
         public void ProcessWorkStation()

@@ -36,7 +36,7 @@ namespace FogLampConfigurationTool
             DataTable dt = new DataTable();
 
             // Create SQL connection
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
 
             // Create SQL command
             SqlCommand command = new SqlCommand(cmd_str,conn);

@@ -15,6 +15,22 @@ namespace WorkStationSimulator
             string employeeId = PromptEmployeeId();
 
             WorkStation workStation = new WorkStation(employeeId);
+
+            PrintLoggedInMessage(workStation);
+            workStation.ProcessWorkStation();
+        }
+
+        static void PrintLoggedInMessage(WorkStation workStation)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"Welcome back ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(workStation.EmployeeName);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($" you are assigned to work station ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(workStation.WorkStationID);
+            Console.WriteLine();
         }
 
         static string PromptEmployeeId()
