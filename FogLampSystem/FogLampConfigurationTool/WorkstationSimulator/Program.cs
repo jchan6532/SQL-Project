@@ -11,10 +11,24 @@ namespace WorkstationSimulator
     {
         static void Main(string[] args)
         {
-            SimulationManager simManager = new SimulationManager(1);
+            int workstationId = 0;
+            Console.Write("Enter your workstation ID: ");
+            if (!Int32.TryParse(Console.ReadLine(), out workstationId))
+            {
+                return;
+            }
+
+            SimulationManager simManager = new SimulationManager(workstationId);
             Random rand = new Random();
             long elapsed = 0;
+            
 
+            
+
+            if (!simManager.SimWorkstation.HasEnoughParts)
+            {
+                simManager.SimWorkstation.RefillBins();
+            }
             while (!Console.KeyAvailable)
             {
 
@@ -59,6 +73,8 @@ namespace WorkstationSimulator
                 if (simManager.RefillTickCount >= simManager.RefillInterval)
                 {
                     Console.WriteLine("Refilled the bins!");
+
+                    simManager.SimWorkstation.RefillBins();
                     simManager.RefillTickCount = 0;
                 }
             }

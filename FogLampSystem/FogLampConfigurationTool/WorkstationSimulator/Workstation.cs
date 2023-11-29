@@ -191,7 +191,7 @@ namespace WorkstationSimulator
             {
                 SqlConnection sqlConnection =
                     new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
-                SqlCommand cmd = new SqlCommand("RefillBins", sqlConnection);
+                SqlCommand cmd = new SqlCommand("RefillBin", sqlConnection);
                 cmd.Parameters.Add(new SqlParameter("bin_id", SqlDbType.Int) { Value = bin.BinId });
                 cmd.CommandType = CommandType.StoredProcedure;
 
