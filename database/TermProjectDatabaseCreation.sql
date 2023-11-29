@@ -7,6 +7,8 @@
 * Creates the database schema for the final term project.
 * As of 2023-11-20, only covers creation of configuration table.
 */
+CREATE DATABASE Sql_Term_Project
+
 USE Sql_Term_Project
 
 CREATE TABLE ConfigSettings (
@@ -93,8 +95,10 @@ INSERT INTO ConfigSettings VALUES ('employee.average.defect_rate','0.5','float')
 INSERT INTO ConfigSettings VALUES ('employee.experienced.build_speed','0.85','float')
 INSERT INTO ConfigSettings VALUES ('employee.experienced.defect_rate','0.15','float')
 INSERT INTO ConfigSettings VALUES ('system.sim_speed','4','float')
-INSERT INTO ConfigSettings VALUES('system.build_time','60','int')
-INSERT INTO ConfigSettings VALUES('system.refill_warning_amount','5','int')
+INSERT INTO ConfigSettings VALUES ('system.build_time','60','int')
+INSERT INTO ConfigSettings VALUES ('system.refill_warning_amount','5','int')
+INSERT INTO ConfigSettings VALUES ('system.refill_interval','300','int')
+INSERT INTO ConfigSettings VALUES ('system.tick_rate','60','int')
 
 -- Add bins for each workstation, already filled to the database.
 DECLARE @workstation_id INT = 1

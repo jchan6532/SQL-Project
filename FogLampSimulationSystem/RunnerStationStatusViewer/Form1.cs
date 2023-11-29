@@ -1,8 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
+using System.Data;
 using System.Drawing;
-using System.Media;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace RunnerStationStatus
+namespace RunnerStationStatusViewer
 {
     public partial class Form1 : Form
     {
@@ -10,9 +18,10 @@ namespace RunnerStationStatus
         private int selectedWorkstation = 1;
         private bool playedBeep = false;
         private long elapsed = 0;
-        private bool beepEnabled = bool.Parse(ConfigurationManager.AppSettings["BeepEnabled"]);
+        private bool beepEnabled = true;
         private object lockObj;
         private bool debugMode = false;
+        private delegate void uiDelegate();
 
         public Form1()
         {
@@ -27,6 +36,7 @@ namespace RunnerStationStatus
             SetWorkstationComboBoxItems();
             SetPartsCountLabels();
             SetLegendLabels();
+            SetWarningMessage();
             SetDebugVisibility();
             Task.Run(UpdateGUI);
         }
@@ -150,9 +160,9 @@ namespace RunnerStationStatus
                 {
                     lock (lockObj)
                     {
-                        BeginInvoke(SetPartsCountLabels);
-                        BeginInvoke(SetWarningMessage);
-                        BeginInvoke(SetLegendLabels);
+                        BeginInvoke(new uiDelegate(SetPartsCountLabels));
+                        BeginInvoke(new uiDelegate(SetWarningMessage));
+                        BeginInvoke(new uiDelegate(SetLegendLabels));
                     }
                 }
                 Thread.Sleep(100);

@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.7.34031.279
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FogLampConfigurationTool", "FogLampConfigurationTool\FogLampConfigurationTool.csproj", "{0DAA12D7-B4CF-405B-8325-8FF79267A6C8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RunnerStationStatus", "RunnerStationStatus\RunnerStationStatus.csproj", "{71B48FFC-96BA-4675-A406-DA2B145A7BAE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkstationSimulator", "WorkstationSimulator\WorkstationSimulator.csproj", "{884BF474-043A-442E-8CC7-A87EEACD4BB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunnerStationStatusViewer", "RunnerStationStatusViewer\RunnerStationStatusViewer.csproj", "{A10C3FD9-2A68-4FF1-9C9C-191DFD1541F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{0DAA12D7-B4CF-405B-8325-8FF79267A6C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DAA12D7-B4CF-405B-8325-8FF79267A6C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DAA12D7-B4CF-405B-8325-8FF79267A6C8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71B48FFC-96BA-4675-A406-DA2B145A7BAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71B48FFC-96BA-4675-A406-DA2B145A7BAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71B48FFC-96BA-4675-A406-DA2B145A7BAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71B48FFC-96BA-4675-A406-DA2B145A7BAE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{884BF474-043A-442E-8CC7-A87EEACD4BB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{884BF474-043A-442E-8CC7-A87EEACD4BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{884BF474-043A-442E-8CC7-A87EEACD4BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{884BF474-043A-442E-8CC7-A87EEACD4BB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A10C3FD9-2A68-4FF1-9C9C-191DFD1541F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A10C3FD9-2A68-4FF1-9C9C-191DFD1541F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A10C3FD9-2A68-4FF1-9C9C-191DFD1541F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A10C3FD9-2A68-4FF1-9C9C-191DFD1541F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

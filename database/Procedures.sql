@@ -1,3 +1,4 @@
+
 /*
 * FILE : Views.sql
 * PROJECT : PROG3070 - Gerritt Hooyer, Justin Chan
@@ -6,6 +7,9 @@
 * DESCRIPTION :
 * Creates the procedures for the database.
 */
+USE Sql_Term_Project
+GO
+
 CREATE PROCEDURE RefillBin @bin_id INT
 AS
 	UPDATE BinOverview
@@ -52,3 +56,4 @@ AS
 	UPDATE Bin
 	SET part_count = part_count - 1
 	WHERE @workstation_id = workstation_id
+GO

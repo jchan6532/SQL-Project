@@ -19,7 +19,7 @@ namespace WorkstationSimulator
                 SqlCommand cmd =
                     new SqlCommand("SELECT [config_value] FROM ConfigSettings WHERE config_key = 'system.tick_rate'",
                         sqlConnection);
-                int tickRate = -1;
+                int tickRate = 1;
 
                 sqlConnection.Open();
                 object response = cmd.ExecuteScalar();
@@ -42,7 +42,7 @@ namespace WorkstationSimulator
                 SqlCommand cmd =
                     new SqlCommand("SELECT [config_value] FROM ConfigSettings WHERE config_key = 'system.refill_interval'",
                         sqlConnection);
-                int refillInterval = -1;
+                int refillInterval = 300;
 
                 sqlConnection.Open();
                 object response =  cmd.ExecuteScalar();
