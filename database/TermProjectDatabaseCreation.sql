@@ -103,3 +103,15 @@ END
 SELECT [type_name] FROM EmployeeType JOIN Employee ON [type_id] = employee_type WHERE Employee.employee_id = 2
 
 SELECT part_name, bin_size FROM Part
+
+SELECT defect_rate, build_speed FROM EmployeeType WHERE type_name = 'New'
+
+SELECT * FROM Bin
+SELECT * FROM Employee
+SELECT * FROM EmployeeType
+SELECT * FROM Part
+SELECT * FROM WorkStation
+
+UPDATE WorkStation SET lamps_built = lamps_built - 1, defects = defects - 1 WHERE employee_id = 2
+
+UPDATE Bin SET part_count = part_count + 1 WHERE workstation_id = 2
