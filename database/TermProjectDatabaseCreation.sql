@@ -60,7 +60,7 @@ CREATE TABLE WorkstationSession
 	workstation_id INT FOREIGN KEY REFERENCES Workstation(workstation_id),
 	order_id INT FOREIGN KEY REFERENCES LampOrder(order_id),
 	lamps_built INT DEFAULT 0 CHECK (lamps_built >= 0),
-	defect
+	defects INT DEFAULT 0 CHECK (defects >= 0)
 )
 
 -- Add our employee types
@@ -115,7 +115,5 @@ BEGIN
 	END
 	SET @workstation_id = @workstation_id + 1
 END
-
-
 
 INSERT INTO LampOrder VALUES(500,0,0)
