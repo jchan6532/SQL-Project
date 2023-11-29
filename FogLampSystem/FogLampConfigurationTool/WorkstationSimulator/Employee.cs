@@ -32,7 +32,7 @@ namespace WorkstationSimulator
 
                 if (response != null)
                 {
-                    employeeName = (string)response;
+                    employeeName = response.ToString();
                 }
 
                 return employeeName;
@@ -57,7 +57,7 @@ namespace WorkstationSimulator
 
                 if (response != null)
                 {
-                    employeeType = (string)response;
+                    employeeType = response.ToString();
                 }
 
                 return employeeType;
@@ -80,7 +80,7 @@ namespace WorkstationSimulator
 
                 if (response != null)
                 {
-                    buildSpeed = float.Parse((string)response);
+                    float.TryParse((string)response, out buildSpeed);
                 }
 
                 return buildSpeed;
@@ -103,7 +103,7 @@ namespace WorkstationSimulator
 
                 if (response != null)
                 {
-                    defectRate = float.Parse((string)response);
+                    float.TryParse((string)response, out defectRate);
                 }
 
                 return defectRate;

@@ -13,45 +13,55 @@ namespace WorkstationSimulator
         {
             SimulationManager simManager = new SimulationManager(1);
             Random rand = new Random();
-            int elapsed = 0;
+            long elapsed = 0;
 
             while (!Console.KeyAvailable)
             {
+
+                Console.WriteLine($"\nTime Elapsed: {elapsed}(s)");
                 int tickIncrement = 60 / simManager.TickRate;
-
-                simManager.FanTickCount += tickIncrement;
-                simManager.RefillTickCount += tickIncrement;
                 elapsed += tickIncrement;
-
-                if (simManager.FanTickCount >= simManager.SimWorkstation.CurrentFanBuildTime)
-                {
-                    float defectCheck = (float)rand.NextDouble();
-                    if (simManager.SimWorkstation.WorkstationEmployee.DefectRateModifier < defectCheck)
-                    {
-                        Console.WriteLine("Built a fan!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Built a defect!");
-                    }
-                    simManager.FanTickCount = 0;
-                }
-
-                if (simManager.RefillTickCount >= simManager.RefillInterval)
-                {
-                    Console.WriteLine("Refilled the bins!");
-                    simManager.RefillTickCount = 0;
-                }
-
                 if (simManager.SimulationSpeed > 0)
                 {
                     int sleepTime = (int)(tickIncrement * 1000 / simManager.SimulationSpeed);
                     Thread.Sleep(sleepTime);
                 }
+                if (simManager.SimWorkstation.CurrentOrder == null)
+                {
+                    continue;
+                }
+                simManager.FanTickCount += tickIncrement;
+                simManager.RefillTickCount += tickIncrement;
 
-                Console.WriteLine($"Time Elapsed: {elapsed}(s)");
+                Console.WriteLine($"\nWorkstation ID          : {simManager.SimWorkstation.WorkstationId}");
+                Console.WriteLine($"Current Order ID        : {simManager.SimWorkstation.CurrentOrder.OrderId}");
+                Console.WriteLine($"Current Order Fulfilled : {simManager.SimWorkstation.CurrentOrder.OrderFulfilled}");
+                Console.WriteLine($"Current Order Amount    : {simManager.SimWorkstation.CurrentOrder.OrderAmount}");
+                Console.WriteLine($"Current Order Session Lamps Built : {simManager.SimWorkstation.CurrentOrderSession.LampsBuilt}");
+                Console.WriteLine($"Current Order Session Defects Built : {simManager.SimWorkstation.CurrentOrderSession.DefectsBuilt}");
+
+                if (simManager.FanTickCount >= simManager.SimWorkstation.CurrentFanBuildTime)
+                {
+                    float defectCheck = (float)rand.NextDouble();
+                    if (simManager.SimWorkstation.HasEnoughParts)
+                    {
+                        if (simManager.SimWorkstation.WorkstationEmployee.DefectRateModifier < defectCheck)
+                        {
+                            simManager.SimWorkstation.BuildLamp();
+                        }
+                        else
+                        {
+                            simManager.SimWorkstation.BuildDefect();
+                        }
+                    }
+                    simManager.FanTickCount = 0;
+                }
+                if (simManager.RefillTickCount >= simManager.RefillInterval)
+                {
+                    Console.WriteLine("Refilled the bins!");
+                    simManager.RefillTickCount = 0;
+                }
             }
-
         }
     }
 }

@@ -27,7 +27,7 @@ namespace WorkstationSimulator
 
                 if (response != null)
                 {
-                    tickRate = Int32.Parse((string)response);
+                    Int32.TryParse((string)response,out tickRate);
                 }
 
                 return tickRate;
@@ -50,7 +50,7 @@ namespace WorkstationSimulator
 
                 if (response != null)
                 {
-                    refillInterval = Int32.Parse((string)response);
+                    Int32.TryParse((string)response, out refillInterval);
                 }
                 return refillInterval;
             }
@@ -71,8 +71,8 @@ namespace WorkstationSimulator
                 sqlConnection.Close();
 
                 if (response != null)
-                {
-                    simSpeed = float.Parse((string)response);
+                { 
+                    float.TryParse((string)response,out simSpeed);
                 }
                 return simSpeed;
             }
