@@ -97,8 +97,12 @@ namespace WorkstationSimulator
         public SimulationManager(int workstationId)
         {
             FanTickCount = 0;
-            RefillTickCount = 0;
             SimWorkstation = new Workstation(workstationId);
+        }
+
+        public SimulationManager()
+        {
+            RefillTickCount = 0;
         }
 
 

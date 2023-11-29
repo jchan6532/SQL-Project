@@ -11,8 +11,25 @@ namespace WorkstationSimulator
     {
         static void Main(string[] args)
         {
+
+            if (args.Length > 0)
+            {
+                if (args[0] == "-runner")
+                {
+                    StartRunner();
+                }
+            }
+            else
+            {
+                StartWorkstation();
+            }
+        }
+
+        static void StartWorkstation()
+        {
             int workstationId = 0;
             Console.Write("Enter your workstation ID: ");
+
             if (!Int32.TryParse(Console.ReadLine(), out workstationId))
             {
                 return;
@@ -21,15 +38,9 @@ namespace WorkstationSimulator
             SimulationManager simManager = new SimulationManager(workstationId);
             Random rand = new Random();
             long elapsed = 0;
-            
 
-            if (!simManager.SimWorkstation.HasEnoughParts)
-            {
-                simManager.SimWorkstation.RefillBins();
-            }
             while (!Console.KeyAvailable)
             {
-
                 Console.WriteLine($"\nTime Elapsed: {elapsed}(s)");
                 int tickIncrement = 60 / simManager.TickRate;
                 elapsed += tickIncrement;
@@ -83,6 +94,11 @@ namespace WorkstationSimulator
                     simManager.RefillTickCount = 0;
                 }
             }
+        }
+
+        static void StartRunner()
+        {
+
         }
     }
 }
