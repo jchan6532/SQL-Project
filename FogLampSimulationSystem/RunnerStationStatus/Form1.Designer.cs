@@ -421,6 +421,7 @@
             workstationComboBox.Name = "workstationComboBox";
             workstationComboBox.Size = new Size(493, 23);
             workstationComboBox.TabIndex = 6;
+            workstationComboBox.SelectedIndexChanged += workstationComboBox_SelectedIndexChanged;
             // 
             // Form1
             // 

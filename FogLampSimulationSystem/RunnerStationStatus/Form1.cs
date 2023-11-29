@@ -9,7 +9,7 @@ namespace RunnerStationStatus
         private DatabaseManager dbManager;
         private int selectedWorkstation = 1;
         private bool playedBeep = false;
-        private int elapsed = 0;
+        private long elapsed = 0;
         private bool beepEnabled = bool.Parse(ConfigurationManager.AppSettings["BeepEnabled"]);
         private object lockObj;
         private bool debugMode = false;
@@ -139,17 +139,21 @@ namespace RunnerStationStatus
         {
             while (true)
             {
-                lock (lockObj)
-                {
-                    BeginInvoke(SetPartsCountLabels);
-                    BeginInvoke(SetWarningMessage);
-                }
                 // Use the UpdateGUI event to track elapsed ms
                 elapsed += 100;
-                if (elapsed >= Int32.Parse(ConfigurationManager.AppSettings["BeepDelay"]))
+                if (elapsed % Int32.Parse(ConfigurationManager.AppSettings["BeepDelay"]) == 0)
                 {
                     playedBeep = false;
-                    elapsed = 0;
+                }
+                // Update the UI every 5 seconds.
+                if (elapsed % 5000 == 0)
+                {
+                    lock (lockObj)
+                    {
+                        BeginInvoke(SetPartsCountLabels);
+                        BeginInvoke(SetWarningMessage);
+                        BeginInvoke(SetLegendLabels);
+                    }
                 }
                 Thread.Sleep(100);
             }
@@ -160,7 +164,7 @@ namespace RunnerStationStatus
             if (debugMode)
             {
                 int workstationId = ((KeyValuePair<int, string>)workstationComboBox.SelectedItem).Key;
-                dbManager.RefillBin("Harness",workstationId);
+                dbManager.RefillBin("Harness", workstationId);
             }
         }
 
@@ -224,6 +228,13 @@ namespace RunnerStationStatus
             {
                 debugModeLabel.Text = "";
             }
+        }
+
+        private void workstationComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetPartsCountLabels();
+            SetLegendLabels();
+            SetWarningMessage();
         }
     }
 }
