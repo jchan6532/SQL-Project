@@ -415,7 +415,7 @@ namespace WorkStationSimulator.Services
             bool fogLampIsDefect = false;
             Random random = new Random();
 
-            // Generate a random number between 0 (inclusive) and 1 (inclusive)
+
             int randomNumber = random.Next();
             int defectRatePercentage = (int)(EmployeeDefectRate * 100);
 
