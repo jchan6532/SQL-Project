@@ -11,11 +11,17 @@ using System.Threading.Tasks;
 
 namespace WorkstationSimulator
 {
+    /*
+     *
+     * Class: Workstation
+     * Description: Represents a Workstation. Updates it's properties with data from the database.
+     */
     internal class Workstation
     {
+
         public int WorkstationId { get; set; }
-        // We use a property for our bins to automatically update them on each get.
         public List<Bin> Bins { get {
+                // Create a list of bins and use a SQL statement to select all of the relevant bin information.
                 List<Bin> bins = new List<Bin>();
                 SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT * FROM BinOverview WHERE workstation_id = {WorkstationId}", sqlConnection);
@@ -38,12 +44,15 @@ namespace WorkstationSimulator
             } 
         }
 
+        /// <summary>
+        /// Returns the Workstation's currently assigned Employee. Null if no employee is assigned or the workstation doesn't exist.
+        /// </summary>
         public Employee WorkstationEmployee
         {
             get
             {
+                // Create objects
                 Employee employee = null;
-
                 SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT TOP 1 employee_id FROM WorkstationOverview WHERE workstation_id = {WorkstationId}", 
                     sqlConnection);
@@ -62,6 +71,12 @@ namespace WorkstationSimulator
             }
         }
 
+        /// <summary>
+        /// Returns the time it will take, in seconds to build the fan the worker
+        /// is currently building.
+        /// Build time is calculated as follows:
+        /// buildTime = (defaultBuildTime +/- (defaultBuildTime * 0.1)) * employeeBuildSpeedModifier
+        /// </summary>
         public int CurrentFanBuildTime
         {
             get
@@ -86,7 +101,10 @@ namespace WorkstationSimulator
                 return buildTime;
             }
         }
-
+        /// <summary>
+        /// Returns a bool representing whether the workstation has enough parts present to build
+        /// a lamp.
+        /// </summary>
         public bool HasEnoughParts
         {
             get
@@ -104,10 +122,16 @@ namespace WorkstationSimulator
             }
         }
 
+        /// <summary>
+        /// Returns the current OrderSession, which is an object that
+        /// ties a Workstation to a larger order, and tracks it's contributions
+        /// to that Order.
+        /// </summary>
         public OrderSession CurrentOrderSession
         {
             get
             {
+                // If an OrderSession doesn't exist, create one.
                 if (!OrderSessionExists)
                 {
                     CreateSession();
@@ -132,7 +156,9 @@ namespace WorkstationSimulator
         }
 
         
-
+        /// <summary>
+        /// Checks whether an OrderSession currently exists for the Workstation.
+        /// </summary>
         private bool OrderSessionExists
         {
             get
@@ -155,6 +181,11 @@ namespace WorkstationSimulator
             }
         }
 
+        /// <summary>
+        /// Returns the current Order that the Workstation is contributing to.
+        /// null if an Order that can be contributed to does not exist.
+        /// It will automatically grab the first Order that is not complete.
+        /// </summary>
         public Order CurrentOrder
         {
             get
@@ -180,7 +211,27 @@ namespace WorkstationSimulator
             }
         }
 
+        public bool ShouldWarnRunner
+        {
+            get
+            {
+                bool result = false;
+                foreach (Bin bin in Bins)
+                {
+                    if (bin.Count <= RefillWarningAmount)
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+                return result;
+            }
+        }
 
+        /// <summary>
+        /// Returns the RefillWarningAmount, which is the point at which the runner is notified that a refill is required.
+        /// 
+        /// </summary>
         private int RefillWarningAmount
         {
             get

@@ -43,7 +43,15 @@ namespace WorkstationSimulator
                     continue;
                 }
                 simManager.FanTickCount += tickIncrement;
-                simManager.RefillTickCount += tickIncrement;
+
+                // This warns the runner that there are empty parts, beginning the incrementing of the
+                // refillTickCount. The idea is that the runner has only now begun their run to grab more parts,
+                // and there will be a 5 minute delay before they get the parts and drop them off, instead of instantly
+                // delivering parts to the worker every 5 minutes if they need them.
+                if (simManager.SimWorkstation.ShouldWarnRunner)
+                {
+                    simManager.RefillTickCount += tickIncrement;
+                }
 
                 Console.WriteLine($"\nWorkstation ID          : {simManager.SimWorkstation.WorkstationId}");
                 Console.WriteLine($"Current Order ID        : {simManager.SimWorkstation.CurrentOrder.OrderId}");
@@ -70,8 +78,7 @@ namespace WorkstationSimulator
                 }
                 if (simManager.RefillTickCount >= simManager.RefillInterval)
                 {
-                    Console.WriteLine("Refilled the bins!");
-
+                    Console.WriteLine("\nRefilled the bins!\n");
                     simManager.SimWorkstation.RefillBins();
                     simManager.RefillTickCount = 0;
                 }
