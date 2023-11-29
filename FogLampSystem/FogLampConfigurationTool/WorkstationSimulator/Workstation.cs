@@ -180,6 +180,28 @@ namespace WorkstationSimulator
             }
         }
 
+
+        private int RefillWarningAmount
+        {
+            get
+            {
+                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                SqlCommand cmd = new SqlCommand($"SELECT config_value FROM ConfigSettings WHERE config_key = 'system.refill_warning_amount'",
+                    sqlConnection);
+                
+                sqlConnection.Open();
+                object response = cmd.ExecuteScalar();
+                sqlConnection.Close();
+
+                if (!Int32.TryParse(response.ToString(), out int result))
+                {
+                    result = 0;
+                }
+
+                return result;
+            }
+        }
+
         public Workstation(int workstationId)
         {
             WorkstationId = workstationId;
@@ -189,15 +211,18 @@ namespace WorkstationSimulator
         {
             foreach (Bin bin in Bins)
             {
-                SqlConnection sqlConnection =
-                    new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
-                SqlCommand cmd = new SqlCommand("RefillBin", sqlConnection);
-                cmd.Parameters.Add(new SqlParameter("bin_id", SqlDbType.Int) { Value = bin.BinId });
-                cmd.CommandType = CommandType.StoredProcedure;
+                if (bin.Count < RefillWarningAmount)
+                {
+                    SqlConnection sqlConnection =
+                        new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                    SqlCommand cmd = new SqlCommand("RefillBin", sqlConnection);
+                    cmd.Parameters.Add(new SqlParameter("bin_id", SqlDbType.Int) { Value = bin.BinId });
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                sqlConnection.Open();
-                cmd.ExecuteNonQuery();
-                sqlConnection.Close();
+                    sqlConnection.Open();
+                    cmd.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
             }
         }
 

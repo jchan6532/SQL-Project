@@ -23,8 +23,6 @@ namespace WorkstationSimulator
             long elapsed = 0;
             
 
-            
-
             if (!simManager.SimWorkstation.HasEnoughParts)
             {
                 simManager.SimWorkstation.RefillBins();

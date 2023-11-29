@@ -106,5 +106,10 @@ namespace FogLampConfigurationTool
         {
             UpdateDataGridView();
         }
+
+        private void deletePrompt(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            e.Cancel = MessageBox.Show("Are you sure you want to delete that row?","Warning",MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No;
+        }
     }
 }

@@ -52,9 +52,3 @@ AS
 	UPDATE Bin
 	SET part_count = part_count - 1
 	WHERE @workstation_id = workstation_id
-EXECUTE BuildNewFan 1, 1
-
-EXECUTE BuildNewDefect 1,1
-
-
-CREATE PROCEDURE BuildNewDefect @workstation_id

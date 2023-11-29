@@ -1,11 +1,13 @@
 ﻿/*
-* FILE : ConfigToolForm.cs
-* PROJECT : PROG3070 - Gerritt Hooyer, Justin Chan
-* PROGRAMMER : Gerritt Hooyer, Justin Chan
-* FIRST VERSION : 2023-11-20
-* DESCRIPTION :
-* Adds functionality to the form for the config tool.
-*/
+ * FILE : ConfigToolForm.cs
+ * PROJECT : PROG3070 - Gerritt Hooyer, Justin Chan
+ * PROGRAMMER : Gerritt Hooyer, Justin Chan
+ * FIRST VERSION : 2023-11-20
+ * DESCRIPTION :
+ * Adds functionality to the form for the config tool.
+ */
+
+using System.Windows.Forms;
 
 namespace FogLampConfigurationTool
 {
@@ -59,9 +61,11 @@ namespace FogLampConfigurationTool
             this.configTableDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.configTableDataGridView.Size = new System.Drawing.Size(337, 369);
             this.configTableDataGridView.TabIndex = 0;
+            this.configTableDataGridView.UserDeletingRow += new DataGridViewRowCancelEventHandler(this.deletePrompt);
             // 
             // saveButton
             // 
+            this.saveButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.saveButton.Location = new System.Drawing.Point(13, 405);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(171, 26);
@@ -72,6 +76,7 @@ namespace FogLampConfigurationTool
             // 
             // refreshButton
             // 
+            this.refreshButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.refreshButton.Location = new System.Drawing.Point(190, 405);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(160, 26);
@@ -107,7 +112,6 @@ namespace FogLampConfigurationTool
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.configTableDataGridView);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "ConfigToolForm";
             this.Text = "Kanban System Configuration Tool";
