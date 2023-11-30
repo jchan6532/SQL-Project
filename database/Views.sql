@@ -9,13 +9,9 @@
 
 CREATE VIEW WorkstationOverview
 AS
-SELECT        dbo.Workstation.workstation_id, dbo.Workstation.employee_id, dbo.Employee.employee_name, dbo.EmployeeType.type_name AS employee_type, dbo.Workstation.lamps_built, dbo.Workstation.defects, dbo.Part.part_name, 
-                         dbo.Bin.part_count
-FROM            dbo.Workstation INNER JOIN
-                         dbo.Employee ON dbo.Workstation.employee_id = dbo.Employee.employee_id INNER JOIN
-                         dbo.EmployeeType ON dbo.Employee.employee_type = dbo.EmployeeType.type_id INNER JOIN
-                         dbo.Bin ON dbo.Workstation.workstation_id = dbo.Bin.workstation_id INNER JOIN
-                         dbo.Part ON dbo.Bin.part_id = dbo.Part.part_id
+SELECT workstation_id, Workstation.employee_id, employee_name, employee_type, lamps_built, defects, (CAST(defects AS FLOAT) / CAST(lamps_built AS FLOAT) ) AS defect_rate
+FROM Workstation
+JOIN Employee ON Workstation.employee_id = Employee.employee_id
 GO
 
 CREATE VIEW BinOverview

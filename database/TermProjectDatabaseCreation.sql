@@ -43,7 +43,7 @@ CREATE TABLE Workstation (
 )
 
 CREATE TABLE Bin (
-	bin_id INT PRIMARY KEY IDENTITY (1,1),
+	bin_id INT PRIMARY KEY IDENTITY (1,1) NOT NULL,
 	part_id INT FOREIGN KEY REFERENCES Part(part_id) NOT NULL,
 	workstation_id INT FOREIGN KEY REFERENCES Workstation(workstation_id) NOT NULL,
 	part_count INT NOT NULL DEFAULT 0
@@ -51,18 +51,19 @@ CREATE TABLE Bin (
 
 CREATE TABLE LampOrder
 (
-	order_id INT PRIMARY KEY IDENTITY(1,1),
-	order_amount INT DEFAULT 0 CHECK (order_amount > 0),
-	order_fulfilled INT DEFAULT 0 CHECK (order_fulfilled >= 0),
-	defects INT DEFAULT 0 CHECK (defects >= 0)
+	order_id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	order_amount INT DEFAULT 0 CHECK (order_amount > 0) NOT NULL,
+	order_fulfilled INT DEFAULT 0 CHECK (order_fulfilled >= 0) NOT NULL,
+	defects INT DEFAULT 0 CHECK (defects >= 0) NOT NULL
 )
 
 CREATE TABLE WorkstationSession
 (
-	workstation_id INT FOREIGN KEY REFERENCES Workstation(workstation_id),
-	order_id INT FOREIGN KEY REFERENCES LampOrder(order_id),
+	workstation_id INT FOREIGN KEY REFERENCES Workstation(workstation_id) NOT NULL,
+	order_id INT FOREIGN KEY REFERENCES LampOrder(order_id) NOT NULL,
 	lamps_built INT DEFAULT 0 CHECK (lamps_built >= 0),
-	defects INT DEFAULT 0 CHECK (defects >= 0)
+	defects INT DEFAULT 0 CHECK (defects >= 0),
+	PRIMARY KEY (workstation_id, order_id)
 )
 
 -- Add our employee types

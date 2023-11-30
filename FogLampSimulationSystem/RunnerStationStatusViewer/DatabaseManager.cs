@@ -43,7 +43,7 @@ namespace RunnerStationStatusViewer
             SqlConnection sqlConnection = new SqlConnection(ConnectionString);
             SqlCommand cmd =
                 new SqlCommand(
-                    "SELECT part_count FROM WorkstationOverview WHERE part_name = @part_name AND workstation_id = @workstation_id", sqlConnection);
+                    "SELECT part_count FROM BinOverview WHERE part_name = @part_name AND workstation_id = @workstation_id", sqlConnection);
             cmd.Parameters.Add(new SqlParameter("part_name", SqlDbType.NVarChar) { Value = partName });
             cmd.Parameters.Add(new SqlParameter("workstation_id", SqlDbType.Int) { Value = workstationId });
             sqlConnection.Open();
@@ -154,7 +154,7 @@ namespace RunnerStationStatusViewer
         {
             SqlConnection sqlConnection = new SqlConnection(ConnectionString);
             SqlCommand cmd = new SqlCommand(
-                "SELECT * FROM WorkstationOverview WHERE workstation_id = @workstation_id", sqlConnection);
+                "SELECT * FROM BinOverview WHERE workstation_id = @workstation_id", sqlConnection);
             cmd.Parameters.Add(new SqlParameter("workstation_id", SqlDbType.Int) { Value = id });
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 

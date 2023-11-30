@@ -107,7 +107,7 @@ namespace RunnerStationStatusViewer
             {
                 color = Color.FromArgb(255, 255, 128);
             }
-            else if (count < binSize)
+            else if (count <= binSize)
             {
                 color = Color.FromArgb(128, 255, 128);
             }
