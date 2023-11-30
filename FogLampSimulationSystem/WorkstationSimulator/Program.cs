@@ -34,6 +34,7 @@ namespace WorkstationSimulator
                 }
                 SimulationManager simManager = new SimulationManager(workstationId);
                 Random rand = new Random();
+                
 
                 while (!Console.KeyAvailable)
                 {
@@ -62,16 +63,17 @@ namespace WorkstationSimulator
             }
             if (simManager.FanTickCount >= simManager.SimWorkstation.CurrentFanBuildTime)
             {
-                float defectCheck = (float)rand.NextDouble();
+                float defectCheck = (float)rand.NextDouble() * (1 + simManager.SimWorkstation.WorkstationEmployee.DefectRateModifier);
+
                 if (simManager.SimWorkstation.HasEnoughParts)
                 {
-                    if (simManager.SimWorkstation.WorkstationEmployee.DefectRateModifier < defectCheck)
+                    if (defectCheck > 1)
                     {
-                        simManager.SimWorkstation.BuildLamp();
+                        simManager.SimWorkstation.BuildDefect();
                     }
                     else
                     {
-                        simManager.SimWorkstation.BuildDefect();
+                        simManager.SimWorkstation.BuildLamp();
                     }
                 }
                 simManager.FanTickCount = 0;

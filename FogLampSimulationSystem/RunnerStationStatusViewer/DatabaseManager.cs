@@ -130,13 +130,17 @@ namespace RunnerStationStatusViewer
             return warning;
         }
 
-        public bool GetWarningMessage(out string message)
+        public bool GetWarningMessage(int workstationId,out string message)
         {
             List<int> workstationIds = GetWorkstationIds();
             bool result = false;
             message = string.Empty;
             foreach (int id in workstationIds)
             {
+                if (id == workstationId)
+                {
+                    continue;
+                }
                 result = CheckForWarning(id, out message);
                 if (result)
                 {
