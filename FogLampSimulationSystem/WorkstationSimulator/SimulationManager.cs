@@ -1,10 +1,24 @@
-﻿using System;
+﻿/*
+* FILE : SimulationManager.cs
+* PROJECT : PROG3070 - Gerritt Hooyer, Justin Chan
+* PROGRAMMER : Gerritt Hooyer, Justin Chan
+* FIRST VERSION : 2023-11-20
+* DESCRIPTION :
+* Retrieves information related to the simulation from the database via custom gets on it's properties.
+* Can be initialized to simulate a runner or workstation w/ employee.
+*/
+using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Threading;
 
 namespace WorkstationSimulator
 {
+    /*
+    * CLASS: SimulationManager
+    * DESCRIPTION: Retrieves information related to the simulation from the database via custom gets on it's properties.
+    * Can be initialized to simulate a runner or workstation w/ employee.
+    */
     internal class SimulationManager
     {
         public int TickRate

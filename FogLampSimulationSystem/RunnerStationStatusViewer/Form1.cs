@@ -17,12 +17,10 @@ namespace RunnerStationStatusViewer
     public partial class Form1 : Form
     {
         private DatabaseManager dbManager;
-        private int selectedWorkstation = 1;
         private bool playedVoice = false;
         private long elapsed = 0;
         private bool voiceEnabled = true;
         private object lockObj;
-        private bool debugMode = false;
         private delegate void uiDelegate();
         
         public Form1()
@@ -39,13 +37,7 @@ namespace RunnerStationStatusViewer
             SetPartsCountLabels();
             SetLegendLabels();
             SetWarningMessage();
-            SetDebugVisibility();
             Task.Run(UpdateGUI);
-        }
-
-        private void SetDebugVisibility()
-        {
-            disableVoiceToolStripMenuItem.Visible = bool.Parse(ConfigurationManager.AppSettings["EnableDebugMode"]);
         }
 
         private void SetLegendLabels()
@@ -125,14 +117,9 @@ namespace RunnerStationStatusViewer
             {
                 count = binSize;
             }
-            if (progressBar.Value != count)
-            {
-                progressBar.ForeColor = color;
-                progressBar.Maximum = binSize;
-                progressBar.Value = count;
-                progressBar.Invalidate();
-            }
-            
+            progressBar.ForeColor = color;
+            progressBar.Maximum = binSize;
+            progressBar.Value = count;
         }
 
         private void SetWarningMessage()

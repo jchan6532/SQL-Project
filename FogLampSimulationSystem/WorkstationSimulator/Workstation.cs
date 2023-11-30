@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+* FILE : Workstation.cs
+* PROJECT : PROG3070 - Gerritt Hooyer, Justin Chan
+* PROGRAMMER : Gerritt Hooyer, Justin Chan
+* FIRST VERSION : 2023-11-20
+* DESCRIPTION :
+* Includes the class that allows us to simulate a single workstation.
+*/
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,8 +21,19 @@ namespace WorkstationSimulator
      */
     internal class Workstation
     {
+        public Workstation(int workstationId)
+        {
+            WorkstationId = workstationId;
+        }
 
+        /// <summary>
+        /// The ID of the Workstation as it appears in the DB.
+        /// </summary>
         public int WorkstationId { get; set; }
+
+        /// <summary>
+        /// A list of Bin objects that are associated w/ this workstation.
+        /// </summary>
         public List<Bin> Bins
         {
             get
@@ -209,23 +228,6 @@ namespace WorkstationSimulator
             }
         }
 
-        public bool ShouldWarnRunner
-        {
-            get
-            {
-                bool result = false;
-                foreach (Bin bin in Bins)
-                {
-                    if (bin.Count <= RefillWarningAmount)
-                    {
-                        result = true;
-                        break;
-                    }
-                }
-                return result;
-            }
-        }
-
         /// <summary>
         /// Returns the RefillWarningAmount, which is the point at which the runner is notified that a refill is required.
         /// 
@@ -251,11 +253,9 @@ namespace WorkstationSimulator
             }
         }
 
-        public Workstation(int workstationId)
-        {
-            WorkstationId = workstationId;
-        }
-
+        /// <summary>
+        /// Refills all of the bins that are below the refill threshold at this workstation.
+        /// </summary>
         public void RefillBins()
         {
             foreach (Bin bin in Bins)
@@ -276,8 +276,14 @@ namespace WorkstationSimulator
             }
         }
 
+        /// <summary>
+        /// Builds a single lamp. Will increment the counts in the required tables and decrement the parts
+        /// from the Bin table that are associated w/ the workstation.
+        /// </summary>
         public void BuildLamp()
         {
+            // The bulk of the work here is handled by a stored procedure, we need only provide it the
+            // order ID and the workstation ID
             SqlConnection sqlConnection =
                 new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
             SqlCommand cmd = new SqlCommand("BuildNewFan", sqlConnection);
@@ -290,8 +296,14 @@ namespace WorkstationSimulator
             sqlConnection.Close();
         }
 
+        /// <summary>
+        /// Builds a single defect. Will increment the counts in the required tables and decrement the parts
+        /// from the Bin table that are associated w/ the workstation.
+        /// </summary>
         public void BuildDefect()
         {
+            // The bulk of the work here is handled by a stored procedure, we need only provide it the
+            // order ID and the workstation ID
             SqlConnection sqlConnection =
                 new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
             SqlCommand cmd = new SqlCommand("BuildNewDefect", sqlConnection);
@@ -304,6 +316,10 @@ namespace WorkstationSimulator
             sqlConnection.Close();
         }
 
+        /// <summary>
+        /// Creates a new WorkstationSession so that this Workstation's contributions to the currently active order
+        /// are recorded.
+        /// </summary>
         private void CreateSession()
         {
             if (!OrderSessionExists)

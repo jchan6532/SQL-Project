@@ -33,6 +33,8 @@ namespace RunnerStationStatusViewer
         {
             this.binGroupBox = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.legendLabel3 = new System.Windows.Forms.Label();
             this.legendPanel3 = new System.Windows.Forms.Panel();
             this.legendLabel2 = new System.Windows.Forms.Label();
@@ -47,16 +49,22 @@ namespace RunnerStationStatusViewer
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.harnessPanel = new System.Windows.Forms.Panel();
+            this.harnessProgressBar = new RunnerStationStatusViewer.ColorableProgressBar();
             this.harnessCountLabel = new System.Windows.Forms.Label();
             this.lensPanel = new System.Windows.Forms.Panel();
+            this.lensProgressBar = new RunnerStationStatusViewer.ColorableProgressBar();
             this.lensCountLabel = new System.Windows.Forms.Label();
             this.bezelPanel = new System.Windows.Forms.Panel();
+            this.bezelProgressBar = new RunnerStationStatusViewer.ColorableProgressBar();
             this.bezelCountLabel = new System.Windows.Forms.Label();
             this.reflectorPanel = new System.Windows.Forms.Panel();
+            this.reflectorProgressBar = new RunnerStationStatusViewer.ColorableProgressBar();
             this.reflectorCountLabel = new System.Windows.Forms.Label();
             this.bulbPanel = new System.Windows.Forms.Panel();
+            this.bulbProgressBar = new RunnerStationStatusViewer.ColorableProgressBar();
             this.bulbCountLabel = new System.Windows.Forms.Label();
             this.housingPanel = new System.Windows.Forms.Panel();
+            this.housingProgressBar = new RunnerStationStatusViewer.ColorableProgressBar();
             this.housingCountLabel = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.warningLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -66,14 +74,6 @@ namespace RunnerStationStatusViewer
             this.refreshWorkstationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableVoiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.workstationComboBox = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.harnessProgressBar = new RunnerStationStatusViewer.ColorableProgressBar();
-            this.lensProgressBar = new RunnerStationStatusViewer.ColorableProgressBar();
-            this.bezelProgressBar = new RunnerStationStatusViewer.ColorableProgressBar();
-            this.reflectorProgressBar = new RunnerStationStatusViewer.ColorableProgressBar();
-            this.bulbProgressBar = new RunnerStationStatusViewer.ColorableProgressBar();
-            this.housingProgressBar = new RunnerStationStatusViewer.ColorableProgressBar();
             this.binGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -96,7 +96,7 @@ namespace RunnerStationStatusViewer
             this.binGroupBox.Controls.Add(this.panel8);
             this.binGroupBox.Location = new System.Drawing.Point(10, 49);
             this.binGroupBox.Name = "binGroupBox";
-            this.binGroupBox.Size = new System.Drawing.Size(446, 261);
+            this.binGroupBox.Size = new System.Drawing.Size(768, 401);
             this.binGroupBox.TabIndex = 0;
             this.binGroupBox.TabStop = false;
             this.binGroupBox.Text = "Parts Bin Status";
@@ -111,12 +111,30 @@ namespace RunnerStationStatusViewer
             this.groupBox1.Controls.Add(this.legendPanel2);
             this.groupBox1.Controls.Add(this.legendLabel1);
             this.groupBox1.Controls.Add(this.legendPanel1);
-            this.groupBox1.Location = new System.Drawing.Point(319, 19);
+            this.groupBox1.Location = new System.Drawing.Point(638, 19);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(121, 140);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Legend";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(28, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Overfilled";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Location = new System.Drawing.Point(6, 20);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(17, 18);
+            this.panel1.TabIndex = 6;
             // 
             // legendLabel3
             // 
@@ -188,14 +206,14 @@ namespace RunnerStationStatusViewer
             this.panel8.Controls.Add(this.housingPanel);
             this.panel8.Location = new System.Drawing.Point(5, 19);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(309, 234);
+            this.panel8.Size = new System.Drawing.Size(627, 376);
             this.panel8.TabIndex = 7;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label10.Location = new System.Drawing.Point(235, 119);
+            this.label10.Location = new System.Drawing.Point(445, 18);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(46, 21);
             this.label10.TabIndex = 12;
@@ -205,7 +223,7 @@ namespace RunnerStationStatusViewer
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label11.Location = new System.Drawing.Point(132, 119);
+            this.label11.Location = new System.Drawing.Point(133, 139);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(41, 21);
             this.label11.TabIndex = 11;
@@ -215,7 +233,7 @@ namespace RunnerStationStatusViewer
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label12.Location = new System.Drawing.Point(33, 119);
+            this.label12.Location = new System.Drawing.Point(132, 251);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(42, 21);
             this.label12.TabIndex = 10;
@@ -225,7 +243,7 @@ namespace RunnerStationStatusViewer
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label9.Location = new System.Drawing.Point(225, 9);
+            this.label9.Location = new System.Drawing.Point(434, 137);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(68, 21);
             this.label9.TabIndex = 9;
@@ -235,7 +253,7 @@ namespace RunnerStationStatusViewer
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label8.Location = new System.Drawing.Point(120, 9);
+            this.label8.Location = new System.Drawing.Point(430, 251);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(72, 21);
             this.label8.TabIndex = 8;
@@ -245,7 +263,7 @@ namespace RunnerStationStatusViewer
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label7.Location = new System.Drawing.Point(23, 9);
+            this.label7.Location = new System.Drawing.Point(118, 18);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(66, 21);
             this.label7.TabIndex = 7;
@@ -257,18 +275,29 @@ namespace RunnerStationStatusViewer
             this.harnessPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.harnessPanel.Controls.Add(this.harnessProgressBar);
             this.harnessPanel.Controls.Add(this.harnessCountLabel);
-            this.harnessPanel.Location = new System.Drawing.Point(9, 32);
+            this.harnessPanel.Location = new System.Drawing.Point(9, 42);
             this.harnessPanel.Name = "harnessPanel";
-            this.harnessPanel.Size = new System.Drawing.Size(86, 87);
+            this.harnessPanel.Size = new System.Drawing.Size(290, 87);
             this.harnessPanel.TabIndex = 0;
+            // 
+            // harnessProgressBar
+            // 
+            this.harnessProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.harnessProgressBar.Location = new System.Drawing.Point(-1, -1);
+            this.harnessProgressBar.Name = "harnessProgressBar";
+            this.harnessProgressBar.Size = new System.Drawing.Size(290, 52);
+            this.harnessProgressBar.TabIndex = 2;
             // 
             // harnessCountLabel
             // 
+            this.harnessCountLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.harnessCountLabel.BackColor = System.Drawing.Color.Transparent;
             this.harnessCountLabel.Font = new System.Drawing.Font("Segoe UI", 16F);
             this.harnessCountLabel.Location = new System.Drawing.Point(-1, 54);
             this.harnessCountLabel.Name = "harnessCountLabel";
-            this.harnessCountLabel.Size = new System.Drawing.Size(86, 31);
+            this.harnessCountLabel.Size = new System.Drawing.Size(290, 31);
             this.harnessCountLabel.TabIndex = 1;
             this.harnessCountLabel.Text = "--";
             this.harnessCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -279,17 +308,28 @@ namespace RunnerStationStatusViewer
             this.lensPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lensPanel.Controls.Add(this.lensProgressBar);
             this.lensPanel.Controls.Add(this.lensCountLabel);
-            this.lensPanel.Location = new System.Drawing.Point(9, 140);
+            this.lensPanel.Location = new System.Drawing.Point(12, 274);
             this.lensPanel.Name = "lensPanel";
-            this.lensPanel.Size = new System.Drawing.Size(86, 87);
+            this.lensPanel.Size = new System.Drawing.Size(287, 87);
             this.lensPanel.TabIndex = 2;
+            // 
+            // lensProgressBar
+            // 
+            this.lensProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lensProgressBar.Location = new System.Drawing.Point(-1, 0);
+            this.lensProgressBar.Name = "lensProgressBar";
+            this.lensProgressBar.Size = new System.Drawing.Size(287, 52);
+            this.lensProgressBar.TabIndex = 5;
             // 
             // lensCountLabel
             // 
+            this.lensCountLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lensCountLabel.Font = new System.Drawing.Font("Segoe UI", 16F);
             this.lensCountLabel.Location = new System.Drawing.Point(-1, 54);
             this.lensCountLabel.Name = "lensCountLabel";
-            this.lensCountLabel.Size = new System.Drawing.Size(86, 31);
+            this.lensCountLabel.Size = new System.Drawing.Size(287, 31);
             this.lensCountLabel.TabIndex = 1;
             this.lensCountLabel.Text = "--";
             this.lensCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -300,17 +340,28 @@ namespace RunnerStationStatusViewer
             this.bezelPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.bezelPanel.Controls.Add(this.bezelProgressBar);
             this.bezelPanel.Controls.Add(this.bezelCountLabel);
-            this.bezelPanel.Location = new System.Drawing.Point(213, 140);
+            this.bezelPanel.Location = new System.Drawing.Point(326, 42);
             this.bezelPanel.Name = "bezelPanel";
-            this.bezelPanel.Size = new System.Drawing.Size(86, 87);
+            this.bezelPanel.Size = new System.Drawing.Size(287, 87);
             this.bezelPanel.TabIndex = 6;
+            // 
+            // bezelProgressBar
+            // 
+            this.bezelProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bezelProgressBar.Location = new System.Drawing.Point(-1, -1);
+            this.bezelProgressBar.Name = "bezelProgressBar";
+            this.bezelProgressBar.Size = new System.Drawing.Size(287, 52);
+            this.bezelProgressBar.TabIndex = 7;
             // 
             // bezelCountLabel
             // 
+            this.bezelCountLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.bezelCountLabel.Font = new System.Drawing.Font("Segoe UI", 16F);
             this.bezelCountLabel.Location = new System.Drawing.Point(-1, 54);
             this.bezelCountLabel.Name = "bezelCountLabel";
-            this.bezelCountLabel.Size = new System.Drawing.Size(86, 31);
+            this.bezelCountLabel.Size = new System.Drawing.Size(287, 31);
             this.bezelCountLabel.TabIndex = 1;
             this.bezelCountLabel.Text = "--";
             this.bezelCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -321,17 +372,28 @@ namespace RunnerStationStatusViewer
             this.reflectorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.reflectorPanel.Controls.Add(this.reflectorProgressBar);
             this.reflectorPanel.Controls.Add(this.reflectorCountLabel);
-            this.reflectorPanel.Location = new System.Drawing.Point(109, 32);
+            this.reflectorPanel.Location = new System.Drawing.Point(326, 274);
             this.reflectorPanel.Name = "reflectorPanel";
-            this.reflectorPanel.Size = new System.Drawing.Size(86, 87);
+            this.reflectorPanel.Size = new System.Drawing.Size(287, 87);
             this.reflectorPanel.TabIndex = 3;
+            // 
+            // reflectorProgressBar
+            // 
+            this.reflectorProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.reflectorProgressBar.Location = new System.Drawing.Point(-1, -1);
+            this.reflectorProgressBar.Name = "reflectorProgressBar";
+            this.reflectorProgressBar.Size = new System.Drawing.Size(287, 52);
+            this.reflectorProgressBar.TabIndex = 3;
             // 
             // reflectorCountLabel
             // 
+            this.reflectorCountLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.reflectorCountLabel.Font = new System.Drawing.Font("Segoe UI", 16F);
             this.reflectorCountLabel.Location = new System.Drawing.Point(-1, 54);
             this.reflectorCountLabel.Name = "reflectorCountLabel";
-            this.reflectorCountLabel.Size = new System.Drawing.Size(86, 31);
+            this.reflectorCountLabel.Size = new System.Drawing.Size(287, 31);
             this.reflectorCountLabel.TabIndex = 1;
             this.reflectorCountLabel.Text = "--";
             this.reflectorCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -342,17 +404,28 @@ namespace RunnerStationStatusViewer
             this.bulbPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.bulbPanel.Controls.Add(this.bulbProgressBar);
             this.bulbPanel.Controls.Add(this.bulbCountLabel);
-            this.bulbPanel.Location = new System.Drawing.Point(109, 140);
+            this.bulbPanel.Location = new System.Drawing.Point(12, 163);
             this.bulbPanel.Name = "bulbPanel";
-            this.bulbPanel.Size = new System.Drawing.Size(86, 87);
+            this.bulbPanel.Size = new System.Drawing.Size(287, 87);
             this.bulbPanel.TabIndex = 5;
+            // 
+            // bulbProgressBar
+            // 
+            this.bulbProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bulbProgressBar.Location = new System.Drawing.Point(-1, -1);
+            this.bulbProgressBar.Name = "bulbProgressBar";
+            this.bulbProgressBar.Size = new System.Drawing.Size(287, 52);
+            this.bulbProgressBar.TabIndex = 6;
             // 
             // bulbCountLabel
             // 
+            this.bulbCountLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.bulbCountLabel.Font = new System.Drawing.Font("Segoe UI", 16F);
             this.bulbCountLabel.Location = new System.Drawing.Point(-1, 54);
             this.bulbCountLabel.Name = "bulbCountLabel";
-            this.bulbCountLabel.Size = new System.Drawing.Size(86, 31);
+            this.bulbCountLabel.Size = new System.Drawing.Size(287, 31);
             this.bulbCountLabel.TabIndex = 1;
             this.bulbCountLabel.Text = "--";
             this.bulbCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -363,17 +436,28 @@ namespace RunnerStationStatusViewer
             this.housingPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.housingPanel.Controls.Add(this.housingProgressBar);
             this.housingPanel.Controls.Add(this.housingCountLabel);
-            this.housingPanel.Location = new System.Drawing.Point(213, 32);
+            this.housingPanel.Location = new System.Drawing.Point(326, 161);
             this.housingPanel.Name = "housingPanel";
-            this.housingPanel.Size = new System.Drawing.Size(86, 87);
+            this.housingPanel.Size = new System.Drawing.Size(287, 87);
             this.housingPanel.TabIndex = 4;
+            // 
+            // housingProgressBar
+            // 
+            this.housingProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.housingProgressBar.Location = new System.Drawing.Point(-1, -1);
+            this.housingProgressBar.Name = "housingProgressBar";
+            this.housingProgressBar.Size = new System.Drawing.Size(287, 52);
+            this.housingProgressBar.TabIndex = 4;
             // 
             // housingCountLabel
             // 
+            this.housingCountLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.housingCountLabel.Font = new System.Drawing.Font("Segoe UI", 16F);
             this.housingCountLabel.Location = new System.Drawing.Point(-1, 54);
             this.housingCountLabel.Name = "housingCountLabel";
-            this.housingCountLabel.Size = new System.Drawing.Size(86, 32);
+            this.housingCountLabel.Size = new System.Drawing.Size(287, 32);
             this.housingCountLabel.TabIndex = 1;
             this.housingCountLabel.Text = "--";
             this.housingCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -383,10 +467,10 @@ namespace RunnerStationStatusViewer
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.warningLabel,
             this.debugModeLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 313);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 453);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 12, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(466, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(788, 22);
             this.statusStrip1.TabIndex = 4;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -409,7 +493,7 @@ namespace RunnerStationStatusViewer
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(466, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(788, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -440,77 +524,17 @@ namespace RunnerStationStatusViewer
             // workstationComboBox
             // 
             this.workstationComboBox.FormattingEnabled = true;
-            this.workstationComboBox.Location = new System.Drawing.Point(10, 23);
+            this.workstationComboBox.Location = new System.Drawing.Point(10, 22);
             this.workstationComboBox.Name = "workstationComboBox";
             this.workstationComboBox.Size = new System.Drawing.Size(423, 21);
             this.workstationComboBox.TabIndex = 6;
             this.workstationComboBox.SelectedIndexChanged += new System.EventHandler(this.workstationComboBox_SelectedIndexChanged);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Overfilled";
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Location = new System.Drawing.Point(6, 20);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(17, 18);
-            this.panel1.TabIndex = 6;
-            // 
-            // harnessProgressBar
-            // 
-            this.harnessProgressBar.Location = new System.Drawing.Point(-1, -1);
-            this.harnessProgressBar.Name = "harnessProgressBar";
-            this.harnessProgressBar.Size = new System.Drawing.Size(86, 52);
-            this.harnessProgressBar.TabIndex = 2;
-            // 
-            // lensProgressBar
-            // 
-            this.lensProgressBar.Location = new System.Drawing.Point(-1, 0);
-            this.lensProgressBar.Name = "lensProgressBar";
-            this.lensProgressBar.Size = new System.Drawing.Size(86, 52);
-            this.lensProgressBar.TabIndex = 5;
-            // 
-            // bezelProgressBar
-            // 
-            this.bezelProgressBar.Location = new System.Drawing.Point(-1, -1);
-            this.bezelProgressBar.Name = "bezelProgressBar";
-            this.bezelProgressBar.Size = new System.Drawing.Size(86, 52);
-            this.bezelProgressBar.TabIndex = 7;
-            // 
-            // reflectorProgressBar
-            // 
-            this.reflectorProgressBar.Location = new System.Drawing.Point(-1, -1);
-            this.reflectorProgressBar.Name = "reflectorProgressBar";
-            this.reflectorProgressBar.Size = new System.Drawing.Size(86, 52);
-            this.reflectorProgressBar.TabIndex = 3;
-            // 
-            // bulbProgressBar
-            // 
-            this.bulbProgressBar.Location = new System.Drawing.Point(-1, -1);
-            this.bulbProgressBar.Name = "bulbProgressBar";
-            this.bulbProgressBar.Size = new System.Drawing.Size(86, 52);
-            this.bulbProgressBar.TabIndex = 6;
-            // 
-            // housingProgressBar
-            // 
-            this.housingProgressBar.Location = new System.Drawing.Point(-1, -1);
-            this.housingProgressBar.Name = "housingProgressBar";
-            this.housingProgressBar.Size = new System.Drawing.Size(86, 52);
-            this.housingProgressBar.TabIndex = 4;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(466, 335);
+            this.ClientSize = new System.Drawing.Size(788, 475);
             this.Controls.Add(this.workstationComboBox);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
