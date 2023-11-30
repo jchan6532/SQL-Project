@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace WorkstationSimulator
 {
@@ -11,94 +6,88 @@ namespace WorkstationSimulator
     {
         static void Main(string[] args)
         {
-
+            bool runnerMode = false;
             if (args.Length > 0)
             {
                 if (args[0] == "-runner")
                 {
-                    StartRunner();
+                    runnerMode = true;
+                }
+            }
+
+
+            if (runnerMode)
+            {
+                SimulationManager simManager = new SimulationManager();
+                while (!Console.KeyAvailable)
+                {
+                    TickRunner(simManager);
                 }
             }
             else
             {
-                StartWorkstation();
+                int workstationId = 0;
+                Console.Write("Enter your workstation ID: ");
+                if (!Int32.TryParse(Console.ReadLine(), out workstationId))
+                {
+                    return;
+                }
+                SimulationManager simManager = new SimulationManager(workstationId);
+                Random rand = new Random();
+
+                while (!Console.KeyAvailable)
+                {
+                    TickWorkstation(simManager, rand);
+                }
             }
         }
 
-        static void StartWorkstation()
+        static void TickWorkstation(SimulationManager simManager, Random rand)
         {
-            int workstationId = 0;
-            Console.Write("Enter your workstation ID: ");
-
-            if (!Int32.TryParse(Console.ReadLine(), out workstationId))
+            // Sleeps for the necessary amount of time based on tick rate and simulation speed
+            // Simulation speed is a multiplier, meaning that a Simulation Speed of 2 will run @ 2x
+            // realtime speed.
+            simManager.Sleep();
+            Console.WriteLine($"\nWorkstation ID          : {simManager.SimWorkstation.WorkstationId}");
+            // If there isn't an order, skip ticking the fan build timer forward
+            if (simManager.SimWorkstation.CurrentOrder != null)
             {
-                return;
-            }
-
-            SimulationManager simManager = new SimulationManager(workstationId);
-            Random rand = new Random();
-            long elapsed = 0;
-
-            while (!Console.KeyAvailable)
-            {
-                Console.WriteLine($"\nTime Elapsed: {elapsed}(s)");
-                int tickIncrement = 60 / simManager.TickRate;
-                elapsed += tickIncrement;
-                if (simManager.SimulationSpeed > 0)
-                {
-                    int sleepTime = (int)(tickIncrement * 1000 / simManager.SimulationSpeed);
-                    Thread.Sleep(sleepTime);
-                }
-                if (simManager.SimWorkstation.CurrentOrder == null)
-                {
-                    continue;
-                }
-                simManager.FanTickCount += tickIncrement;
-
-                // This warns the runner that there are empty parts, beginning the incrementing of the
-                // refillTickCount. The idea is that the runner has only now begun their run to grab more parts,
-                // and there will be a 5 minute delay before they get the parts and drop them off, instead of instantly
-                // delivering parts to the worker every 5 minutes if they need them.
-                if (simManager.SimWorkstation.ShouldWarnRunner)
-                {
-                    simManager.RefillTickCount += tickIncrement;
-                }
-
-                Console.WriteLine($"\nWorkstation ID          : {simManager.SimWorkstation.WorkstationId}");
+                simManager.FanTickCount += simManager.TickIncrement;
                 Console.WriteLine($"Current Order ID        : {simManager.SimWorkstation.CurrentOrder.OrderId}");
                 Console.WriteLine($"Current Order Fulfilled : {simManager.SimWorkstation.CurrentOrder.OrderFulfilled}");
                 Console.WriteLine($"Current Order Amount    : {simManager.SimWorkstation.CurrentOrder.OrderAmount}");
                 Console.WriteLine($"Current Order Session Lamps Built : {simManager.SimWorkstation.CurrentOrderSession.LampsBuilt}");
                 Console.WriteLine($"Current Order Session Defects Built : {simManager.SimWorkstation.CurrentOrderSession.DefectsBuilt}");
 
-                if (simManager.FanTickCount >= simManager.SimWorkstation.CurrentFanBuildTime)
+            }
+            if (simManager.FanTickCount >= simManager.SimWorkstation.CurrentFanBuildTime)
+            {
+                float defectCheck = (float)rand.NextDouble();
+                if (simManager.SimWorkstation.HasEnoughParts)
                 {
-                    float defectCheck = (float)rand.NextDouble();
-                    if (simManager.SimWorkstation.HasEnoughParts)
+                    if (simManager.SimWorkstation.WorkstationEmployee.DefectRateModifier < defectCheck)
                     {
-                        if (simManager.SimWorkstation.WorkstationEmployee.DefectRateModifier < defectCheck)
-                        {
-                            simManager.SimWorkstation.BuildLamp();
-                        }
-                        else
-                        {
-                            simManager.SimWorkstation.BuildDefect();
-                        }
+                        simManager.SimWorkstation.BuildLamp();
                     }
-                    simManager.FanTickCount = 0;
+                    else
+                    {
+                        simManager.SimWorkstation.BuildDefect();
+                    }
                 }
-                if (simManager.RefillTickCount >= simManager.RefillInterval)
-                {
-                    Console.WriteLine("\nRefilled the bins!\n");
-                    simManager.SimWorkstation.RefillBins();
-                    simManager.RefillTickCount = 0;
-                }
+                simManager.FanTickCount = 0;
+            }
+        }
+        static void TickRunner(SimulationManager simManager)
+        {
+            simManager.Sleep();
+            simManager.RefillTickCount += simManager.TickIncrement;
+            if (simManager.RefillTickCount >= simManager.RefillInterval)
+            {
+                simManager.SimRunner.RefillBins();
+                simManager.RefillTickCount = 0;
             }
         }
 
-        static void StartRunner()
-        {
-
-        }
     }
 }
+

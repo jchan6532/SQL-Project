@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace WorkstationSimulator
 {
@@ -27,16 +24,18 @@ namespace WorkstationSimulator
 
                 if (response != null)
                 {
-                    Int32.TryParse((string)response,out tickRate);
+                    Int32.TryParse((string)response, out tickRate);
                 }
 
                 return tickRate;
             }
-        } 
+        }
 
-        public int RefillInterval {
+        public int RefillInterval
+        {
             // Time interval (# of seconds) between each refill
-            get {
+            get
+            {
                 SqlConnection sqlConnection =
                     new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
                 SqlCommand cmd =
@@ -45,7 +44,7 @@ namespace WorkstationSimulator
                 int refillInterval = 300;
 
                 sqlConnection.Open();
-                object response =  cmd.ExecuteScalar();
+                object response = cmd.ExecuteScalar();
                 sqlConnection.Close();
 
                 if (response != null)
@@ -56,7 +55,8 @@ namespace WorkstationSimulator
             }
         }
 
-        public float SimulationSpeed {
+        public float SimulationSpeed
+        {
             get
             {
                 SqlConnection sqlConnection =
@@ -71,21 +71,39 @@ namespace WorkstationSimulator
                 sqlConnection.Close();
 
                 if (response != null)
-                { 
-                    float.TryParse((string)response,out simSpeed);
+                {
+                    float.TryParse((string)response, out simSpeed);
                 }
                 return simSpeed;
             }
         }
 
-        public int FanTickCount { 
-            get; 
+        public int FanTickCount
+        {
+            get;
             set;
         }
 
         public int RefillTickCount
         {
-            get; 
+            get;
+            set;
+        }
+
+        public int TickIncrement
+        {
+            get
+            {
+                int tickIncrement = 60 / TickRate;
+                return tickIncrement;
+            }
+        }
+
+        public int ElapsedTime { get; set; }
+
+        public Runner SimRunner
+        {
+            get;
             set;
         }
 
@@ -97,14 +115,28 @@ namespace WorkstationSimulator
         public SimulationManager(int workstationId)
         {
             FanTickCount = 0;
+            RefillTickCount = 0;
             SimWorkstation = new Workstation(workstationId);
         }
 
         public SimulationManager()
         {
             RefillTickCount = 0;
+            FanTickCount = 0;
+            SimRunner = new Runner();
         }
 
+        public void Sleep()
+        {
+            if (SimulationSpeed > 0)
+            {
+                int sleepTime = (int)(TickIncrement * 1000 / SimulationSpeed);
+                Thread.Sleep(sleepTime);
+            }
+            ElapsedTime += TickIncrement;
+
+            Console.WriteLine($"Elapsed Time: {ElapsedTime}(s)");
+        }
 
     }
 }

@@ -7,9 +7,9 @@
 * Retrieves and updates data in the ConfigSettings table of the database.
 */
 
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
 
 namespace FogLampConfigurationTool
 {
@@ -39,14 +39,14 @@ namespace FogLampConfigurationTool
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
 
             // Create SQL command
-            SqlCommand command = new SqlCommand(cmd_str,conn);
+            SqlCommand command = new SqlCommand(cmd_str, conn);
 
             // Create SQL adapter for data manipulation
             SqlDataAdapter adapter = new SqlDataAdapter();
 
             // Set the adapter's select command
             adapter.SelectCommand = command;
-            
+
             // Open the connection
             conn.Open();
 
@@ -69,7 +69,7 @@ namespace FogLampConfigurationTool
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
 
             // Create SQL adapter
-            SqlDataAdapter adapter = new SqlDataAdapter($"SELECT * FROM { ConfigurationManager.AppSettings["ConfigTable"] }",conn);
+            SqlDataAdapter adapter = new SqlDataAdapter($"SELECT * FROM {ConfigurationManager.AppSettings["ConfigTable"]}", conn);
 
             // Create SQL builder
             SqlCommandBuilder builder = new SqlCommandBuilder(adapter);

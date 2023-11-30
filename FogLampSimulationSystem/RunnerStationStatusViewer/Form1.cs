@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -155,8 +151,8 @@ namespace RunnerStationStatusViewer
                 {
                     playedBeep = false;
                 }
-                // Update the UI every 5 seconds.
-                if (elapsed % 5000 == 0)
+                // Update the UI every 1 seconds.
+                if (elapsed % 500 == 0)
                 {
                     lock (lockObj)
                     {

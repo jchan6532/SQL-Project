@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WorkstationSimulator
 {
@@ -20,7 +15,10 @@ namespace WorkstationSimulator
     {
 
         public int WorkstationId { get; set; }
-        public List<Bin> Bins { get {
+        public List<Bin> Bins
+        {
+            get
+            {
                 // Create a list of bins and use a SQL statement to select all of the relevant bin information.
                 List<Bin> bins = new List<Bin>();
                 SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
@@ -35,13 +33,13 @@ namespace WorkstationSimulator
                     bin.BinId = reader.GetInt32(0);
                     bin.PartName = reader.GetString(1);
                     bin.Count = reader.GetInt32(2);
-                    bin.RefillAmount = reader.GetInt32(3); 
+                    bin.RefillAmount = reader.GetInt32(3);
                     // Add the new bin to the bin list
                     bins.Add(bin);
                 }
                 sqlConnection.Close();
                 return bins;
-            } 
+            }
         }
 
         /// <summary>
@@ -54,7 +52,7 @@ namespace WorkstationSimulator
                 // Create objects
                 Employee employee = null;
                 SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
-                SqlCommand cmd = new SqlCommand($"SELECT TOP 1 employee_id FROM WorkstationOverview WHERE workstation_id = {WorkstationId}", 
+                SqlCommand cmd = new SqlCommand($"SELECT TOP 1 employee_id FROM WorkstationOverview WHERE workstation_id = {WorkstationId}",
                     sqlConnection);
 
                 sqlConnection.Open();
@@ -114,7 +112,7 @@ namespace WorkstationSimulator
                 {
                     if (bin.Count == 0)
                     {
-                        hasParts = false; 
+                        hasParts = false;
                         break;
                     }
                 }
@@ -155,7 +153,7 @@ namespace WorkstationSimulator
             }
         }
 
-        
+
         /// <summary>
         /// Checks whether an OrderSession currently exists for the Workstation.
         /// </summary>
@@ -239,7 +237,7 @@ namespace WorkstationSimulator
                 SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT config_value FROM ConfigSettings WHERE config_key = 'system.refill_warning_amount'",
                     sqlConnection);
-                
+
                 sqlConnection.Open();
                 object response = cmd.ExecuteScalar();
                 sqlConnection.Close();
@@ -262,7 +260,7 @@ namespace WorkstationSimulator
         {
             foreach (Bin bin in Bins)
             {
-                if (bin.Count < RefillWarningAmount)
+                if (bin.Count <= RefillWarningAmount)
                 {
                     SqlConnection sqlConnection =
                         new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
@@ -270,6 +268,7 @@ namespace WorkstationSimulator
                     cmd.Parameters.Add(new SqlParameter("bin_id", SqlDbType.Int) { Value = bin.BinId });
                     cmd.CommandType = CommandType.StoredProcedure;
 
+                    Console.WriteLine($"Refilled Workstation {WorkstationId}'s {bin.PartName} bin.");
                     sqlConnection.Open();
                     cmd.ExecuteNonQuery();
                     sqlConnection.Close();

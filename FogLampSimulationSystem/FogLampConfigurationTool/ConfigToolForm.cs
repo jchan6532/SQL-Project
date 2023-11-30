@@ -7,13 +7,7 @@
 * Adds functionality to the form for the config tool.
 */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FogLampConfigurationTool
@@ -44,7 +38,7 @@ namespace FogLampConfigurationTool
         /// <param name="e">event arguments</param>
         private void ConfigToolForm_Load(object sender, EventArgs e)
         {
-            
+
             try
             {
                 UpdateDataGridView();
@@ -73,7 +67,7 @@ namespace FogLampConfigurationTool
             try
             {
                 UpdateDataGridView();
-                MessageBox.Show("Configuration table refreshed.","Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Configuration table refreshed.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -96,7 +90,7 @@ namespace FogLampConfigurationTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -109,7 +103,7 @@ namespace FogLampConfigurationTool
 
         private void deletePrompt(object sender, DataGridViewRowCancelEventArgs e)
         {
-            e.Cancel = MessageBox.Show("Are you sure you want to delete that row?","Warning",MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No;
+            e.Cancel = MessageBox.Show("Are you sure you want to delete that row?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No;
         }
     }
 }

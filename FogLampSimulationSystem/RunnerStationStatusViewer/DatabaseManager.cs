@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RunnerStationStatusViewer
 {
@@ -24,7 +21,7 @@ namespace RunnerStationStatusViewer
             DataTable workstationTable = new DataTable();
 
             SqlConnection sqlConnection = new SqlConnection(ConnectionString);
-            SqlCommand cmd = new SqlCommand("SELECT DISTINCT workstation_id, employee_id, employee_name FROM WorkstationOverview",sqlConnection);
+            SqlCommand cmd = new SqlCommand("SELECT DISTINCT workstation_id, employee_id, employee_name FROM WorkstationOverview", sqlConnection);
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 
             sqlConnection.Open();
@@ -35,7 +32,7 @@ namespace RunnerStationStatusViewer
             {
                 string workstationName =
                     $"Workstation {row.ItemArray[0].ToString()} ( ID : {row.ItemArray[1]} | {row.ItemArray[2]} )";
-                workstations.Add((int)row.ItemArray[0],workstationName);
+                workstations.Add((int)row.ItemArray[0], workstationName);
             }
 
             return workstations;
@@ -46,9 +43,9 @@ namespace RunnerStationStatusViewer
             SqlConnection sqlConnection = new SqlConnection(ConnectionString);
             SqlCommand cmd =
                 new SqlCommand(
-                    "SELECT part_count FROM WorkstationOverview WHERE part_name = @part_name AND workstation_id = @workstation_id",sqlConnection);
+                    "SELECT part_count FROM WorkstationOverview WHERE part_name = @part_name AND workstation_id = @workstation_id", sqlConnection);
             cmd.Parameters.Add(new SqlParameter("part_name", SqlDbType.NVarChar) { Value = partName });
-            cmd.Parameters.Add(new SqlParameter("workstation_id", SqlDbType.Int) { Value = workstationId});
+            cmd.Parameters.Add(new SqlParameter("workstation_id", SqlDbType.Int) { Value = workstationId });
             sqlConnection.Open();
             int count = (int)cmd.ExecuteScalar();
             sqlConnection.Close();
@@ -97,7 +94,7 @@ namespace RunnerStationStatusViewer
                     $"INSERT INTO ConfigSettings VALUES (" +
                     $"'{ConfigurationManager.AppSettings["BinSizeConfigKey"]}'," +
                     $"{ConfigurationManager.AppSettings["BinRefillWarningDefault"]}," +
-                    $"'int')",sqlConnection);
+                    $"'int')", sqlConnection);
                 sqlConnection.Open();
                 cmd.ExecuteNonQuery();
                 sqlConnection.Close();
@@ -111,8 +108,8 @@ namespace RunnerStationStatusViewer
 
             SqlConnection sqlConnection = new SqlConnection(ConnectionString);
             SqlCommand cmd = new SqlCommand(
-                $"SELECT TOP 1 config_value, config_type FROM ConfigSettings WHERE config_key = '{ConfigurationManager.AppSettings["BinSizeConfigKey"]}'",sqlConnection);
-            
+                $"SELECT TOP 1 config_value, config_type FROM ConfigSettings WHERE config_key = '{ConfigurationManager.AppSettings["BinSizeConfigKey"]}'", sqlConnection);
+
             sqlConnection.Open();
             SqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
@@ -153,7 +150,7 @@ namespace RunnerStationStatusViewer
         {
             SqlConnection sqlConnection = new SqlConnection(ConnectionString);
             SqlCommand cmd = new SqlCommand(
-                "SELECT * FROM WorkstationOverview WHERE workstation_id = @workstation_id",sqlConnection);
+                "SELECT * FROM WorkstationOverview WHERE workstation_id = @workstation_id", sqlConnection);
             cmd.Parameters.Add(new SqlParameter("workstation_id", SqlDbType.Int) { Value = id });
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 
@@ -196,7 +193,7 @@ namespace RunnerStationStatusViewer
             SqlConnection sqlConnection = new SqlConnection(ConnectionString);
             SqlCommand cmd = new SqlCommand("SELECT TOP 1 bin_id FROM BinOverview " +
                                             "WHERE part_name = @part_name " +
-                                            "AND workstation_id = @workstation_id",sqlConnection);
+                                            "AND workstation_id = @workstation_id", sqlConnection);
             cmd.Parameters.Add(new SqlParameter("part_name", SqlDbType.NVarChar) { Value = partName });
             cmd.Parameters.Add(new SqlParameter("workstation_id", SqlDbType.Int) { Value = workstationId });
 
@@ -216,7 +213,7 @@ namespace RunnerStationStatusViewer
             SqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
-            { 
+            {
                 workstationIds.Add(reader.GetInt32(0));
             }
 
