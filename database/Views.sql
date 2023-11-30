@@ -25,13 +25,9 @@ GO
 CREATE VIEW SessionOverview
 AS
 SELECT 
-workstation_id, 
-WorkstationSession.order_id, 
-lamps_built, 
-WorkstationSession.defects, 
-order_fulfilled as total_lamps_built, 
-LampOrder.defects as total_defects,
-order_amount
-FROM WorkstationSession
-INNER JOIN LampOrder on WorkstationSession.order_id = LampOrder.order_id
+[workstation_id]
+,[order_id]
+,[lamps_built]
+,[defects]
+, CAST (defects AS FLOAT) / CAST(lamps_built AS FLOAT) AS defect_rate
 GO
