@@ -1,16 +1,36 @@
-﻿using System.Configuration;
+﻿/*
+ * FILE : Employee.cs
+ * PROJECT : PROG3070 - Gerritt Hooyer, Justin Chan
+ * PROGRAMMER : Gerritt Hooyer, Justin Chan
+ * FIRST VERSION : 2023-11-20
+ * DESCRIPTION :
+ * Runs the simulator in Runner or Workstation mode.
+ */
+
+using System.Configuration;
 using System.Data.SqlClient;
 
 namespace WorkstationSimulator
 {
+    /// <summary>
+    /// Model class for representing one row entry in the database Employee table
+    /// </summary>
     internal class Employee
     {
+        #region Public Properties
+
+        /// <summary>
+        /// The employee ID for the current employee
+        /// </summary>
         public int EmployeeId
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// The employee name for the current employee
+        /// </summary>
         public string EmployeeName
         {
             get
@@ -34,6 +54,9 @@ namespace WorkstationSimulator
             }
         }
 
+        /// <summary>
+        /// The employeeType for the current employee
+        /// </summary>
         public string EmployeeType
         {
             get
@@ -59,6 +82,9 @@ namespace WorkstationSimulator
             }
         }
 
+        /// <summary>
+        /// The employee build speed multiplier/modifier based on the employee type for the current employee
+        /// </summary>
         public float BuildSpeedModifier
         {
             get
@@ -82,6 +108,9 @@ namespace WorkstationSimulator
             }
         }
 
+        /// <summary>
+        /// The employee defect rate modifier based on the employee type for the current employee
+        /// </summary>
         public float DefectRateModifier
         {
             get
@@ -105,9 +134,19 @@ namespace WorkstationSimulator
             }
         }
 
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Parameterized Constructor that takes an employee ID and instantiates a new employee object
+        /// </summary>
+        /// <param name="employeeId"></param>
         public Employee(int employeeId)
         {
             EmployeeId = employeeId;
         }
+
+        #endregion
     }
 }

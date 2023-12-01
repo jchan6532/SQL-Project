@@ -71,7 +71,7 @@ namespace WorkstationSimulator
                 // Create objects
                 Employee employee = null;
                 SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
-                SqlCommand cmd = new SqlCommand($"SELECT TOP 1 employee_id FROM WorkstationOverview WHERE workstation_id = {WorkstationId}",
+                SqlCommand cmd = new SqlCommand($"SELECT TOP 1 employee_id FROM WorkstationOverview WHERE workstation_id = {WorkstationId}", 
                     sqlConnection);
 
                 sqlConnection.Open();

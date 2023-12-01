@@ -1,13 +1,36 @@
-﻿using System;
+﻿/*
+ * FILE : Order.cs
+ * PROJECT : PROG3070 - Gerritt Hooyer, Justin Chan
+ * PROGRAMMER : Gerritt Hooyer, Justin Chan
+ * FIRST VERSION : 2023-11-20
+ * DESCRIPTION :
+ * Runs the simulator in Runner or Workstation mode.
+ */
+
+using System;
 using System.Configuration;
 using System.Data.SqlClient;
 
 namespace WorkstationSimulator
 {
+    /// <summary>
+    /// Model class for representing one row entry in the database Order table
+    /// </summary>
     internal class Order
     {
-        public int OrderId { get; }
+        #region Public Properties
 
+        /// <summary>
+        /// The order ID of the current order
+        /// </summary>
+        public int OrderId
+        { 
+            get;
+        }
+
+        /// <summary>
+        /// The order amount for the current order
+        /// </summary>
         public int OrderAmount
         {
             get
@@ -29,6 +52,9 @@ namespace WorkstationSimulator
             }
         }
 
+        /// <summary>
+        /// The order fulfilled bit (1 or 0) representing if the current order has been fullfilled or not
+        /// </summary>
         public int OrderFulfilled
         {
             get
@@ -50,7 +76,9 @@ namespace WorkstationSimulator
             }
         }
 
-
+        /// <summary>
+        /// The defect amount for the current order
+        /// </summary>
         public int Defects
         {
             get
@@ -72,11 +100,24 @@ namespace WorkstationSimulator
             }
         }
 
+        /// <summary>
+        /// The flag representing if the current order is completed or not
+        /// </summary>
         public bool IsComplete => OrderAmount >= OrderFulfilled;
 
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Parameterized constructor that takes an order ID and instantiates a new order object
+        /// </summary>
+        /// <param name="orderId">order ID</param>
         public Order(int orderId)
         {
             OrderId = orderId;
         }
+
+        #endregion
     }
 }
