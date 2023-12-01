@@ -29,5 +29,6 @@ SELECT
 ,[order_id]
 ,[lamps_built]
 ,[defects]
-, CAST (defects AS FLOAT) / CAST(lamps_built AS FLOAT) AS defect_rate
+, CAST (defects AS FLOAT) / (CAST(lamps_built AS FLOAT) + 0.001) AS defect_rate
+FROM WorkstationSession
 GO
