@@ -7,6 +7,8 @@
 * Creates the database schema for the final term project.
 * As of 2023-11-20, only covers creation of configuration table.
 */
+CREATE DATABASE Sql_Term_Project
+
 USE Sql_Term_Project
 
 CREATE TABLE ConfigSettings (
@@ -41,10 +43,27 @@ CREATE TABLE Workstation (
 )
 
 CREATE TABLE Bin (
-	bin_id INT PRIMARY KEY IDENTITY (1,1),
+	bin_id INT PRIMARY KEY IDENTITY (1,1) NOT NULL,
 	part_id INT FOREIGN KEY REFERENCES Part(part_id) NOT NULL,
 	workstation_id INT FOREIGN KEY REFERENCES Workstation(workstation_id) NOT NULL,
 	part_count INT NOT NULL DEFAULT 0
+)
+
+CREATE TABLE LampOrder
+(
+	order_id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	order_amount INT DEFAULT 0 CHECK (order_amount > 0) NOT NULL,
+	order_fulfilled INT DEFAULT 0 CHECK (order_fulfilled >= 0) NOT NULL,
+	defects INT DEFAULT 0 CHECK (defects >= 0) NOT NULL
+)
+
+CREATE TABLE WorkstationSession
+(
+	workstation_id INT FOREIGN KEY REFERENCES Workstation(workstation_id) NOT NULL,
+	order_id INT FOREIGN KEY REFERENCES LampOrder(order_id) NOT NULL,
+	lamps_built INT DEFAULT 0 CHECK (lamps_built >= 0),
+	defects INT DEFAULT 0 CHECK (defects >= 0),
+	PRIMARY KEY (workstation_id, order_id)
 )
 
 -- Add our employee types
@@ -70,6 +89,18 @@ INSERT INTO Workstation VALUES(1,0,0) -- John Smith
 INSERT INTO Workstation VALUES(2,0,0) -- Justin Chan
 INSERT INTO Workstation VALUES(3,0,0) -- Gerritt Hooyer
 
+INSERT INTO ConfigSettings VALUES ('employee.new.build_speed','1.5','float')
+INSERT INTO ConfigSettings VALUES ('employee.new.defect_rate','0.85','float')
+INSERT INTO ConfigSettings VALUES ('employee.average.build_speed','1.0','float')
+INSERT INTO ConfigSettings VALUES ('employee.average.defect_rate','0.5','float')
+INSERT INTO ConfigSettings VALUES ('employee.experienced.build_speed','0.85','float')
+INSERT INTO ConfigSettings VALUES ('employee.experienced.defect_rate','0.15','float')
+INSERT INTO ConfigSettings VALUES ('system.sim_speed','4','float')
+INSERT INTO ConfigSettings VALUES ('system.build_time','60','int')
+INSERT INTO ConfigSettings VALUES ('system.refill_warning_amount','5','int')
+INSERT INTO ConfigSettings VALUES ('system.refill_interval','300','int')
+INSERT INTO ConfigSettings VALUES ('system.tick_rate','60','int')
+
 -- Add bins for each workstation, already filled to the database.
 DECLARE @workstation_id INT = 1
 DECLARE @part_id INT = 1
@@ -89,3 +120,5 @@ BEGIN
 	END
 	SET @workstation_id = @workstation_id + 1
 END
+
+INSERT INTO LampOrder VALUES(500,0,0)
