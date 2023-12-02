@@ -18,24 +18,31 @@ namespace WorkStationAndon
             set;
         }
 
+        public DatabaseManager Manager
+        {
+            get;
+            set;
+        }
+
         public WorkStationAndon()
         {
             InitializeComponent();
+
+            // Create new database manager
+            Manager = new DatabaseManager();
         }
 
         private void WorkStationAndon_Load(object sender, EventArgs e)
         {
-            PageContent = new LoginPage();
-            PageContent.Dock = DockStyle.Fill;
-            Controls.Add(PageContent);
-
-            if (PageContent is LoginPage loginPage)
-                loginPage.LoginSuccess += LoginPage_LoginSuccess;
+            // Initially load the log in page
+            LoginPage loginPage = new LoginPage(Manager);
+            SetPageContent(loginPage);
         }
 
         private void LoginPage_LoginSuccess(object sender, EventArgs e)
         {
-            HomePage homePage = new HomePage(2);
+            // Load the home page
+            HomePage homePage = new HomePage(Manager);
             SetPageContent(homePage);
         }
 
@@ -43,7 +50,11 @@ namespace WorkStationAndon
         {
             Controls.Clear();
             PageContent = page;
+            PageContent.Dock = DockStyle.Fill;
             Controls.Add(page);
+
+            if (PageContent is LoginPage loginPage)
+                loginPage.LoginSuccess += LoginPage_LoginSuccess;
         }
 
         private void WorkStationAndon_FormClosing(object sender, FormClosingEventArgs e)

@@ -18,11 +18,11 @@ namespace WorkStationAndon
             set;
         }
 
-        public HomePage(int workStationID)
+        public HomePage(DatabaseManager manager)
         {
             InitializeComponent();
 
-            Manager = new DatabaseManager(workStationID);
+            Manager = manager;
 
             LampsCreatedTextBlock.DataBindings.Add(
                 "Text",

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -63,10 +65,38 @@ namespace WorkStationAndon
             }
         }
 
-        public int WorkStationID
-        { 
+        /// <summary>
+        /// The ID of the Workstation as it appears in the DB.
+        /// </summary>
+        [DefaultValue(-1)]
+        public int EmployeeID
+        {
             get;
             set;
+        }
+
+        public Employee WorkStationEmployee
+        {
+            get
+            {
+                // Create objects
+                Employee employee = null;
+                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
+                SqlCommand cmd = new SqlCommand($"SELECT TOP 1 employee_id FROM WorkstationOverview WHERE workstation_id = {WorkstationId}",
+                    sqlConnection);
+
+                sqlConnection.Open();
+                object response = cmd.ExecuteScalar();
+                sqlConnection.Close();
+
+                if (response != null)
+                {
+                    int employeeId = int.Parse(response.ToString());
+                    employee = new Employee(employeeId);
+                }
+
+                return employee;
+            }
         }
 
         #endregion
@@ -81,9 +111,6 @@ namespace WorkStationAndon
 
         #region Constructors
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
         public DatabaseManager()
         {
             _stopUpdating = false;
@@ -92,7 +119,7 @@ namespace WorkStationAndon
         public DatabaseManager(int workStationID)
         {
             _stopUpdating = false;
-            WorkStationID = workStationID;
+            WorkStationEmployee = workStationID;
         }
 
         #endregion
