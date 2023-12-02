@@ -1,7 +1,7 @@
 ﻿
 namespace WorkStationAndon
 {
-    partial class WorkStationAndonForm
+    partial class HomePage
     {
         /// <summary>
         /// Required designer variable.
@@ -30,12 +30,11 @@ namespace WorkStationAndon
         private void InitializeComponent()
         {
             this.LampsCreatedPanel = new System.Windows.Forms.Panel();
-            this.NumDefectsTextBlock = new System.Windows.Forms.Label();
+            this.LampsCreatedTextBlock = new System.Windows.Forms.Label();
             this.LampsCreatedLabel = new System.Windows.Forms.Label();
+            this.NumDefectsTextBlock = new System.Windows.Forms.Label();
             this.NumDefectsLabel = new System.Windows.Forms.Label();
             this.NumDefectsPanel = new System.Windows.Forms.Panel();
-            this.LampsCreatedTextBlock = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.LampsCreatedPanel.SuspendLayout();
             this.NumDefectsPanel.SuspendLayout();
             this.SuspendLayout();
@@ -50,17 +49,16 @@ namespace WorkStationAndon
             this.LampsCreatedPanel.Name = "LampsCreatedPanel";
             this.LampsCreatedPanel.Size = new System.Drawing.Size(150, 150);
             this.LampsCreatedPanel.TabIndex = 0;
-            this.LampsCreatedPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.LampsCreated_Paint);
             // 
-            // NumDefectsTextBlock
+            // LampsCreatedTextBlock
             // 
-            this.NumDefectsTextBlock.AutoSize = true;
-            this.NumDefectsTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumDefectsTextBlock.Location = new System.Drawing.Point(33, 67);
-            this.NumDefectsTextBlock.Name = "NumDefectsTextBlock";
-            this.NumDefectsTextBlock.Size = new System.Drawing.Size(75, 25);
-            this.NumDefectsTextBlock.TabIndex = 1;
-            this.NumDefectsTextBlock.Text = "defects";
+            this.LampsCreatedTextBlock.AutoSize = true;
+            this.LampsCreatedTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LampsCreatedTextBlock.Location = new System.Drawing.Point(33, 64);
+            this.LampsCreatedTextBlock.Name = "LampsCreatedTextBlock";
+            this.LampsCreatedTextBlock.Size = new System.Drawing.Size(64, 25);
+            this.LampsCreatedTextBlock.TabIndex = 2;
+            this.LampsCreatedTextBlock.Text = "lamps";
             // 
             // LampsCreatedLabel
             // 
@@ -71,6 +69,16 @@ namespace WorkStationAndon
             this.LampsCreatedLabel.Size = new System.Drawing.Size(146, 25);
             this.LampsCreatedLabel.TabIndex = 0;
             this.LampsCreatedLabel.Text = "Lamps Created";
+            // 
+            // NumDefectsTextBlock
+            // 
+            this.NumDefectsTextBlock.AutoSize = true;
+            this.NumDefectsTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NumDefectsTextBlock.Location = new System.Drawing.Point(33, 67);
+            this.NumDefectsTextBlock.Name = "NumDefectsTextBlock";
+            this.NumDefectsTextBlock.Size = new System.Drawing.Size(75, 25);
+            this.NumDefectsTextBlock.TabIndex = 1;
+            this.NumDefectsTextBlock.Text = "defects";
             // 
             // NumDefectsLabel
             // 
@@ -95,32 +103,11 @@ namespace WorkStationAndon
             this.NumDefectsPanel.Size = new System.Drawing.Size(150, 150);
             this.NumDefectsPanel.TabIndex = 1;
             // 
-            // LampsCreatedTextBlock
-            // 
-            this.LampsCreatedTextBlock.AutoSize = true;
-            this.LampsCreatedTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LampsCreatedTextBlock.Location = new System.Drawing.Point(33, 64);
-            this.LampsCreatedTextBlock.Name = "LampsCreatedTextBlock";
-            this.LampsCreatedTextBlock.Size = new System.Drawing.Size(64, 25);
-            this.LampsCreatedTextBlock.TabIndex = 2;
-            this.LampsCreatedTextBlock.Text = "lamps";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(322, 252);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // WorkStationAndonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(820, 459);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.NumDefectsPanel);
             this.Controls.Add(this.LampsCreatedPanel);
             this.Name = "WorkStationAndonForm";
@@ -142,7 +129,6 @@ namespace WorkStationAndon
         private System.Windows.Forms.Panel NumDefectsPanel;
         private System.Windows.Forms.Label NumDefectsTextBlock;
         private System.Windows.Forms.Label LampsCreatedTextBlock;
-        private System.Windows.Forms.Button button1;
     }
 }
 

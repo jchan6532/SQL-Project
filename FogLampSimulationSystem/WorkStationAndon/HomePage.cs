@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace WorkStationAndon
 {
-    public partial class WorkStationAndonForm : Form
+    public partial class HomePage : UserControl
     {
         public DatabaseManager Manager
         {
@@ -18,27 +18,21 @@ namespace WorkStationAndon
             set;
         }
 
-        public WorkStationAndonForm()
+        public HomePage(int workStationID)
         {
             InitializeComponent();
 
-            Manager = new DatabaseManager();
-            
+            Manager = new DatabaseManager(workStationID);
+
             LampsCreatedTextBlock.DataBindings.Add(
-                "Text", 
-                Manager, 
-                "WorkStationID", 
-                false, 
+                "Text",
+                Manager,
+                "LampsCreated",
+                false,
                 DataSourceUpdateMode.OnPropertyChanged
                 );
 
             Manager.Start();
-
-        }
-
-        private void LampsCreated_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void WorkStationAndonForm_Load(object sender, EventArgs e)
@@ -46,9 +40,10 @@ namespace WorkStationAndon
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void WorkStationAndonForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Manager.WorkStationID = 100;
+            Manager.Stop();
+            MessageBox.Show("closed");
         }
     }
 }

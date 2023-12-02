@@ -16,7 +16,7 @@ namespace WorkStationAndon
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new WorkStationAndonForm());
+            Application.Run(new WorkStationAndon());
         }
     }
 }

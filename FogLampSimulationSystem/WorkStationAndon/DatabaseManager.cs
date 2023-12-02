@@ -13,8 +13,14 @@ namespace WorkStationAndon
     {
         #region Private Fields
 
-        private int _workStationID;
+        private int _lampsCreated;
+
+        private int _defectCount;
+
         private Thread _updateDataThread = null;
+
+        #endregion
+
 
         #region Volatile Fields
 
@@ -22,33 +28,56 @@ namespace WorkStationAndon
 
         #endregion
 
-        #endregion
 
         #region Public Properties
 
-        public int WorkStationID
+        public int LampsCreated
         {
             get
             {
-                return _workStationID;
+                return _lampsCreated;
             }
             set
             {
-                if (_workStationID != value)
+                if (_lampsCreated != value)
                 {
-                    _workStationID = value;
+                    _lampsCreated = value;
                     OnPropertyChanged();
                 }
             }
         }
 
+        public int DefectCount
+        {
+            get
+            {
+                return _defectCount;
+            }
+            set
+            {
+                if (_defectCount != value)
+                {
+                    _defectCount = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int WorkStationID
+        { 
+            get;
+            set;
+        }
+
         #endregion
+
 
         #region Events
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
+
 
         #region Constructors
 
@@ -60,7 +89,14 @@ namespace WorkStationAndon
             _stopUpdating = false;
         }
 
+        public DatabaseManager(int workStationID)
+        {
+            _stopUpdating = false;
+            WorkStationID = workStationID;
+        }
+
         #endregion
+
 
         #region Private/Protected Methods
 
@@ -73,12 +109,13 @@ namespace WorkStationAndon
         {
             while (!_stopUpdating)
             {
-                WorkStationID++;
+                LampsCreated++;
                 Thread.Sleep(1000);
             }
         }
 
         #endregion
+
 
         #region Public Methods
 
