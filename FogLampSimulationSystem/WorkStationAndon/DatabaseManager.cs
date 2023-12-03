@@ -26,7 +26,7 @@ namespace WorkStationAndon
 
         #region Volatile Fields
 
-        private volatile bool _stopUpdating;
+        private volatile bool _stopUpdating = false;
 
         #endregion
 
@@ -75,29 +75,43 @@ namespace WorkStationAndon
             set;
         }
 
-        public Employee WorkStationEmployee
+        [DefaultValue(-1)]
+        public int WorkStationID
         {
             get
             {
-                // Create objects
-                Employee employee = null;
+                if (!IsAuthenticated)
+                {
+                    return -1;
+                }
+
                 SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
-                SqlCommand cmd = new SqlCommand($"SELECT TOP 1 employee_id FROM WorkstationOverview WHERE workstation_id = {WorkstationId}",
+                SqlCommand cmd = new SqlCommand($"SELECT TOP 1 workstation_id FROM WorkstationOverview WHERE employee_id = {EmployeeID}",
                     sqlConnection);
 
                 sqlConnection.Open();
                 object response = cmd.ExecuteScalar();
                 sqlConnection.Close();
 
-                if (response != null)
+                if (response == null)
                 {
-                    int employeeId = int.Parse(response.ToString());
-                    employee = new Employee(employeeId);
+                    return -1;
                 }
-
-                return employee;
+                return Int32.Parse(response.ToString());
             }
         }
+
+        public Employee WorkStationEmployee
+        {
+            get;
+            set;
+        }
+
+        public bool IsAuthenticated
+        {
+            get;
+            set;
+        } = false;
 
         #endregion
 
@@ -113,13 +127,24 @@ namespace WorkStationAndon
 
         public DatabaseManager()
         {
-            _stopUpdating = false;
+
         }
 
-        public DatabaseManager(int workStationID)
+        #endregion
+
+        #region Static Methods
+
+        public static bool AuthenticateID(int employeeID)
         {
-            _stopUpdating = false;
-            WorkStationEmployee = workStationID;
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
+            SqlCommand cmd = new SqlCommand($"SELECT TOP 1 workstation_id FROM WorkstationOverview WHERE employee_id = {employeeID}",
+                sqlConnection);
+
+            sqlConnection.Open();
+            object response = cmd.ExecuteScalar();
+            sqlConnection.Close();
+
+            return response != null;
         }
 
         #endregion

@@ -13,7 +13,7 @@ namespace WorkStationAndon
     public partial class LoginPage : UserControl
     {
 
-        public event EventHandler LoginSuccess;
+        public event EventHandler<LoginEventArgs> LoginSuccess;
 
         public DatabaseManager Manager { get; set; }
 
@@ -28,11 +28,16 @@ namespace WorkStationAndon
             int employeeID = -1;
             if (Int32.TryParse(WorkStationIDTextBox.Text, out employeeID))
             {
-                Manager.WorkStationEmployee = employeeID;
+                bool authenticated = DatabaseManager.AuthenticateID(employeeID);
 
-                LoginSuccess?.Invoke(this, EventArgs.Empty);
-
-
+                if (authenticated)
+                {
+                    LoginSuccess?.Invoke(this, new LoginEventArgs(employeeID));
+                }
+                else
+                {
+                    MessageBox.Show("failed to authenticate");
+                }
             }
         }
     }

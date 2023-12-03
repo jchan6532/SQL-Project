@@ -39,8 +39,12 @@ namespace WorkStationAndon
             SetPageContent(loginPage);
         }
 
-        private void LoginPage_LoginSuccess(object sender, EventArgs e)
+        private void LoginPage_LoginSuccess(object sender, LoginEventArgs e)
         {
+            Manager.WorkStationEmployee = new Employee(e.EmployeeID);
+            Manager.IsAuthenticated = true;
+            Manager.EmployeeID = e.EmployeeID;
+
             // Load the home page
             HomePage homePage = new HomePage(Manager);
             SetPageContent(homePage);

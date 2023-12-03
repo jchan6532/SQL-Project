@@ -29,7 +29,7 @@ namespace WorkStationAndon
             get
             {
                 SqlConnection conn =
-                    new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT employee_name FROM Employee WHERE employee_id = {EmployeeId}",
                     conn);
                 string employeeName = string.Empty;
@@ -55,7 +55,7 @@ namespace WorkStationAndon
             get
             {
                 SqlConnection conn =
-                    new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT type_name FROM Employee " +
                                                 $"INNER JOIN EmployeeType ON  Employee.employee_type = EmployeeType.type_id " +
                                                 $"WHERE employee_id = {EmployeeId}",
@@ -83,7 +83,7 @@ namespace WorkStationAndon
             get
             {
                 SqlConnection conn =
-                    new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT config_value FROM ConfigSettings WHERE config_key = 'employee.{EmployeeType}.build_speed'",
                     conn);
                 float buildSpeed = 0.0f;
@@ -109,7 +109,7 @@ namespace WorkStationAndon
             get
             {
                 SqlConnection conn =
-                    new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT config_value FROM ConfigSettings WHERE config_key = 'employee.{EmployeeType.ToLower()}.defect_rate'",
                     conn);
                 float defectRate = 0.0f;
