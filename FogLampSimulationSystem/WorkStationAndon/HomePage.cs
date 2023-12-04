@@ -91,40 +91,8 @@ namespace WorkStationAndon
             LampsCreatedTextBlock.Text = Manager.OrderFulfilled.ToString();
             DefectsTextBlock.Text = Manager.DefectsFulfilled.ToString();
 
-            //var data = new List<KeyValuePair<string, int>>
-            //{
-            //    new KeyValuePair<string, int>("Category A", 30),
-            //    new KeyValuePair<string, int>("Category B", 50),
-            //    new KeyValuePair<string, int>("Category C", 20)
-            //};
-            var data = DatabaseManager.GetOrdersReport(Int32.Parse(orderComponents[1]));
+            CreatePieChart();
 
-            // Set up the Chart
-            WorkStationContributionPie.Series[0].ChartType = SeriesChartType.Pie;
-            WorkStationContributionPie.Series[0].Points.DataBind(data, "Key", "Value", "");
-
-            // Display values on the pie chart slices
-            foreach (var point in WorkStationContributionPie.Series[0].Points)
-            {
-                // Set the label to display the value
-                point.Label = $"{point.YValues[0]:0}";
-            }
-
-            // Optional: Add a legend
-            if (WorkStationContributionPie.Legends.FindByName("Legend") == null)
-            {
-                WorkStationContributionPie.Legends.Add("Legend");
-                WorkStationContributionPie.Series[0].Legend = "Legend";
-            }
-
-            if (data.Count == 0)
-            {
-                WorkStationContributionPie.Visible = false;
-            }
-            else
-            {
-                WorkStationContributionPie.Visible = true;
-            }
 
             await StartAsync();
         }
@@ -134,32 +102,33 @@ namespace WorkStationAndon
             int i = 0;
             while (!_stopUpdating)
             {
-                Thread.Sleep(3000);
+                Thread.Sleep(1000);
                 Invoke((MethodInvoker)delegate
                 {
-                    AmountContributedTextBlock.Text = i++.ToString();
+                    //AmountContributedTextBlock.Text = i++.ToString();
                     // Update other UI controls as needed
+
+                    OrderAmountTextBlock.Text = Manager.CurrentOrderAmount.ToString();
+                    AmountContributedTextBlock.Text = Manager.CurrentOrderLampsContributed.ToString();
+                    DefectsContributedTextBlock.Text = Manager.CurrentOrderLampsDefects.ToString();
+
+                    // right border
+                    LampsCreatedTextBlock.Text = Manager.OrderFulfilled.ToString();
+                    DefectsTextBlock.Text = Manager.DefectsFulfilled.ToString();
+
+                    // 10 seconds update
                 });
-                //OrderAmountTextBlock.Text = Manager.CurrentOrderAmount.ToString();
-                //AmountContributedTextBlock.Text = Manager.CurrentOrderLampsContributed.ToString();
-                //DefectsContributedTextBlock.Text = Manager.CurrentOrderLampsDefects.ToString();
 
-                //// right border
-                //LampsCreatedTextBlock.Text = Manager.OrderFulfilled.ToString();
-                //DefectsTextBlock.Text = Manager.DefectsFulfilled.ToString();
-
-                // 10 seconds update
 
             }
         }
 
-        public void Stop()
+        public async Task Stop()
         {
-            if (_updateDataThread != null && 
-                (_updateDataThread.ThreadState == ThreadState.Running || _updateDataThread.ThreadState == ThreadState.WaitSleepJoin))
+            if (_updateDataThread != null)
             {
                 _stopUpdating = true;
-                _updateDataThread.Join();
+                await Task.Run(() => _updateDataThread.Join());
                 _updateDataThread = null;
             }
         }
@@ -177,6 +146,38 @@ namespace WorkStationAndon
             _updateDataThread.Start();
         }
 
+        private void CreatePieChart()
+        {
+            var data = DatabaseManager.GetOrdersReport(Manager.CurrentOrderID).ToDictionary(kvp => $"Workstation - {kvp.Key}", kvp => kvp.Value);
 
+            // Set up the Chart
+            WorkStationContributionPie.Series[0].ChartType = SeriesChartType.Pie;
+            WorkStationContributionPie.Series[0].Points.DataBind(data, "Key", "Value", "");
+
+            // Display values on the pie chart slices
+            foreach (var point in WorkStationContributionPie.Series[0].Points)
+            {
+                // Set the label to display the value
+                point.Label = $"{point.YValues[0]:0}";
+
+                point.LegendText = point.AxisLabel;
+            }
+
+            // Optional: Add a legend
+            if (WorkStationContributionPie.Legends.FindByName("Legend") == null)
+            {
+                WorkStationContributionPie.Legends.Add("Legend");
+                WorkStationContributionPie.Series[0].Legend = "Legend";
+            }
+
+            if (data.Count == 0)
+            {
+                WorkStationContributionPie.Visible = false;
+            }
+            else
+            {
+                WorkStationContributionPie.Visible = true;
+            }
+        }
     }
 }
