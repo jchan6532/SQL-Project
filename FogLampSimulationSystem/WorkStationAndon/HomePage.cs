@@ -116,6 +116,8 @@ namespace WorkStationAndon
                     LampsCreatedTextBlock.Text = Manager.OrderFulfilled.ToString();
                     DefectsTextBlock.Text = Manager.DefectsFulfilled.ToString();
 
+                    CreatePieChart();
+
                     // 10 seconds update
                 });
 
@@ -149,6 +151,17 @@ namespace WorkStationAndon
         private void CreatePieChart()
         {
             var data = DatabaseManager.GetOrdersReport(Manager.CurrentOrderID).ToDictionary(kvp => $"Workstation - {kvp.Key}", kvp => kvp.Value);
+
+            int sum = 0;
+            foreach (var workstation in data)
+            {
+                sum += workstation.Value;
+            }
+            if (Manager.CurrentOrderAmount >= sum)
+            {
+                data.Add("Uncomplete", Manager.CurrentOrderAmount - sum);
+            }
+
 
             // Set up the Chart
             WorkStationContributionPie.Series[0].ChartType = SeriesChartType.Pie;
