@@ -15,59 +15,12 @@ namespace WorkStationAndon
     {
         #region Private Fields
 
-        private int _lampsCreated;
-
-        private int _defectCount;
-
         private int _currentOrderID;
-
-        private Thread _updateDataThread = null;
-
-        private HomePage _homePage;
-
-        #endregion
-
-
-        #region Volatile Fields
-
-        private volatile bool _stopUpdating = false;
 
         #endregion
 
 
         #region Public Properties
-
-        public int LampsCreated
-        {
-            get
-            {
-                return _lampsCreated;
-            }
-            set
-            {
-                if (_lampsCreated != value)
-                {
-                    _lampsCreated = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public int DefectCount
-        {
-            get
-            {
-                return _defectCount;
-            }
-            set
-            {
-                if (_defectCount != value)
-                {
-                    _defectCount = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
 
         public int CurrentOrderID
         {
@@ -118,6 +71,11 @@ namespace WorkStationAndon
         public string EmployeeType { get { return WorkStationEmployee.EmployeeType; } }
         // no binding
         public int CurrentOrderAmount { get { return CurrentOrder.OrderAmount; } }
+        // nobinding
+        public int OrderFulfilled { get { return CurrentOrder.OrderFulfilled; } }
+        // no binding
+        public int DefectsFulfilled { get { return CurrentOrder.Defects; } }
+
         // no binding
         public int CurrentOrderLampsContributed
         {
@@ -177,12 +135,11 @@ namespace WorkStationAndon
 
         #region Constructors
 
-        public DatabaseManager(int employeeID, HomePage homePage)
+        public DatabaseManager(int employeeID)
         {
             EmployeeID = employeeID;
             WorkStationEmployee = new Employee(employeeID);
             WorkStationID = DatabaseManager.GetWorkStationID(employeeID);
-            _homePage = homePage;
         }
 
         #endregion
@@ -249,38 +206,6 @@ namespace WorkStationAndon
         protected virtual void OnPropertyChanged([CallerMemberName] string properyname = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(properyname));
-        }
-
-        private void UpdatingDataAsync()
-        {
-            while (!_stopUpdating)
-            {
-                _homePage.Invoke(new Action(() =>
-                {
-                    // Access LampsCreated directly from the DatabaseManager
-                    _homePage.Manager.LampsCreated++;
-                }));
-
-                Thread.Sleep(1000);
-            }
-        }
-
-        #endregion
-
-
-        #region Public Methods
-
-        public void Stop()
-        {
-            _stopUpdating = true;
-            _updateDataThread.Join();
-        }
-
-        public void Start()
-        {
-            ThreadStart updateDataTs = new ThreadStart(UpdatingDataAsync);
-            _updateDataThread = new Thread(updateDataTs);
-            _updateDataThread.Start();
         }
 
         #endregion

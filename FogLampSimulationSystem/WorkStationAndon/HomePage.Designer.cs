@@ -29,12 +29,15 @@ namespace WorkStationAndon
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.LampsCreatedPanel = new System.Windows.Forms.Panel();
             this.LampsCreatedTextBlock = new System.Windows.Forms.Label();
             this.LampsCreatedLabel = new System.Windows.Forms.Label();
-            this.NumDefectsTextBlock = new System.Windows.Forms.Label();
             this.NumDefectsLabel = new System.Windows.Forms.Label();
             this.NumDefectsPanel = new System.Windows.Forms.Panel();
+            this.DefectsTextBlock = new System.Windows.Forms.Label();
             this.EmployeeNameTextBlock = new System.Windows.Forms.Label();
             this.EmployeeNameLabel = new System.Windows.Forms.Label();
             this.EmployeeIDTextBlock = new System.Windows.Forms.Label();
@@ -42,18 +45,18 @@ namespace WorkStationAndon
             this.EmployeeTypeTextBlock = new System.Windows.Forms.Label();
             this.EmployeeIDLabel = new System.Windows.Forms.Label();
             this.OrdersComboBox = new System.Windows.Forms.ComboBox();
-            this.OrderAmountTextBlock = new System.Windows.Forms.Label();
             this.OrderAmountLabel = new System.Windows.Forms.Label();
             this.OrderIDTextBlock = new System.Windows.Forms.Label();
             this.OrderIDLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.OrderAmountTextBlock = new System.Windows.Forms.Label();
             this.DefectsContributedTextBlock = new System.Windows.Forms.Label();
             this.DefectsContributedLabel = new System.Windows.Forms.Label();
             this.AmountContributedTextBlock = new System.Windows.Forms.Label();
             this.AmountContributedLabel = new System.Windows.Forms.Label();
+            this.WorkStationContributionPie = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.LampsCreatedPanel.SuspendLayout();
             this.NumDefectsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.WorkStationContributionPie)).BeginInit();
             this.SuspendLayout();
             // 
             // LampsCreatedPanel
@@ -62,7 +65,7 @@ namespace WorkStationAndon
             this.LampsCreatedPanel.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.LampsCreatedPanel.Controls.Add(this.LampsCreatedTextBlock);
             this.LampsCreatedPanel.Controls.Add(this.LampsCreatedLabel);
-            this.LampsCreatedPanel.Location = new System.Drawing.Point(658, 12);
+            this.LampsCreatedPanel.Location = new System.Drawing.Point(897, 63);
             this.LampsCreatedPanel.Name = "LampsCreatedPanel";
             this.LampsCreatedPanel.Size = new System.Drawing.Size(150, 150);
             this.LampsCreatedPanel.TabIndex = 0;
@@ -73,9 +76,9 @@ namespace WorkStationAndon
             this.LampsCreatedTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LampsCreatedTextBlock.Location = new System.Drawing.Point(33, 64);
             this.LampsCreatedTextBlock.Name = "LampsCreatedTextBlock";
-            this.LampsCreatedTextBlock.Size = new System.Drawing.Size(64, 25);
+            this.LampsCreatedTextBlock.Size = new System.Drawing.Size(98, 25);
             this.LampsCreatedTextBlock.TabIndex = 2;
-            this.LampsCreatedTextBlock.Text = "lamps";
+            this.LampsCreatedTextBlock.Text = "undefined";
             // 
             // LampsCreatedLabel
             // 
@@ -83,19 +86,9 @@ namespace WorkStationAndon
             this.LampsCreatedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LampsCreatedLabel.Location = new System.Drawing.Point(1, 9);
             this.LampsCreatedLabel.Name = "LampsCreatedLabel";
-            this.LampsCreatedLabel.Size = new System.Drawing.Size(146, 25);
+            this.LampsCreatedLabel.Size = new System.Drawing.Size(133, 25);
             this.LampsCreatedLabel.TabIndex = 0;
-            this.LampsCreatedLabel.Text = "Lamps Created";
-            // 
-            // NumDefectsTextBlock
-            // 
-            this.NumDefectsTextBlock.AutoSize = true;
-            this.NumDefectsTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumDefectsTextBlock.Location = new System.Drawing.Point(33, 67);
-            this.NumDefectsTextBlock.Name = "NumDefectsTextBlock";
-            this.NumDefectsTextBlock.Size = new System.Drawing.Size(75, 25);
-            this.NumDefectsTextBlock.TabIndex = 1;
-            this.NumDefectsTextBlock.Text = "defects";
+            this.LampsCreatedLabel.Text = "Order Fulfilled";
             // 
             // NumDefectsLabel
             // 
@@ -113,18 +106,28 @@ namespace WorkStationAndon
             this.NumDefectsPanel.AccessibleName = "";
             this.NumDefectsPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.NumDefectsPanel.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.NumDefectsPanel.Controls.Add(this.NumDefectsTextBlock);
+            this.NumDefectsPanel.Controls.Add(this.DefectsTextBlock);
             this.NumDefectsPanel.Controls.Add(this.NumDefectsLabel);
-            this.NumDefectsPanel.Location = new System.Drawing.Point(658, 215);
+            this.NumDefectsPanel.Location = new System.Drawing.Point(897, 266);
             this.NumDefectsPanel.Name = "NumDefectsPanel";
             this.NumDefectsPanel.Size = new System.Drawing.Size(150, 150);
             this.NumDefectsPanel.TabIndex = 1;
+            // 
+            // DefectsTextBlock
+            // 
+            this.DefectsTextBlock.AutoSize = true;
+            this.DefectsTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DefectsTextBlock.Location = new System.Drawing.Point(33, 63);
+            this.DefectsTextBlock.Name = "DefectsTextBlock";
+            this.DefectsTextBlock.Size = new System.Drawing.Size(98, 25);
+            this.DefectsTextBlock.TabIndex = 3;
+            this.DefectsTextBlock.Text = "undefined";
             // 
             // EmployeeNameTextBlock
             // 
             this.EmployeeNameTextBlock.AutoSize = true;
             this.EmployeeNameTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmployeeNameTextBlock.Location = new System.Drawing.Point(530, 291);
+            this.EmployeeNameTextBlock.Location = new System.Drawing.Point(183, 317);
             this.EmployeeNameTextBlock.Name = "EmployeeNameTextBlock";
             this.EmployeeNameTextBlock.Size = new System.Drawing.Size(101, 25);
             this.EmployeeNameTextBlock.TabIndex = 4;
@@ -134,7 +137,7 @@ namespace WorkStationAndon
             // 
             this.EmployeeNameLabel.AutoSize = true;
             this.EmployeeNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmployeeNameLabel.Location = new System.Drawing.Point(378, 291);
+            this.EmployeeNameLabel.Location = new System.Drawing.Point(31, 317);
             this.EmployeeNameLabel.Name = "EmployeeNameLabel";
             this.EmployeeNameLabel.Size = new System.Drawing.Size(156, 25);
             this.EmployeeNameLabel.TabIndex = 3;
@@ -144,7 +147,7 @@ namespace WorkStationAndon
             // 
             this.EmployeeIDTextBlock.AutoSize = true;
             this.EmployeeIDTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmployeeIDTextBlock.Location = new System.Drawing.Point(530, 369);
+            this.EmployeeIDTextBlock.Location = new System.Drawing.Point(183, 395);
             this.EmployeeIDTextBlock.Name = "EmployeeIDTextBlock";
             this.EmployeeIDTextBlock.Size = new System.Drawing.Size(90, 25);
             this.EmployeeIDTextBlock.TabIndex = 6;
@@ -154,7 +157,7 @@ namespace WorkStationAndon
             // 
             this.EmployeeTypeLabel.AutoSize = true;
             this.EmployeeTypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmployeeTypeLabel.Location = new System.Drawing.Point(378, 334);
+            this.EmployeeTypeLabel.Location = new System.Drawing.Point(31, 360);
             this.EmployeeTypeLabel.Name = "EmployeeTypeLabel";
             this.EmployeeTypeLabel.Size = new System.Drawing.Size(144, 25);
             this.EmployeeTypeLabel.TabIndex = 5;
@@ -164,7 +167,7 @@ namespace WorkStationAndon
             // 
             this.EmployeeTypeTextBlock.AutoSize = true;
             this.EmployeeTypeTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmployeeTypeTextBlock.Location = new System.Drawing.Point(530, 334);
+            this.EmployeeTypeTextBlock.Location = new System.Drawing.Point(183, 360);
             this.EmployeeTypeTextBlock.Name = "EmployeeTypeTextBlock";
             this.EmployeeTypeTextBlock.Size = new System.Drawing.Size(101, 25);
             this.EmployeeTypeTextBlock.TabIndex = 10;
@@ -174,7 +177,7 @@ namespace WorkStationAndon
             // 
             this.EmployeeIDLabel.AutoSize = true;
             this.EmployeeIDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmployeeIDLabel.Location = new System.Drawing.Point(378, 369);
+            this.EmployeeIDLabel.Location = new System.Drawing.Point(31, 395);
             this.EmployeeIDLabel.Name = "EmployeeIDLabel";
             this.EmployeeIDLabel.Size = new System.Drawing.Size(123, 25);
             this.EmployeeIDLabel.TabIndex = 9;
@@ -189,16 +192,6 @@ namespace WorkStationAndon
             this.OrdersComboBox.TabIndex = 11;
             this.OrdersComboBox.DropDown += new System.EventHandler(this.OrdersComboBox_DropDown);
             this.OrdersComboBox.SelectionChangeCommitted += new System.EventHandler(this.OrdersComboBox_SelectionChangeCommitted);
-            // 
-            // OrderAmountTextBlock
-            // 
-            this.OrderAmountTextBlock.AutoSize = true;
-            this.OrderAmountTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OrderAmountTextBlock.Location = new System.Drawing.Point(167, 119);
-            this.OrderAmountTextBlock.Name = "OrderAmountTextBlock";
-            this.OrderAmountTextBlock.Size = new System.Drawing.Size(101, 25);
-            this.OrderAmountTextBlock.TabIndex = 17;
-            this.OrderAmountTextBlock.Text = "Undefined";
             // 
             // OrderAmountLabel
             // 
@@ -230,25 +223,15 @@ namespace WorkStationAndon
             this.OrderIDLabel.TabIndex = 12;
             this.OrderIDLabel.Text = "Order ID";
             // 
-            // label1
+            // OrderAmountTextBlock
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 76);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 25);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Order ID";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(167, 119);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(101, 25);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "Undefined";
+            this.OrderAmountTextBlock.AutoSize = true;
+            this.OrderAmountTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OrderAmountTextBlock.Location = new System.Drawing.Point(167, 119);
+            this.OrderAmountTextBlock.Name = "OrderAmountTextBlock";
+            this.OrderAmountTextBlock.Size = new System.Drawing.Size(101, 25);
+            this.OrderAmountTextBlock.TabIndex = 17;
+            this.OrderAmountTextBlock.Text = "Undefined";
             // 
             // DefectsContributedTextBlock
             // 
@@ -290,19 +273,35 @@ namespace WorkStationAndon
             this.AmountContributedLabel.TabIndex = 18;
             this.AmountContributedLabel.Text = "Amount Contributed";
             // 
+            // WorkStationContributionPie
+            // 
+            chartArea2.Area3DStyle.Enable3D = true;
+            chartArea2.Name = "ChartArea1";
+            this.WorkStationContributionPie.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.WorkStationContributionPie.Legends.Add(legend2);
+            this.WorkStationContributionPie.Location = new System.Drawing.Point(328, 72);
+            this.WorkStationContributionPie.Name = "WorkStationContributionPie";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.WorkStationContributionPie.Series.Add(series2);
+            this.WorkStationContributionPie.Size = new System.Drawing.Size(515, 296);
+            this.WorkStationContributionPie.TabIndex = 22;
+            this.WorkStationContributionPie.Text = "WorkStation Contribution";
+            // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.WorkStationContributionPie);
             this.Controls.Add(this.DefectsContributedTextBlock);
             this.Controls.Add(this.DefectsContributedLabel);
             this.Controls.Add(this.AmountContributedTextBlock);
             this.Controls.Add(this.AmountContributedLabel);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.OrderAmountTextBlock);
             this.Controls.Add(this.OrderAmountLabel);
             this.Controls.Add(this.OrderIDTextBlock);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.OrderIDLabel);
             this.Controls.Add(this.OrdersComboBox);
             this.Controls.Add(this.EmployeeTypeTextBlock);
@@ -314,12 +313,13 @@ namespace WorkStationAndon
             this.Controls.Add(this.EmployeeNameLabel);
             this.Controls.Add(this.LampsCreatedPanel);
             this.Name = "HomePage";
-            this.Size = new System.Drawing.Size(820, 459);
+            this.Size = new System.Drawing.Size(1067, 563);
             this.Load += new System.EventHandler(this.WorkStationAndonForm_Load);
             this.LampsCreatedPanel.ResumeLayout(false);
             this.LampsCreatedPanel.PerformLayout();
             this.NumDefectsPanel.ResumeLayout(false);
             this.NumDefectsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.WorkStationContributionPie)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -331,7 +331,6 @@ namespace WorkStationAndon
         private System.Windows.Forms.Label LampsCreatedLabel;
         private System.Windows.Forms.Label NumDefectsLabel;
         private System.Windows.Forms.Panel NumDefectsPanel;
-        private System.Windows.Forms.Label NumDefectsTextBlock;
         private System.Windows.Forms.Label LampsCreatedTextBlock;
         private System.Windows.Forms.Label EmployeeNameTextBlock;
         private System.Windows.Forms.Label EmployeeNameLabel;
@@ -340,16 +339,16 @@ namespace WorkStationAndon
         private System.Windows.Forms.Label EmployeeTypeTextBlock;
         private System.Windows.Forms.Label EmployeeIDLabel;
         private System.Windows.Forms.ComboBox OrdersComboBox;
-        private System.Windows.Forms.Label OrderAmountTextBlock;
         private System.Windows.Forms.Label OrderAmountLabel;
         private System.Windows.Forms.Label OrderIDTextBlock;
         private System.Windows.Forms.Label OrderIDLabel;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label OrderAmountTextBlock;
         private System.Windows.Forms.Label DefectsContributedTextBlock;
         private System.Windows.Forms.Label DefectsContributedLabel;
         private System.Windows.Forms.Label AmountContributedTextBlock;
         private System.Windows.Forms.Label AmountContributedLabel;
+        private System.Windows.Forms.Label DefectsTextBlock;
+        private System.Windows.Forms.DataVisualization.Charting.Chart WorkStationContributionPie;
     }
 }
 

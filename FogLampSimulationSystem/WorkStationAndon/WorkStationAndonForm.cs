@@ -54,7 +54,7 @@ namespace WorkStationAndon
         {
             if (PageContent is HomePage homePage)
             {
-                homePage.Manager.Stop();
+                homePage.Stop();
                 MessageBox.Show("thread joined");
             }
         }
