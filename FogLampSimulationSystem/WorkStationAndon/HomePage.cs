@@ -18,11 +18,17 @@ namespace WorkStationAndon
             set;
         }
 
+        public int EmployeeID { get; set; }
+
         public HomePage(int employeeID)
         {
             InitializeComponent();
+            EmployeeID = employeeID;
+        }
 
-            Manager = new DatabaseManager(employeeID);
+        private void WorkStationAndonForm_Load(object sender, EventArgs e)
+        {
+            Manager = new DatabaseManager(EmployeeID, this);
 
             // Lamps created
             LampsCreatedTextBlock.DataBindings.Add(
@@ -61,15 +67,31 @@ namespace WorkStationAndon
                 );
         }
 
-        private void WorkStationAndonForm_Load(object sender, EventArgs e)
-        {
-            Manager.Start();
-        }
-
         private void WorkStationAndonForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Manager.Stop();
             MessageBox.Show("closed");
+        }
+
+        private void OrdersComboBox_DropDown(object sender, EventArgs e)
+        {
+            var orderIDs = DatabaseManager.GetOrderIDs(Manager.WorkStationID);
+            OrdersComboBox.Invoke(new Action(() =>
+            {
+                // Clear existing items
+                OrdersComboBox.Items.Clear();
+
+                // Add the new items
+                OrdersComboBox.Items.AddRange(orderIDs.ToArray());
+            }));
+        }
+
+        private void OrdersComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            MessageBox.Show(comboBox.SelectedItem.ToString());
+
+            Manager.Start();
         }
     }
 }

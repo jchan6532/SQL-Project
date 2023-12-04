@@ -25,6 +25,8 @@ namespace WorkStationAndon
 
         private Thread _updateDataThread = null;
 
+        private HomePage _homePage;
+
         #endregion
 
 
@@ -139,11 +141,12 @@ namespace WorkStationAndon
 
         #region Constructors
 
-        public DatabaseManager(int employeeID)
+        public DatabaseManager(int employeeID, HomePage homePage)
         {
             EmployeeID = employeeID;
             WorkStationEmployee = new Employee(employeeID);
             WorkStationID = DatabaseManager.GetWorkStationID(employeeID);
+            _homePage = homePage;
         }
 
         #endregion
@@ -180,6 +183,28 @@ namespace WorkStationAndon
             return Int32.Parse(response.ToString());
         }
 
+        public static List<string> GetOrderIDs(int workstationID)
+        {
+            List<string> orderIDs = new List<string>();
+
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
+            SqlCommand cmd = new SqlCommand($"SELECT order_id FROM WorkstationSession WHERE workstation_id = {workstationID}", sqlConnection);
+
+            sqlConnection.Open();
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    string id = reader["order_id"].ToString();
+                    orderIDs.Add($"Order {id}");
+                }
+            }
+
+
+            sqlConnection.Close();
+            return orderIDs;
+        }
+
         #endregion
 
 
@@ -194,8 +219,13 @@ namespace WorkStationAndon
         {
             while (!_stopUpdating)
             {
-                LampsCreated++;
-                Thread.Sleep(1000);
+                _homePage.Invoke(new Action(() =>
+                {
+                    // Access LampsCreated directly from the DatabaseManager
+                    _homePage.Manager.LampsCreated++;
+                }));
+
+                Thread.Sleep(5000);
             }
         }
 
