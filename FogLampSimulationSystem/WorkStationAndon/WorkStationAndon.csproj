@@ -51,6 +51,7 @@
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="LoginEventArgs.cs" />
+    <Compile Include="Order.cs" />
     <Compile Include="WorkStationAndonForm.cs">
       <SubType>Form</SubType>
     </Compile>

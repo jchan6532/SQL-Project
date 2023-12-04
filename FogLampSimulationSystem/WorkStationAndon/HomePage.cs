@@ -65,6 +65,15 @@ namespace WorkStationAndon
                 false,
                 DataSourceUpdateMode.OnPropertyChanged
                 );
+
+            // order id
+            OrderIDTextBlock.DataBindings.Add(
+                "Text",
+                Manager,
+                "CurrentOrderID",
+                false,
+                DataSourceUpdateMode.OnPropertyChanged
+                );
         }
 
         private void WorkStationAndonForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -89,8 +98,16 @@ namespace WorkStationAndon
         private void OrdersComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
-            MessageBox.Show(comboBox.SelectedItem.ToString());
 
+            string selectedOrder = comboBox.SelectedItem.ToString();
+            string[] orderComponents = selectedOrder.Split(' ');
+            Manager.CurrentOrderID = Int32.Parse(orderComponents[1]);
+            Manager.CurrentOrder = new Order(Int32.Parse(orderComponents[1]));
+
+            OrderAmountTextBlock.Text = Manager.CurrentOrderAmount.ToString();
+            AmountContributedTextBlock.Text = Manager.CurrentOrderLampsContributed.ToString();
+            DefectsContributedTextBlock.Text = Manager.CurrentOrderLampsDefects.ToString();
+            
             Manager.Start();
         }
     }

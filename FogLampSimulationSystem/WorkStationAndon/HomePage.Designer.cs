@@ -42,12 +42,16 @@ namespace WorkStationAndon
             this.EmployeeTypeTextBlock = new System.Windows.Forms.Label();
             this.EmployeeIDLabel = new System.Windows.Forms.Label();
             this.OrdersComboBox = new System.Windows.Forms.ComboBox();
+            this.OrderAmountTextBlock = new System.Windows.Forms.Label();
+            this.OrderAmountLabel = new System.Windows.Forms.Label();
+            this.OrderIDTextBlock = new System.Windows.Forms.Label();
+            this.OrderIDLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.DefectsContributedTextBlock = new System.Windows.Forms.Label();
+            this.DefectsContributedLabel = new System.Windows.Forms.Label();
+            this.AmountContributedTextBlock = new System.Windows.Forms.Label();
+            this.AmountContributedLabel = new System.Windows.Forms.Label();
             this.LampsCreatedPanel.SuspendLayout();
             this.NumDefectsPanel.SuspendLayout();
             this.SuspendLayout();
@@ -186,76 +190,120 @@ namespace WorkStationAndon
             this.OrdersComboBox.DropDown += new System.EventHandler(this.OrdersComboBox_DropDown);
             this.OrdersComboBox.SelectionChangeCommitted += new System.EventHandler(this.OrdersComboBox_SelectionChangeCommitted);
             // 
+            // OrderAmountTextBlock
+            // 
+            this.OrderAmountTextBlock.AutoSize = true;
+            this.OrderAmountTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OrderAmountTextBlock.Location = new System.Drawing.Point(167, 119);
+            this.OrderAmountTextBlock.Name = "OrderAmountTextBlock";
+            this.OrderAmountTextBlock.Size = new System.Drawing.Size(101, 25);
+            this.OrderAmountTextBlock.TabIndex = 17;
+            this.OrderAmountTextBlock.Text = "Undefined";
+            // 
+            // OrderAmountLabel
+            // 
+            this.OrderAmountLabel.AutoSize = true;
+            this.OrderAmountLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OrderAmountLabel.Location = new System.Drawing.Point(15, 119);
+            this.OrderAmountLabel.Name = "OrderAmountLabel";
+            this.OrderAmountLabel.Size = new System.Drawing.Size(129, 25);
+            this.OrderAmountLabel.TabIndex = 14;
+            this.OrderAmountLabel.Text = "Total Amount";
+            // 
+            // OrderIDTextBlock
+            // 
+            this.OrderIDTextBlock.AutoSize = true;
+            this.OrderIDTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OrderIDTextBlock.Location = new System.Drawing.Point(167, 76);
+            this.OrderIDTextBlock.Name = "OrderIDTextBlock";
+            this.OrderIDTextBlock.Size = new System.Drawing.Size(101, 25);
+            this.OrderIDTextBlock.TabIndex = 13;
+            this.OrderIDTextBlock.Text = "Undefined";
+            // 
+            // OrderIDLabel
+            // 
+            this.OrderIDLabel.AutoSize = true;
+            this.OrderIDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OrderIDLabel.Location = new System.Drawing.Point(15, 76);
+            this.OrderIDLabel.Name = "OrderIDLabel";
+            this.OrderIDLabel.Size = new System.Drawing.Size(86, 25);
+            this.OrderIDLabel.TabIndex = 12;
+            this.OrderIDLabel.Text = "Order ID";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(167, 119);
+            this.label1.Location = new System.Drawing.Point(15, 76);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 25);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Undefined";
+            this.label1.Size = new System.Drawing.Size(86, 25);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Order ID";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(15, 154);
+            this.label2.Location = new System.Drawing.Point(167, 119);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(123, 25);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Employee ID";
+            this.label2.Size = new System.Drawing.Size(101, 25);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Undefined";
             // 
-            // label3
+            // DefectsContributedTextBlock
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(167, 154);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 25);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "Undfined";
+            this.DefectsContributedTextBlock.AutoSize = true;
+            this.DefectsContributedTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DefectsContributedTextBlock.Location = new System.Drawing.Point(205, 204);
+            this.DefectsContributedTextBlock.Name = "DefectsContributedTextBlock";
+            this.DefectsContributedTextBlock.Size = new System.Drawing.Size(101, 25);
+            this.DefectsContributedTextBlock.TabIndex = 21;
+            this.DefectsContributedTextBlock.Text = "Undefined";
             // 
-            // label4
+            // DefectsContributedLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(15, 119);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(144, 25);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "EmployeeType";
+            this.DefectsContributedLabel.AutoSize = true;
+            this.DefectsContributedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DefectsContributedLabel.Location = new System.Drawing.Point(15, 204);
+            this.DefectsContributedLabel.Name = "DefectsContributedLabel";
+            this.DefectsContributedLabel.Size = new System.Drawing.Size(184, 25);
+            this.DefectsContributedLabel.TabIndex = 20;
+            this.DefectsContributedLabel.Text = "Defects Contributed";
             // 
-            // label5
+            // AmountContributedTextBlock
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(167, 76);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(101, 25);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Undefined";
+            this.AmountContributedTextBlock.AutoSize = true;
+            this.AmountContributedTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmountContributedTextBlock.Location = new System.Drawing.Point(207, 161);
+            this.AmountContributedTextBlock.Name = "AmountContributedTextBlock";
+            this.AmountContributedTextBlock.Size = new System.Drawing.Size(101, 25);
+            this.AmountContributedTextBlock.TabIndex = 19;
+            this.AmountContributedTextBlock.Text = "Undefined";
             // 
-            // label6
+            // AmountContributedLabel
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(15, 76);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(156, 25);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Employee Name";
+            this.AmountContributedLabel.AutoSize = true;
+            this.AmountContributedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmountContributedLabel.Location = new System.Drawing.Point(15, 161);
+            this.AmountContributedLabel.Name = "AmountContributedLabel";
+            this.AmountContributedLabel.Size = new System.Drawing.Size(186, 25);
+            this.AmountContributedLabel.TabIndex = 18;
+            this.AmountContributedLabel.Text = "Amount Contributed";
             // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.DefectsContributedTextBlock);
+            this.Controls.Add(this.DefectsContributedLabel);
+            this.Controls.Add(this.AmountContributedTextBlock);
+            this.Controls.Add(this.AmountContributedLabel);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.OrderAmountTextBlock);
+            this.Controls.Add(this.OrderAmountLabel);
+            this.Controls.Add(this.OrderIDTextBlock);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.OrderIDLabel);
             this.Controls.Add(this.OrdersComboBox);
             this.Controls.Add(this.EmployeeTypeTextBlock);
             this.Controls.Add(this.EmployeeIDLabel);
@@ -292,12 +340,16 @@ namespace WorkStationAndon
         private System.Windows.Forms.Label EmployeeTypeTextBlock;
         private System.Windows.Forms.Label EmployeeIDLabel;
         private System.Windows.Forms.ComboBox OrdersComboBox;
+        private System.Windows.Forms.Label OrderAmountTextBlock;
+        private System.Windows.Forms.Label OrderAmountLabel;
+        private System.Windows.Forms.Label OrderIDTextBlock;
+        private System.Windows.Forms.Label OrderIDLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label DefectsContributedTextBlock;
+        private System.Windows.Forms.Label DefectsContributedLabel;
+        private System.Windows.Forms.Label AmountContributedTextBlock;
+        private System.Windows.Forms.Label AmountContributedLabel;
     }
 }
 

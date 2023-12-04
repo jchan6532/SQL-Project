@@ -21,8 +21,6 @@ namespace WorkStationAndon
 
         private int _currentOrderID;
 
-        private int _currentOrderAmount;
-
         private Thread _updateDataThread = null;
 
         private HomePage _homePage;
@@ -87,22 +85,6 @@ namespace WorkStationAndon
             }
         }
 
-        public int CurrentOrderAmount
-        {
-            get
-            {
-                return _currentOrderAmount;
-            }
-            set
-            {
-                if (_currentOrderAmount != value)
-                {
-                    _currentOrderAmount = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         /// <summary>
         /// The ID of the Workstation as it appears in the DB.
         /// </summary>
@@ -125,9 +107,63 @@ namespace WorkStationAndon
             set;
         }
 
+        public Order CurrentOrder
+        {
+            get;
+            set;
+        }
+
         public string EmployeeName { get { return WorkStationEmployee.EmployeeName; } }
 
         public string EmployeeType { get { return WorkStationEmployee.EmployeeType; } }
+        // no binding
+        public int CurrentOrderAmount { get { return CurrentOrder.OrderAmount; } }
+        // no binding
+        public int CurrentOrderLampsContributed
+        {
+            get 
+            {
+                int contributed = 0;
+                SqlConnection sqlConnection =
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
+                SqlCommand cmd = new SqlCommand($"SELECT lamps_built FROM WorkstationSession WHERE order_id = {CurrentOrderID} AND workstation_id = {WorkStationID}", sqlConnection);
+
+                sqlConnection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        contributed += Int32.Parse(reader["lamps_built"].ToString());
+                    }
+                }
+                sqlConnection.Close();
+
+                return contributed;
+            }
+        }
+        // no binding
+        public int CurrentOrderLampsDefects
+        {
+            get
+            {
+                int defects = 0;
+                SqlConnection sqlConnection =
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
+                SqlCommand cmd = new SqlCommand($"SELECT defects FROM WorkstationSession WHERE order_id = {CurrentOrderID} AND workstation_id = {WorkStationID}", sqlConnection);
+
+                sqlConnection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        defects += Int32.Parse(reader["defects"].ToString());
+                    }
+                }
+                sqlConnection.Close();
+
+                return defects;
+            }
+        }
 
         #endregion
 
@@ -188,7 +224,7 @@ namespace WorkStationAndon
             List<string> orderIDs = new List<string>();
 
             SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
-            SqlCommand cmd = new SqlCommand($"SELECT order_id FROM WorkstationSession WHERE workstation_id = {workstationID}", sqlConnection);
+            SqlCommand cmd = new SqlCommand($"SELECT DISTINCT order_id FROM WorkstationSession WHERE workstation_id = {workstationID}", sqlConnection);
 
             sqlConnection.Open();
             using (SqlDataReader reader = cmd.ExecuteReader())
@@ -225,7 +261,7 @@ namespace WorkStationAndon
                     _homePage.Manager.LampsCreated++;
                 }));
 
-                Thread.Sleep(5000);
+                Thread.Sleep(1000);
             }
         }
 
