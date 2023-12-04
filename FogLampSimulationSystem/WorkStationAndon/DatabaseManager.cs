@@ -198,6 +198,37 @@ namespace WorkStationAndon
             return orderIDs;
         }
 
+        public static Dictionary<string, int> GetOrdersReport(int orderID)
+        {
+            Dictionary<string, int> orderReport = new Dictionary<string, int>();
+
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
+            SqlCommand cmd = new SqlCommand($"SELECT workstation_id, lamps_built FROM WorkstationSession WHERE order_id = {orderID}", sqlConnection);
+
+            sqlConnection.Open();
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    string id = reader["workstation_id"].ToString();
+                    string amount = reader["lamps_built"].ToString();
+
+                    if (orderReport.ContainsKey(id))
+                    {
+                        orderReport[id] += Int32.Parse(amount);
+                    }
+                    else
+                    {
+                        orderReport.Add(id, Int32.Parse(amount));
+                    }
+                }
+            }
+
+
+            sqlConnection.Close();
+            return orderReport;
+        }
+
         #endregion
 
 

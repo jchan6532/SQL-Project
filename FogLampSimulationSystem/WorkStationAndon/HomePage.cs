@@ -16,7 +16,7 @@ namespace WorkStationAndon
     {
         private volatile bool _stopUpdating = false;
 
-        private Thread _updateDataThread = null;
+        private volatile Thread _updateDataThread = null;
 
 
         public DatabaseManager Manager
@@ -72,11 +72,8 @@ namespace WorkStationAndon
             }));
         }
 
-        private void OrdersComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        private async void OrdersComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            if (_updateDataThread?.ThreadState == ThreadState.Running || _updateDataThread?.ThreadState == ThreadState.WaitSleepJoin)
-                Stop();
-
             ComboBox comboBox = (ComboBox)sender;
 
             string selectedOrder = comboBox.SelectedItem.ToString();
@@ -94,16 +91,24 @@ namespace WorkStationAndon
             LampsCreatedTextBlock.Text = Manager.OrderFulfilled.ToString();
             DefectsTextBlock.Text = Manager.DefectsFulfilled.ToString();
 
-            var data = new List<KeyValuePair<string, int>>
-            {
-                new KeyValuePair<string, int>("Category A", 30),
-                new KeyValuePair<string, int>("Category B", 50),
-                new KeyValuePair<string, int>("Category C", 20)
-            };
+            //var data = new List<KeyValuePair<string, int>>
+            //{
+            //    new KeyValuePair<string, int>("Category A", 30),
+            //    new KeyValuePair<string, int>("Category B", 50),
+            //    new KeyValuePair<string, int>("Category C", 20)
+            //};
+            var data = DatabaseManager.GetOrdersReport(Int32.Parse(orderComponents[1]));
 
             // Set up the Chart
             WorkStationContributionPie.Series[0].ChartType = SeriesChartType.Pie;
             WorkStationContributionPie.Series[0].Points.DataBind(data, "Key", "Value", "");
+
+            // Display values on the pie chart slices
+            foreach (var point in WorkStationContributionPie.Series[0].Points)
+            {
+                // Set the label to display the value
+                point.Label = $"{point.YValues[0]:0}";
+            }
 
             // Optional: Add a legend
             if (WorkStationContributionPie.Legends.FindByName("Legend") == null)
@@ -112,9 +117,16 @@ namespace WorkStationAndon
                 WorkStationContributionPie.Series[0].Legend = "Legend";
             }
 
-            WorkStationContributionPie.Visible = true;
+            if (data.Count == 0)
+            {
+                WorkStationContributionPie.Visible = false;
+            }
+            else
+            {
+                WorkStationContributionPie.Visible = true;
+            }
 
-            Start();
+            await StartAsync();
         }
 
         private void UpdatingDataAsync()
@@ -122,7 +134,7 @@ namespace WorkStationAndon
             int i = 0;
             while (!_stopUpdating)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(3000);
                 Invoke((MethodInvoker)delegate
                 {
                     AmountContributedTextBlock.Text = i++.ToString();
@@ -143,16 +155,28 @@ namespace WorkStationAndon
 
         public void Stop()
         {
-            _stopUpdating = true;
-            _updateDataThread.Join();
-            MessageBox.Show("closed");
+            if (_updateDataThread != null && 
+                (_updateDataThread.ThreadState == ThreadState.Running || _updateDataThread.ThreadState == ThreadState.WaitSleepJoin))
+            {
+                _stopUpdating = true;
+                _updateDataThread.Join();
+                _updateDataThread = null;
+            }
         }
 
-        public void Start()
+        public async Task StartAsync()
         {
-            ThreadStart updateDataTs = new ThreadStart(UpdatingDataAsync);
-            _updateDataThread = new Thread(updateDataTs);
+            if (_updateDataThread != null)
+            {
+                _stopUpdating = true;
+                await Task.Run(() => _updateDataThread.Join());
+                _updateDataThread = null;
+            }
+            _stopUpdating = false;
+            _updateDataThread = new Thread(UpdatingDataAsync);
             _updateDataThread.Start();
         }
+
+
     }
 }
