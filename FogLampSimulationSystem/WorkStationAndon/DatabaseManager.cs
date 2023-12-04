@@ -19,6 +19,10 @@ namespace WorkStationAndon
 
         private int _defectCount;
 
+        private int _currentOrderID;
+
+        private int _currentOrderAmount;
+
         private Thread _updateDataThread = null;
 
         #endregion
@@ -65,6 +69,38 @@ namespace WorkStationAndon
             }
         }
 
+        public int CurrentOrderID
+        {
+            get
+            {
+                return _currentOrderID;
+            }
+            set
+            {
+                if (_currentOrderID != value)
+                {
+                    _currentOrderID = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int CurrentOrderAmount
+        {
+            get
+            {
+                return _currentOrderAmount;
+            }
+            set
+            {
+                if (_currentOrderAmount != value)
+                {
+                    _currentOrderAmount = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         /// <summary>
         /// The ID of the Workstation as it appears in the DB.
         /// </summary>
@@ -78,27 +114,7 @@ namespace WorkStationAndon
         [DefaultValue(-1)]
         public int WorkStationID
         {
-            get
-            {
-                if (!IsAuthenticated)
-                {
-                    return -1;
-                }
-
-                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
-                SqlCommand cmd = new SqlCommand($"SELECT TOP 1 workstation_id FROM WorkstationOverview WHERE employee_id = {EmployeeID}",
-                    sqlConnection);
-
-                sqlConnection.Open();
-                object response = cmd.ExecuteScalar();
-                sqlConnection.Close();
-
-                if (response == null)
-                {
-                    return -1;
-                }
-                return Int32.Parse(response.ToString());
-            }
+            get;
         }
 
         public Employee WorkStationEmployee
@@ -107,11 +123,9 @@ namespace WorkStationAndon
             set;
         }
 
-        public bool IsAuthenticated
-        {
-            get;
-            set;
-        } = false;
+        public string EmployeeName { get { return WorkStationEmployee.EmployeeName; } }
+
+        public string EmployeeType { get { return WorkStationEmployee.EmployeeType; } }
 
         #endregion
 
@@ -125,9 +139,11 @@ namespace WorkStationAndon
 
         #region Constructors
 
-        public DatabaseManager()
+        public DatabaseManager(int employeeID)
         {
-
+            EmployeeID = employeeID;
+            WorkStationEmployee = new Employee(employeeID);
+            WorkStationID = DatabaseManager.GetWorkStationID(employeeID);
         }
 
         #endregion
@@ -145,6 +161,23 @@ namespace WorkStationAndon
             sqlConnection.Close();
 
             return response != null;
+        }
+
+        public static int GetWorkStationID(int employeeID)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
+            SqlCommand cmd = new SqlCommand($"SELECT TOP 1 workstation_id FROM WorkstationOverview WHERE employee_id = {employeeID}",
+                sqlConnection);
+
+            sqlConnection.Open();
+            object response = cmd.ExecuteScalar();
+            sqlConnection.Close();
+
+            if (response == null)
+            {
+                return -1;
+            }
+            return Int32.Parse(response.ToString());
         }
 
         #endregion

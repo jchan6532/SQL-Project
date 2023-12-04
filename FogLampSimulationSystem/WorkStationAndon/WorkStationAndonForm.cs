@@ -18,35 +18,24 @@ namespace WorkStationAndon
             set;
         }
 
-        public DatabaseManager Manager
-        {
-            get;
-            set;
-        }
-
         public WorkStationAndon()
         {
             InitializeComponent();
 
-            // Create new database manager
-            Manager = new DatabaseManager();
         }
 
         private void WorkStationAndon_Load(object sender, EventArgs e)
         {
             // Initially load the log in page
-            LoginPage loginPage = new LoginPage(Manager);
+            LoginPage loginPage = new LoginPage();
             SetPageContent(loginPage);
         }
 
         private void LoginPage_LoginSuccess(object sender, LoginEventArgs e)
         {
-            Manager.WorkStationEmployee = new Employee(e.EmployeeID);
-            Manager.IsAuthenticated = true;
-            Manager.EmployeeID = e.EmployeeID;
 
             // Load the home page
-            HomePage homePage = new HomePage(Manager);
+            HomePage homePage = new HomePage(e.EmployeeID);
             SetPageContent(homePage);
         }
 

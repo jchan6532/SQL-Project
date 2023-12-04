@@ -35,6 +35,12 @@ namespace WorkStationAndon
             this.NumDefectsTextBlock = new System.Windows.Forms.Label();
             this.NumDefectsLabel = new System.Windows.Forms.Label();
             this.NumDefectsPanel = new System.Windows.Forms.Panel();
+            this.EmployeeNameTextBlock = new System.Windows.Forms.Label();
+            this.EmployeeNameLabel = new System.Windows.Forms.Label();
+            this.EmployeeIDTextBlock = new System.Windows.Forms.Label();
+            this.EmployeeTypeLabel = new System.Windows.Forms.Label();
+            this.EmployeeTypeTextBlock = new System.Windows.Forms.Label();
+            this.EmployeeIDLabel = new System.Windows.Forms.Label();
             this.LampsCreatedPanel.SuspendLayout();
             this.NumDefectsPanel.SuspendLayout();
             this.SuspendLayout();
@@ -103,21 +109,87 @@ namespace WorkStationAndon
             this.NumDefectsPanel.Size = new System.Drawing.Size(150, 150);
             this.NumDefectsPanel.TabIndex = 1;
             // 
-            // WorkStationAndonForm
+            // EmployeeNameTextBlock
+            // 
+            this.EmployeeNameTextBlock.AutoSize = true;
+            this.EmployeeNameTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EmployeeNameTextBlock.Location = new System.Drawing.Point(211, 39);
+            this.EmployeeNameTextBlock.Name = "EmployeeNameTextBlock";
+            this.EmployeeNameTextBlock.Size = new System.Drawing.Size(101, 25);
+            this.EmployeeNameTextBlock.TabIndex = 4;
+            this.EmployeeNameTextBlock.Text = "Undefined";
+            // 
+            // EmployeeNameLabel
+            // 
+            this.EmployeeNameLabel.AutoSize = true;
+            this.EmployeeNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EmployeeNameLabel.Location = new System.Drawing.Point(59, 39);
+            this.EmployeeNameLabel.Name = "EmployeeNameLabel";
+            this.EmployeeNameLabel.Size = new System.Drawing.Size(156, 25);
+            this.EmployeeNameLabel.TabIndex = 3;
+            this.EmployeeNameLabel.Text = "Employee Name";
+            // 
+            // EmployeeIDTextBlock
+            // 
+            this.EmployeeIDTextBlock.AutoSize = true;
+            this.EmployeeIDTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EmployeeIDTextBlock.Location = new System.Drawing.Point(211, 117);
+            this.EmployeeIDTextBlock.Name = "EmployeeIDTextBlock";
+            this.EmployeeIDTextBlock.Size = new System.Drawing.Size(90, 25);
+            this.EmployeeIDTextBlock.TabIndex = 6;
+            this.EmployeeIDTextBlock.Text = "Undfined";
+            // 
+            // EmployeeTypeLabel
+            // 
+            this.EmployeeTypeLabel.AutoSize = true;
+            this.EmployeeTypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EmployeeTypeLabel.Location = new System.Drawing.Point(59, 82);
+            this.EmployeeTypeLabel.Name = "EmployeeTypeLabel";
+            this.EmployeeTypeLabel.Size = new System.Drawing.Size(144, 25);
+            this.EmployeeTypeLabel.TabIndex = 5;
+            this.EmployeeTypeLabel.Text = "EmployeeType";
+            // 
+            // EmployeeTypeTextBlock
+            // 
+            this.EmployeeTypeTextBlock.AutoSize = true;
+            this.EmployeeTypeTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EmployeeTypeTextBlock.Location = new System.Drawing.Point(211, 82);
+            this.EmployeeTypeTextBlock.Name = "EmployeeTypeTextBlock";
+            this.EmployeeTypeTextBlock.Size = new System.Drawing.Size(101, 25);
+            this.EmployeeTypeTextBlock.TabIndex = 10;
+            this.EmployeeTypeTextBlock.Text = "Undefined";
+            // 
+            // EmployeeIDLabel
+            // 
+            this.EmployeeIDLabel.AutoSize = true;
+            this.EmployeeIDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EmployeeIDLabel.Location = new System.Drawing.Point(59, 117);
+            this.EmployeeIDLabel.Name = "EmployeeIDLabel";
+            this.EmployeeIDLabel.Size = new System.Drawing.Size(123, 25);
+            this.EmployeeIDLabel.TabIndex = 9;
+            this.EmployeeIDLabel.Text = "Employee ID";
+            // 
+            // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(820, 459);
+            this.Controls.Add(this.EmployeeTypeTextBlock);
+            this.Controls.Add(this.EmployeeIDLabel);
+            this.Controls.Add(this.EmployeeIDTextBlock);
+            this.Controls.Add(this.EmployeeTypeLabel);
+            this.Controls.Add(this.EmployeeNameTextBlock);
             this.Controls.Add(this.NumDefectsPanel);
+            this.Controls.Add(this.EmployeeNameLabel);
             this.Controls.Add(this.LampsCreatedPanel);
-            this.Name = "WorkStationAndonForm";
-            this.Text = "WorkStation Andon";
+            this.Name = "HomePage";
+            this.Size = new System.Drawing.Size(820, 459);
             this.Load += new System.EventHandler(this.WorkStationAndonForm_Load);
             this.LampsCreatedPanel.ResumeLayout(false);
             this.LampsCreatedPanel.PerformLayout();
             this.NumDefectsPanel.ResumeLayout(false);
             this.NumDefectsPanel.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -129,6 +201,12 @@ namespace WorkStationAndon
         private System.Windows.Forms.Panel NumDefectsPanel;
         private System.Windows.Forms.Label NumDefectsTextBlock;
         private System.Windows.Forms.Label LampsCreatedTextBlock;
+        private System.Windows.Forms.Label EmployeeNameTextBlock;
+        private System.Windows.Forms.Label EmployeeNameLabel;
+        private System.Windows.Forms.Label EmployeeIDTextBlock;
+        private System.Windows.Forms.Label EmployeeTypeLabel;
+        private System.Windows.Forms.Label EmployeeTypeTextBlock;
+        private System.Windows.Forms.Label EmployeeIDLabel;
     }
 }
 

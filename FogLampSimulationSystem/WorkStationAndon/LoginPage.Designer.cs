@@ -30,8 +30,8 @@ namespace WorkStationAndon
         private void InitializeComponent()
         {
             this.LogInButton = new System.Windows.Forms.Button();
-            this.WorkStationIDTextBox = new System.Windows.Forms.TextBox();
-            this.WorkStationIDLabel = new System.Windows.Forms.Label();
+            this.EmployeeIDTextBox = new System.Windows.Forms.TextBox();
+            this.EmployeeIDLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LogInButton
@@ -44,28 +44,28 @@ namespace WorkStationAndon
             this.LogInButton.UseVisualStyleBackColor = true;
             this.LogInButton.Click += new System.EventHandler(this.LogInButton_Click);
             // 
-            // WorkStationIDTextBox
+            // EmployeeIDTextBox
             // 
-            this.WorkStationIDTextBox.Location = new System.Drawing.Point(418, 141);
-            this.WorkStationIDTextBox.Name = "WorkStationIDTextBox";
-            this.WorkStationIDTextBox.Size = new System.Drawing.Size(86, 20);
-            this.WorkStationIDTextBox.TabIndex = 1;
+            this.EmployeeIDTextBox.Location = new System.Drawing.Point(418, 141);
+            this.EmployeeIDTextBox.Name = "EmployeeIDTextBox";
+            this.EmployeeIDTextBox.Size = new System.Drawing.Size(86, 20);
+            this.EmployeeIDTextBox.TabIndex = 1;
             // 
-            // WorkStationIDLabel
+            // EmployeeIDLabel
             // 
-            this.WorkStationIDLabel.AutoSize = true;
-            this.WorkStationIDLabel.Location = new System.Drawing.Point(329, 144);
-            this.WorkStationIDLabel.Name = "WorkStationIDLabel";
-            this.WorkStationIDLabel.Size = new System.Drawing.Size(83, 13);
-            this.WorkStationIDLabel.TabIndex = 3;
-            this.WorkStationIDLabel.Text = "Work Station ID";
+            this.EmployeeIDLabel.AutoSize = true;
+            this.EmployeeIDLabel.Location = new System.Drawing.Point(329, 144);
+            this.EmployeeIDLabel.Name = "EmployeeIDLabel";
+            this.EmployeeIDLabel.Size = new System.Drawing.Size(67, 13);
+            this.EmployeeIDLabel.TabIndex = 3;
+            this.EmployeeIDLabel.Text = "Employee ID";
             // 
             // LoginPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.WorkStationIDLabel);
-            this.Controls.Add(this.WorkStationIDTextBox);
+            this.Controls.Add(this.EmployeeIDLabel);
+            this.Controls.Add(this.EmployeeIDTextBox);
             this.Controls.Add(this.LogInButton);
             this.Name = "LoginPage";
             this.Size = new System.Drawing.Size(800, 450);
@@ -77,7 +77,7 @@ namespace WorkStationAndon
         #endregion
 
         private System.Windows.Forms.Button LogInButton;
-        private System.Windows.Forms.TextBox WorkStationIDTextBox;
-        private System.Windows.Forms.Label WorkStationIDLabel;
+        private System.Windows.Forms.TextBox EmployeeIDTextBox;
+        private System.Windows.Forms.Label EmployeeIDLabel;
     }
 }

@@ -18,12 +18,13 @@ namespace WorkStationAndon
             set;
         }
 
-        public HomePage(DatabaseManager manager)
+        public HomePage(int employeeID)
         {
             InitializeComponent();
 
-            Manager = manager;
+            Manager = new DatabaseManager(employeeID);
 
+            // Lamps created
             LampsCreatedTextBlock.DataBindings.Add(
                 "Text",
                 Manager,
@@ -32,12 +33,37 @@ namespace WorkStationAndon
                 DataSourceUpdateMode.OnPropertyChanged
                 );
 
-            Manager.Start();
+            // employee id
+            EmployeeIDTextBlock.DataBindings.Add(
+                "Text",
+                Manager,
+                "EmployeeID",
+                false,
+                DataSourceUpdateMode.OnPropertyChanged
+                );
+
+            // employee name
+            EmployeeNameTextBlock.DataBindings.Add(
+                "Text",
+                Manager,
+                "EmployeeName",
+                false,
+                DataSourceUpdateMode.OnPropertyChanged
+                );
+
+            // employee type
+            EmployeeTypeTextBlock.DataBindings.Add(
+                "Text",
+                Manager,
+                "EmployeeType",
+                false,
+                DataSourceUpdateMode.OnPropertyChanged
+                );
         }
 
         private void WorkStationAndonForm_Load(object sender, EventArgs e)
         {
-
+            Manager.Start();
         }
 
         private void WorkStationAndonForm_FormClosing(object sender, FormClosingEventArgs e)
