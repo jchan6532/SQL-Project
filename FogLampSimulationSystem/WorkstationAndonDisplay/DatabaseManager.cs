@@ -6,6 +6,9 @@ using System.Drawing.Text;
 
 namespace WorkstationAndonDisplay
 {
+    /// <summary>
+    /// The database class encapsulating all necessary backend business logic like database queries or actions required for the UI
+    /// </summary>
     internal class DatabaseManager
     {
         private string ConnectionString { get; set; }

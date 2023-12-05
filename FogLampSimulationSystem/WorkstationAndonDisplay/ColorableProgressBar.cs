@@ -20,6 +20,9 @@ namespace RunnerStationStatusViewer
     /// </summary>
     internal class ColorableProgressBar : ProgressBar
     {
+        /// <summary>
+        /// Defualt constructor for the custom progress bar class
+        /// </summary>
         public ColorableProgressBar()
         {
             // Set the style to allow us to paint on the control, the double buffer to fix flickering
@@ -32,7 +35,7 @@ namespace RunnerStationStatusViewer
 
         /// <summary>
         /// OnPaint is called every time the ProgressBar is drawn on the screen.
-        /// This code basically 
+        /// This code basically runs on every new part count change
         /// </summary>
         /// <param name="e"></param>
         protected override void OnPaint(PaintEventArgs e)
