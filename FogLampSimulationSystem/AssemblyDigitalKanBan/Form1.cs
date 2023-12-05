@@ -14,22 +14,36 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace AssemblyDigitalKanBan
 {
+    /// <summary>
+    /// Class representing the code behind logic for the assmebly digital kanban form
+    /// </summary>
     public partial class Form1 : Form
     {
 
         private delegate void uiDelegate();
 
+        /// <summary>
+        /// The current order ID
+        /// </summary>
         private int OrderId
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Event handler when the form loads
+        /// </summary>
+        /// <param name="sender">the sender of the event, which is the form</param>
+        /// <param name="e">event arguments for extra information</param>
         private void Form1_Load(object sender, EventArgs e)
         {
             DatabaseManager dbManager =
@@ -45,6 +59,9 @@ namespace AssemblyDigitalKanBan
             Task.Run(guiUpdate);
         }
 
+        /// <summary>
+        /// Method for periodically updating the user interface for new data to show on the graphs
+        /// </summary>
         private void guiUpdate()
         {
             while (true)
@@ -55,6 +72,9 @@ namespace AssemblyDigitalKanBan
             }
         }
 
+        /// <summary>
+        /// Updates the historical graph representing the lamps built from the beginning of time for each work station
+        /// </summary>
         private void UpdateHistoricalGraph()
         {
             DatabaseManager dbManager =
@@ -81,6 +101,9 @@ namespace AssemblyDigitalKanBan
             }
         }
 
+        /// <summary>
+        /// Updates the contribution graph representing the lamps built from each work station for the first incomplete order
+        /// </summary>
         private void UpdateContributionGraph()
         {
             DatabaseManager dbManager =
@@ -121,7 +144,10 @@ namespace AssemblyDigitalKanBan
             range.Points.Add(orderAmount - 1);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private int GraphContributionTotal()
         {
             DatabaseManager dbManager =

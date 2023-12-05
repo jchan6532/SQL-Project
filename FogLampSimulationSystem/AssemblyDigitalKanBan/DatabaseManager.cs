@@ -13,11 +13,27 @@ using System.Data.SqlClient;
 
 namespace AssemblyDigitalKanBan
 {
+    /// <summary>
+    /// The database class encapsulating all necessary backend business logic like database queries or actions required for the UI
+    /// </summary>
     internal class DatabaseManager
     {
-        string ConnectionString { get;}
+        #region Properties
 
+        /// <summary>
+        /// The SQL connection string property
+        /// </summary>
+        string ConnectionString
+        { 
+            get;
+        }
 
+        #endregion
+
+        /// <summary>
+        /// Parameterized constructor taking in a SQL connection string
+        /// </summary>
+        /// <param name="connectionString">The SQL connection string</param>
         public DatabaseManager(string connectionString)
         {
             ConnectionString = connectionString;
@@ -25,7 +41,7 @@ namespace AssemblyDigitalKanBan
 
 
         /// <summary>
-        /// Returns a list with the a List of int of all current Workstation IDs.
+        /// Returns a list of all current Workstation IDs.
         /// </summary>
         /// <returns></returns>
         public List<int> GetWorkstationIds()
@@ -78,10 +94,10 @@ namespace AssemblyDigitalKanBan
             return workstationProductionInfo;
         }
         /// <summary>
-        /// Returns the # of lamps that would need to be built to complete the order.
+        /// Returns the number of lamps that would need to be built to complete the order.
         /// </summary>
         /// <param name="orderId">The ID of the order.</param>
-        /// <returns>An int representing the # of lamps that need to be built.</returns>
+        /// <returns>An integer representing the number of lamps that need to be built.</returns>
         public int GetOrderAmount(int orderId)
         {
             SqlConnection conn = new SqlConnection(ConnectionString);
@@ -100,9 +116,9 @@ namespace AssemblyDigitalKanBan
         /// <summary>
         /// Gets the current number 
         /// </summary>
-        /// <param name="workstationId"></param>
-        /// <param name="orderId"></param>
-        /// <returns></returns>
+        /// <param name="workstationId">the workstation ID of the workstation's contribution</param>
+        /// <param name="orderId">the order ID of the order being contributed</param>
+        /// <returns>A data table </returns>
         public DataTable GetWorkstationOrderContribution(int workstationId, int orderId)
         {
             SqlConnection conn = new SqlConnection(ConnectionString);
@@ -120,6 +136,10 @@ namespace AssemblyDigitalKanBan
             return ocTable;
         }
 
+        /// <summary>
+        /// Gets the first order ID such that the order is not yet completed
+        /// </summary>
+        /// <returns>The order ID of the first incomplete order</returns>
         public int GetFirstIncompleteOrderId()
         {
             SqlConnection conn = new SqlConnection(ConnectionString);
@@ -137,6 +157,10 @@ namespace AssemblyDigitalKanBan
             return orderId;
         }
 
+        /// <summary>
+        /// Gets the work station's lamps built counting from the beginning of time
+        /// </summary>
+        /// <returns>The number of lamps built from the beginning of time</returns>
         public DataTable GetWorkstationAllTimeLampsProduced()
         {
             SqlConnection conn = new SqlConnection(ConnectionString);
