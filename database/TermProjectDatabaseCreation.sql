@@ -8,6 +8,7 @@
 * As of 2023-11-20, only covers creation of configuration table.
 */
 CREATE DATABASE Sql_Term_Project
+GO
 
 USE Sql_Term_Project
 GO
