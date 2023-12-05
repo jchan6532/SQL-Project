@@ -6,6 +6,8 @@
 * DESCRIPTION :
 * Creates the views for the database.
 */
+USE Sql_Term_Project
+GO
 
 CREATE VIEW WorkstationOverview
 AS
