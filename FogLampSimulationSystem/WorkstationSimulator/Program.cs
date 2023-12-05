@@ -8,6 +8,7 @@
  * Runs the simulator in Runner or Workstation mode.
  */
 using System;
+using System.IO;
 
 namespace WorkstationSimulator
 {
@@ -47,6 +48,13 @@ namespace WorkstationSimulator
                 {
                     return;
                 }
+
+                // Check if the Andon Display file is present, if it is, launch it.
+                if (File.Exists(@".\\WorkstationAndonDisplay.exe"))
+                {
+                    System.Diagnostics.Process.Start(@".\\WorkstationAndonDisplay.exe",workstationId.ToString());
+                }
+
                 // Instantiate a simManager for a workstation and a random number generator
                 // Rand is instantiated here to make our lives easier when checking for defects
                 SimulationManager simManager = new SimulationManager(workstationId);
@@ -62,7 +70,7 @@ namespace WorkstationSimulator
         /// <summary>
         /// Performs the functionality of a single tick of the Workstation Simulation.
         /// </summary>
-        /// <param name="simManager">The SimualtionManager object instantiated w/ a Workstation ID.</param>
+        /// <param name="simManager">The SimulationManager object instantiated w/ a Workstation ID.</param>
         /// <param name="rand">A Random object for random number generation w/o having to reseed on every pass.</param>
         static void TickWorkstation(SimulationManager simManager, Random rand)
         {
@@ -70,7 +78,7 @@ namespace WorkstationSimulator
             // Simulation speed is a multiplier, meaning that a Simulation Speed of 2 will run @ 2x
             // realtime speed.
             simManager.Sleep();
-            Console.WriteLine($"\nWorkstation ID          : {simManager.SimWorkstation.WorkstationId}");
+            Console.WriteLine($"\nWorkstation ID          : {simManager.SimWorkstation.WorkstationId} | {simManager.SimWorkstation.WorkstationEmployee.EmployeeName}");
             // If there isn't an order, skip ticking the fan build timer forward
             if (simManager.SimWorkstation.CurrentOrder != null)
             {

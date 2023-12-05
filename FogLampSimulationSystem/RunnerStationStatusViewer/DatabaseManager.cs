@@ -177,20 +177,6 @@ namespace RunnerStationStatusViewer
             return warning;
         }
 
-        public void RefillBin(string partName, int workstationId)
-        {
-            int binId = GetBinId(partName, workstationId);
-
-            SqlConnection sqlConnection = new SqlConnection(ConnectionString);
-            SqlCommand cmd = new SqlCommand("RefillBin", sqlConnection);
-            cmd.Parameters.Add(new SqlParameter("bin_id", SqlDbType.Int) { Value = binId });
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            sqlConnection.Open();
-            cmd.ExecuteNonQuery();
-            sqlConnection.Close();
-        }
-
         private int GetBinId(string partName, int workstationId)
         {
             int binId;

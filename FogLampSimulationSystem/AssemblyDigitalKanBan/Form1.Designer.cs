@@ -66,7 +66,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.24691F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.75309F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(929, 312);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(929, 308);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // historicalPartsProducedGraph
@@ -82,7 +82,7 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.historicalPartsProducedGraph.Series.Add(series1);
-            this.historicalPartsProducedGraph.Size = new System.Drawing.Size(456, 304);
+            this.historicalPartsProducedGraph.Size = new System.Drawing.Size(456, 300);
             this.historicalPartsProducedGraph.TabIndex = 2;
             this.historicalPartsProducedGraph.Text = "chart2";
             // 
@@ -99,7 +99,7 @@
             series2.Legend = "Legend1";
             series2.Name = "Series1";
             this.partContributionGraph.Series.Add(series2);
-            this.partContributionGraph.Size = new System.Drawing.Size(458, 304);
+            this.partContributionGraph.Size = new System.Drawing.Size(458, 300);
             this.partContributionGraph.TabIndex = 1;
             this.partContributionGraph.Text = "chart1";
             // 
@@ -164,7 +164,7 @@
             this.ClientSize = new System.Drawing.Size(962, 608);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Fog Lamp Assembly Line KanBan";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.historicalPartsProducedGraph)).EndInit();

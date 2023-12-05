@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunnerStationStatusViewer",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyDigitalKanBan", "AssemblyDigitalKanBan\AssemblyDigitalKanBan.csproj", "{47D3B62B-1534-4B62-B89D-46918A86F4CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkstationAndonDisplay", "WorkstationAndonDisplay\WorkstationAndonDisplay.csproj", "{C394411A-C8EB-43C7-BE9C-B74117DF395E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{47D3B62B-1534-4B62-B89D-46918A86F4CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47D3B62B-1534-4B62-B89D-46918A86F4CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47D3B62B-1534-4B62-B89D-46918A86F4CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C394411A-C8EB-43C7-BE9C-B74117DF395E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C394411A-C8EB-43C7-BE9C-B74117DF395E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C394411A-C8EB-43C7-BE9C-B74117DF395E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C394411A-C8EB-43C7-BE9C-B74117DF395E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -140,7 +140,7 @@ namespace RunnerStationStatusViewer
             }
         }
 
-        private async void UpdateGUI()
+        private void UpdateGUI()
         {
             while (true)
             {

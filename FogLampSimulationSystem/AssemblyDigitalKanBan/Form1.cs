@@ -42,10 +42,10 @@ namespace AssemblyDigitalKanBan
                 cell.Dock = DockStyle.Fill;
                 tableLayoutPanel2.Controls.Add(cell);
             }
-            Task.Run(Update);
+            Task.Run(guiUpdate);
         }
 
-        private void Update()
+        private void guiUpdate()
         {
             while (true)
             {

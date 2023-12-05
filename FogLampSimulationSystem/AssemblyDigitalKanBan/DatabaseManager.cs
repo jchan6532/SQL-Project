@@ -1,12 +1,15 @@
-﻿using System;
+﻿/*
+* FILE : DatabaseManager.cs
+* PROJECT : PROG3070 - Gerritt Hooyer, Justin Chan
+* PROGRAMMER : Gerritt Hooyer, Justin Chan
+* FIRST VERSION : 2023-11-20
+* DESCRIPTION :
+* Retrieves and updates data in the ConfigSettings table of the database.
+*/
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AssemblyDigitalKanBan
 {
@@ -20,6 +23,11 @@ namespace AssemblyDigitalKanBan
             ConnectionString = connectionString;
         }
 
+
+        /// <summary>
+        /// Returns a list with the a List of int of all current Workstation IDs.
+        /// </summary>
+        /// <returns></returns>
         public List<int> GetWorkstationIds()
         {
             SqlConnection conn = new SqlConnection(ConnectionString);
@@ -35,6 +43,19 @@ namespace AssemblyDigitalKanBan
             return workstationIds;
         }
 
+        /// <summary>
+        /// Returns a DataTable with Workstation Info containing the following columns:
+        /// <br/><br/>
+        /// employee_id<br/>
+        /// employee_name<br/>
+        /// order_id<br/>
+        /// order_amount<br/>
+        /// lamps_built<br/>
+        /// defects<br/>
+        /// defect_rate<br/>
+        /// </summary>
+        /// <param name="workstationId">The Workstation's ID.</param>
+        /// <returns>A DataTable with info related to a particular workstation.</returns>
         public DataTable GetWorkstationInfo(int workstationId)
         {
             SqlConnection conn = new SqlConnection(ConnectionString);
@@ -56,7 +77,11 @@ namespace AssemblyDigitalKanBan
 
             return workstationProductionInfo;
         }
-
+        /// <summary>
+        /// Returns the # of lamps that would need to be built to complete the order.
+        /// </summary>
+        /// <param name="orderId">The ID of the order.</param>
+        /// <returns>An int representing the # of lamps that need to be built.</returns>
         public int GetOrderAmount(int orderId)
         {
             SqlConnection conn = new SqlConnection(ConnectionString);
@@ -72,6 +97,12 @@ namespace AssemblyDigitalKanBan
             return result;
         }
 
+        /// <summary>
+        /// Gets the current number 
+        /// </summary>
+        /// <param name="workstationId"></param>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         public DataTable GetWorkstationOrderContribution(int workstationId, int orderId)
         {
             SqlConnection conn = new SqlConnection(ConnectionString);

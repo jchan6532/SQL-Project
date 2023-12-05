@@ -29,10 +29,10 @@ namespace AssemblyDigitalKanBan
 
         private void KanBanCell_Load(object sender, EventArgs e)
         {
-            Task.Run(Update);
+            Task.Run(guiUpdate);
         }
 
-        private void Update()
+        private void guiUpdate()
         {
             while (true)
             {
