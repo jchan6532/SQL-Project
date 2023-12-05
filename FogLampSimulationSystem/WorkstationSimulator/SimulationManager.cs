@@ -26,7 +26,7 @@ namespace WorkstationSimulator
             get
             {
                 SqlConnection sqlConnection =
-                    new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd =
                     new SqlCommand("SELECT [config_value] FROM ConfigSettings WHERE config_key = 'system.tick_rate'",
                         sqlConnection);
@@ -51,7 +51,7 @@ namespace WorkstationSimulator
             get
             {
                 SqlConnection sqlConnection =
-                    new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd =
                     new SqlCommand("SELECT [config_value] FROM ConfigSettings WHERE config_key = 'system.refill_interval'",
                         sqlConnection);
@@ -74,7 +74,7 @@ namespace WorkstationSimulator
             get
             {
                 SqlConnection sqlConnection =
-                    new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd =
                     new SqlCommand("SELECT [config_value] FROM ConfigSettings WHERE config_key = 'system.sim_speed'",
                         sqlConnection);

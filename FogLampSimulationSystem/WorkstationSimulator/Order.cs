@@ -37,7 +37,7 @@ namespace WorkstationSimulator
             {
                 int orderAmount = 0;
                 SqlConnection sqlConnection =
-                    new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT order_amount FROM LampOrder WHERE order_id = {OrderId}", sqlConnection);
 
                 sqlConnection.Open();
@@ -61,7 +61,7 @@ namespace WorkstationSimulator
             {
                 int orderFulfiled = 0;
                 SqlConnection sqlConnection =
-                    new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT order_fulfilled FROM LampOrder WHERE order_id = {OrderId}", sqlConnection);
 
                 sqlConnection.Open();
@@ -85,7 +85,7 @@ namespace WorkstationSimulator
             {
                 int defects = 0;
                 SqlConnection sqlConnection =
-                    new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT defects FROM LampOrder WHERE order_id = {OrderId}", sqlConnection);
 
                 sqlConnection.Open();

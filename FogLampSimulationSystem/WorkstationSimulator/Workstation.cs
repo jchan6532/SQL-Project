@@ -40,7 +40,7 @@ namespace WorkstationSimulator
             {
                 // Create a list of bins and use a SQL statement to select all of the relevant bin information.
                 List<Bin> bins = new List<Bin>();
-                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT * FROM BinOverview WHERE workstation_id = {WorkstationId}", sqlConnection);
 
                 sqlConnection.Open();
@@ -70,7 +70,7 @@ namespace WorkstationSimulator
             {
                 // Create objects
                 Employee employee = null;
-                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT TOP 1 employee_id FROM WorkstationOverview WHERE workstation_id = {WorkstationId}", 
                     sqlConnection);
 
@@ -98,7 +98,7 @@ namespace WorkstationSimulator
         {
             get
             {
-                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT config_value FROM ConfigSettings WHERE config_key = 'system.build_time'",
                     sqlConnection);
                 int defaultBuildTime = 0;
@@ -155,7 +155,7 @@ namespace WorkstationSimulator
                 }
 
                 OrderSession session = null;
-                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT * FROM WorkstationSession " +
                                                 $"WHERE workstation_id = {WorkstationId} AND order_id = {CurrentOrder.OrderId}",
                     sqlConnection);
@@ -181,7 +181,7 @@ namespace WorkstationSimulator
             get
             {
                 bool sessionExists = false;
-                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT workstation_id FROM WorkstationSession " +
                                                 $"WHERE workstation_id = {WorkstationId} AND order_id = {CurrentOrder.OrderId}",
                     sqlConnection);
@@ -207,7 +207,7 @@ namespace WorkstationSimulator
         {
             get
             {
-                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT TOP 1 order_id FROM LampOrder WHERE order_amount > order_fulfilled",
                     sqlConnection);
                 Order order = null;
@@ -236,7 +236,7 @@ namespace WorkstationSimulator
         {
             get
             {
-                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"SELECT config_value FROM ConfigSettings WHERE config_key = 'system.refill_warning_amount'",
                     sqlConnection);
 
@@ -263,7 +263,7 @@ namespace WorkstationSimulator
                 if (bin.Count <= RefillWarningAmount)
                 {
                     SqlConnection sqlConnection =
-                        new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                        new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                     SqlCommand cmd = new SqlCommand("RefillBin", sqlConnection);
                     cmd.Parameters.Add(new SqlParameter("bin_id", SqlDbType.Int) { Value = bin.BinId });
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -285,7 +285,7 @@ namespace WorkstationSimulator
             // The bulk of the work here is handled by a stored procedure, we need only provide it the
             // order ID and the workstation ID
             SqlConnection sqlConnection =
-                new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
             SqlCommand cmd = new SqlCommand("BuildNewFan", sqlConnection);
             cmd.Parameters.Add(new SqlParameter("workstation_id", SqlDbType.Int) { Value = WorkstationId });
             cmd.Parameters.Add(new SqlParameter("order_id", SqlDbType.Int) { Value = CurrentOrder.OrderId });
@@ -305,7 +305,7 @@ namespace WorkstationSimulator
             // The bulk of the work here is handled by a stored procedure, we need only provide it the
             // order ID and the workstation ID
             SqlConnection sqlConnection =
-                new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
             SqlCommand cmd = new SqlCommand("BuildNewDefect", sqlConnection);
             cmd.Parameters.Add(new SqlParameter("workstation_id", SqlDbType.Int) { Value = WorkstationId });
             cmd.Parameters.Add(new SqlParameter("order_id", SqlDbType.Int) { Value = CurrentOrder.OrderId });
@@ -325,7 +325,7 @@ namespace WorkstationSimulator
             if (!OrderSessionExists)
             {
                 SqlConnection sqlConnection =
-                    new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd = new SqlCommand($"INSERT INTO WorkstationSession VALUES" +
                                                 $"({WorkstationId},{CurrentOrder.OrderId},0,0)", sqlConnection);
 

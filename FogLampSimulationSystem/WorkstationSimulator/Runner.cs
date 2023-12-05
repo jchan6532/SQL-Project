@@ -29,7 +29,7 @@ namespace WorkstationSimulator
             {
                 List<int> workstationIds = new List<int>();
                 SqlConnection sqlConnection =
-                                    new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                                    new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
                 SqlCommand cmd =
                     new SqlCommand("SELECT workstation_id FROM Workstation",
                         sqlConnection);
