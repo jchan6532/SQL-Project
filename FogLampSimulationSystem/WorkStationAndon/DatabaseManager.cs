@@ -229,6 +229,29 @@ namespace WorkStationAndon
             return orderReport;
         }
 
+        public static Dictionary<string, int> GetWorkStationPartCounts(int workStationID)
+        {
+            Dictionary<string, int> parts = new Dictionary<string, int>();
+
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["justin"].ConnectionString);
+            SqlCommand cmd = new SqlCommand($"SELECT part_count, part_name FROM BinOverview WHERE workstation_id = {workStationID}", sqlConnection);
+
+            sqlConnection.Open();
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    string name = reader["part_name"].ToString();
+                    string count = reader["part_count"].ToString();
+                    parts.Add(name, Int32.Parse(count));
+                }
+            }
+
+
+            sqlConnection.Close();
+            return parts;
+        }
+
         #endregion
 
 
