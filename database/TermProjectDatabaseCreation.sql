@@ -10,6 +10,7 @@
 CREATE DATABASE Sql_Term_Project
 
 USE Sql_Term_Project
+GO
 
 CREATE TABLE ConfigSettings (
 	config_key NVARCHAR(60) PRIMARY KEY NOT NULL,
