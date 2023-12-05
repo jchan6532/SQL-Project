@@ -124,6 +124,10 @@ namespace WorkstationAndonDisplay
             int wsParts = 0;
             int oParts = 0;
             int oTotal = dbManager.GetOrderAmount(OrderId);
+
+            // Because we have all the information we need, we may as well set the total label here.
+            
+
             if (iTable.Rows[0].ItemArray[0] != System.DBNull.Value)
             {
                 oParts = Convert.ToInt32(iTable.Rows[0].ItemArray[0]);
@@ -132,6 +136,7 @@ namespace WorkstationAndonDisplay
             {
                 wsParts = Convert.ToInt32(iTable.Rows[0].ItemArray[1]);
             }
+            totalLampsProduced.Text = (wsParts + oParts).ToString();
             oTotal = oTotal - (wsParts + oParts);
             series.ChartType = SeriesChartType.Pie;
             series.IsVisibleInLegend = false;
