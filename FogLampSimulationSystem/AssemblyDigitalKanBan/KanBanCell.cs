@@ -14,24 +14,65 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace AssemblyDigitalKanBan
 {
+    /// <summary>
+    /// Class representing the code behind logic for each kan ban cell that represents each work station
+    /// </summary>
     public partial class KanBanCell : UserControl
     {
+        #region Private Fields
+
+        /// <summary>
+        /// The workstation ID the cell represents
+        /// </summary>
         private int WorkstationId;
+
+        /// <summary>
+        /// The order ID the cell information is showing
+        /// </summary>
         private int OrderId;
+
+        #endregion
+
+        #region Delegates
 
         private delegate void guiDelegate();
 
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Constructor taking in a workstation ID that represents the data of the workstation that the cell will show
+        /// </summary>
+        /// <param name="workstationId">The workstation ID</param>
         public KanBanCell(int workstationId)
         {
             WorkstationId = workstationId;
             InitializeComponent();
         }
 
+        #endregion
+
+        #region Event Handlers
+
+        /// <summary>
+        /// Event handler when the cell loads, it starts a task that asynchronously runs the method that periodically updates the
+        /// information for the cell
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void KanBanCell_Load(object sender, EventArgs e)
         {
             Task.Run(guiUpdate);
         }
 
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Periodically update the pie chart and cell table
+        /// </summary>
         private void guiUpdate()
         {
             while (true)
@@ -42,6 +83,9 @@ namespace AssemblyDigitalKanBan
             }
         }
 
+        /// <summary>
+        /// Updates the cell table data
+        /// </summary>
         private void SetLabelText()
         {
             DatabaseManager dbManager =
@@ -67,6 +111,9 @@ namespace AssemblyDigitalKanBan
             
         }
 
+        /// <summary>
+        /// Updates the pie chart for the cell
+        /// </summary>
         private void SetPieChart()
         {
             DatabaseManager dbManager =
@@ -106,5 +153,7 @@ namespace AssemblyDigitalKanBan
             series.Points.Last().Label = oTotal.ToString();
             series.Points.Last().Color = Color.Red;
         }
+
+        #endregion
     }
 }

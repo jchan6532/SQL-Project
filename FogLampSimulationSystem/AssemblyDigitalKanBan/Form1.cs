@@ -145,7 +145,7 @@ namespace AssemblyDigitalKanBan
         }
 
         /// <summary>
-        /// 
+        /// Graphs the total contribution for the first incomplete order
         /// </summary>
         /// <returns></returns>
         private int GraphContributionTotal()
@@ -180,6 +180,11 @@ namespace AssemblyDigitalKanBan
             return totalValue;
         }
 
+        /// <summary>
+        /// Adds a data point to the contribution graph
+        /// </summary>
+        /// <param name="table">the data table containing the order information</param>
+        /// <param name="wId">the workstation ID for the current point to plot</param>
         private void AddPoint(DataTable table, int wId)
         {
             if (table.Rows.Count > 0)
