@@ -85,6 +85,10 @@ namespace WorkstationAndonDisplay
                 Color color = defectRate > 0.5 ? Color.LightCoral : Color.LightGreen;
                 defectRateLabel.BackColor = color;
                 orderStatusProgressBar.Maximum = Convert.ToInt32(row["order_amount"]);
+                if (lampsBuilt > orderStatusProgressBar.Maximum)
+                {
+                    lampsBuilt = orderStatusProgressBar.Maximum;
+                }
                 orderStatusProgressBar.Value = lampsBuilt;
 
                 runnerSignalLabel.Text = $"Workstation {WorkstationId}";
