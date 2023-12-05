@@ -31,6 +31,12 @@ namespace WorkStationAndon
         {
             InitializeComponent();
             EmployeeID = employeeID;
+
+            dataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            dataGridView.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
+
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
 
         private void WorkStationAndonForm_Load(object sender, EventArgs e)
@@ -42,6 +48,9 @@ namespace WorkStationAndon
             EmployeeNameTextBlock.Text = Manager.EmployeeName.ToString();
             EmployeeTypeTextBlock.Text = Manager.EmployeeType;
 
+            CreatePArtsTable();
+            PopulateParts();
+
             // order id
             OrderIDTextBlock.DataBindings.Add(
                 "Text",
@@ -52,6 +61,13 @@ namespace WorkStationAndon
                 );
 
             WorkStationContributionPie.Visible = false;
+
+            dataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            dataGridView.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
+
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders; // Set to AllCellsExceptHeaders
+
         }
 
         private void WorkStationAndonForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -117,6 +133,7 @@ namespace WorkStationAndon
                     DefectsTextBlock.Text = Manager.DefectsFulfilled.ToString();
 
                     CreatePieChart();
+                    PopulateParts();
 
                     // 10 seconds update
                 });
@@ -191,6 +208,36 @@ namespace WorkStationAndon
             {
                 WorkStationContributionPie.Visible = true;
             }
+        }
+
+        private void CreatePArtsTable()
+        {
+            DataTable dataTable = new DataTable();
+
+            // Add columns to DataTable
+            dataTable.Columns.Add("part name", typeof(string));
+            dataTable.Columns.Add("count", typeof(int));
+
+            // Set the DataTable as the DataSource
+            dataGridView.DataSource = dataTable;
+        }
+
+        private void PopulateParts()
+        {
+            var parts = DatabaseManager.GetWorkStationPartCounts(Manager.WorkStationID);
+
+            // Access the DataTable from the DataGridView DataSource
+            DataTable dataTable = (DataTable)dataGridView.DataSource;
+
+            // Clear existing data from the DataTable
+            dataTable.Rows.Clear();
+
+            // Add data from the dictionary to the DataTable
+            foreach (var kvp in parts)
+            {
+                dataTable.Rows.Add(kvp.Key, kvp.Value);
+            }
+
         }
     }
 }

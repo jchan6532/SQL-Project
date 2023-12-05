@@ -32,6 +32,8 @@ namespace WorkStationAndon
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.LampsCreatedPanel = new System.Windows.Forms.Panel();
             this.LampsCreatedTextBlock = new System.Windows.Forms.Label();
             this.LampsCreatedLabel = new System.Windows.Forms.Label();
@@ -54,9 +56,11 @@ namespace WorkStationAndon
             this.AmountContributedTextBlock = new System.Windows.Forms.Label();
             this.AmountContributedLabel = new System.Windows.Forms.Label();
             this.WorkStationContributionPie = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.LampsCreatedPanel.SuspendLayout();
             this.NumDefectsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WorkStationContributionPie)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // LampsCreatedPanel
@@ -65,7 +69,7 @@ namespace WorkStationAndon
             this.LampsCreatedPanel.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.LampsCreatedPanel.Controls.Add(this.LampsCreatedTextBlock);
             this.LampsCreatedPanel.Controls.Add(this.LampsCreatedLabel);
-            this.LampsCreatedPanel.Location = new System.Drawing.Point(897, 63);
+            this.LampsCreatedPanel.Location = new System.Drawing.Point(972, 193);
             this.LampsCreatedPanel.Name = "LampsCreatedPanel";
             this.LampsCreatedPanel.Size = new System.Drawing.Size(150, 150);
             this.LampsCreatedPanel.TabIndex = 0;
@@ -108,7 +112,7 @@ namespace WorkStationAndon
             this.NumDefectsPanel.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.NumDefectsPanel.Controls.Add(this.DefectsTextBlock);
             this.NumDefectsPanel.Controls.Add(this.NumDefectsLabel);
-            this.NumDefectsPanel.Location = new System.Drawing.Point(897, 266);
+            this.NumDefectsPanel.Location = new System.Drawing.Point(972, 396);
             this.NumDefectsPanel.Name = "NumDefectsPanel";
             this.NumDefectsPanel.Size = new System.Drawing.Size(150, 150);
             this.NumDefectsPanel.TabIndex = 1;
@@ -127,7 +131,7 @@ namespace WorkStationAndon
             // 
             this.EmployeeNameTextBlock.AutoSize = true;
             this.EmployeeNameTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmployeeNameTextBlock.Location = new System.Drawing.Point(183, 317);
+            this.EmployeeNameTextBlock.Location = new System.Drawing.Point(167, 251);
             this.EmployeeNameTextBlock.Name = "EmployeeNameTextBlock";
             this.EmployeeNameTextBlock.Size = new System.Drawing.Size(101, 25);
             this.EmployeeNameTextBlock.TabIndex = 4;
@@ -137,7 +141,7 @@ namespace WorkStationAndon
             // 
             this.EmployeeNameLabel.AutoSize = true;
             this.EmployeeNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmployeeNameLabel.Location = new System.Drawing.Point(31, 317);
+            this.EmployeeNameLabel.Location = new System.Drawing.Point(15, 251);
             this.EmployeeNameLabel.Name = "EmployeeNameLabel";
             this.EmployeeNameLabel.Size = new System.Drawing.Size(156, 25);
             this.EmployeeNameLabel.TabIndex = 3;
@@ -147,7 +151,7 @@ namespace WorkStationAndon
             // 
             this.EmployeeIDTextBlock.AutoSize = true;
             this.EmployeeIDTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmployeeIDTextBlock.Location = new System.Drawing.Point(183, 395);
+            this.EmployeeIDTextBlock.Location = new System.Drawing.Point(167, 329);
             this.EmployeeIDTextBlock.Name = "EmployeeIDTextBlock";
             this.EmployeeIDTextBlock.Size = new System.Drawing.Size(90, 25);
             this.EmployeeIDTextBlock.TabIndex = 6;
@@ -157,7 +161,7 @@ namespace WorkStationAndon
             // 
             this.EmployeeTypeLabel.AutoSize = true;
             this.EmployeeTypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmployeeTypeLabel.Location = new System.Drawing.Point(31, 360);
+            this.EmployeeTypeLabel.Location = new System.Drawing.Point(15, 294);
             this.EmployeeTypeLabel.Name = "EmployeeTypeLabel";
             this.EmployeeTypeLabel.Size = new System.Drawing.Size(144, 25);
             this.EmployeeTypeLabel.TabIndex = 5;
@@ -167,7 +171,7 @@ namespace WorkStationAndon
             // 
             this.EmployeeTypeTextBlock.AutoSize = true;
             this.EmployeeTypeTextBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmployeeTypeTextBlock.Location = new System.Drawing.Point(183, 360);
+            this.EmployeeTypeTextBlock.Location = new System.Drawing.Point(167, 294);
             this.EmployeeTypeTextBlock.Name = "EmployeeTypeTextBlock";
             this.EmployeeTypeTextBlock.Size = new System.Drawing.Size(101, 25);
             this.EmployeeTypeTextBlock.TabIndex = 10;
@@ -177,7 +181,7 @@ namespace WorkStationAndon
             // 
             this.EmployeeIDLabel.AutoSize = true;
             this.EmployeeIDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmployeeIDLabel.Location = new System.Drawing.Point(31, 395);
+            this.EmployeeIDLabel.Location = new System.Drawing.Point(15, 329);
             this.EmployeeIDLabel.Name = "EmployeeIDLabel";
             this.EmployeeIDLabel.Size = new System.Drawing.Size(123, 25);
             this.EmployeeIDLabel.TabIndex = 9;
@@ -290,10 +294,39 @@ namespace WorkStationAndon
             this.WorkStationContributionPie.TabIndex = 22;
             this.WorkStationContributionPie.Text = "WorkStation Contribution";
             // 
+            // dataGridView
+            // 
+            this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AllowUserToDeleteRows = false;
+            this.dataGridView.AllowUserToResizeColumns = false;
+            this.dataGridView.AllowUserToResizeRows = false;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGridView.Location = new System.Drawing.Point(28, 380);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.Size = new System.Drawing.Size(299, 400);
+            this.dataGridView.TabIndex = 23;
+            // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.WorkStationContributionPie);
             this.Controls.Add(this.DefectsContributedTextBlock);
             this.Controls.Add(this.DefectsContributedLabel);
@@ -313,13 +346,14 @@ namespace WorkStationAndon
             this.Controls.Add(this.EmployeeNameLabel);
             this.Controls.Add(this.LampsCreatedPanel);
             this.Name = "HomePage";
-            this.Size = new System.Drawing.Size(1067, 563);
+            this.Size = new System.Drawing.Size(1216, 822);
             this.Load += new System.EventHandler(this.WorkStationAndonForm_Load);
             this.LampsCreatedPanel.ResumeLayout(false);
             this.LampsCreatedPanel.PerformLayout();
             this.NumDefectsPanel.ResumeLayout(false);
             this.NumDefectsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WorkStationContributionPie)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -349,6 +383,7 @@ namespace WorkStationAndon
         private System.Windows.Forms.Label AmountContributedLabel;
         private System.Windows.Forms.Label DefectsTextBlock;
         private System.Windows.Forms.DataVisualization.Charting.Chart WorkStationContributionPie;
+        private System.Windows.Forms.DataGridView dataGridView;
     }
 }
 
