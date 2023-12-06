@@ -11,13 +11,29 @@ namespace WorkstationAndonDisplay
     /// </summary>
     internal class DatabaseManager
     {
-        private string ConnectionString { get; set; }
+        /// <summary>
+        /// The SQL connection string property
+        /// </summary>
+        private string ConnectionString
+        {
+            get;
+            set;
+        }
 
+        /// <summary>
+        /// Parameterized constructor, takes in an SQL connection string as a parameter
+        /// </summary>
+        /// <param name="connectionString">The SQL connection string</param>
         public DatabaseManager(string connectionString)
         {
             ConnectionString = connectionString;
         }
-
+        
+        /// <summary>
+        /// Gets the order amount for a specific order ID
+        /// </summary>
+        /// <param name="orderId">The order ID of the order that we are interested in</param>
+        /// <returns>The order amount of the order</returns>
         public int GetOrderAmount(int orderId)
         {
             SqlConnection conn = new SqlConnection(ConnectionString);
@@ -33,6 +49,11 @@ namespace WorkstationAndonDisplay
             return result;
         }
 
+        /// <summary>
+        /// Gets a data table filled with workstation information for a specific workstation ID
+        /// </summary>
+        /// <param name="workstationId">The ID of the workstation that we are interested in</param>
+        /// <returns>A data tabel containing the work station information</returns>
         public DataTable GetWorkstationInfo(int workstationId)
         {
             SqlConnection conn = new SqlConnection(ConnectionString);
@@ -55,6 +76,10 @@ namespace WorkstationAndonDisplay
             return workstationProductionInfo;
         }
 
+        /// <summary>
+        /// Gets the ID of the first incomplete order 
+        /// </summary>
+        /// <returns>The ID of the first incomplete order</returns>
         public int GetFirstIncompleteOrderId()
         {
             SqlConnection conn = new SqlConnection(ConnectionString);
@@ -72,6 +97,12 @@ namespace WorkstationAndonDisplay
             return orderId;
         }
 
+        /// <summary>
+        /// Gets the part count given the part name and work station ID
+        /// </summary>
+        /// <param name="partName">The name of the part</param>
+        /// <param name="workstationId">The ID of the work station we are interested in</param>
+        /// <returns>The part count</returns>
         public int GetPartCount(string partName, int workstationId)
         {
             SqlConnection sqlConnection = new SqlConnection(ConnectionString);
@@ -86,6 +117,10 @@ namespace WorkstationAndonDisplay
             return count;
         }
 
+        /// <summary>
+        /// Gets the minimum threshhold bin amount for a bin before the system should warn the runner that a bin is low in count
+        /// </summary>
+        /// <returns>The mimnum threshhold bin amount</returns>
         public int GetBinWarningAmount()
         {
             string[] data = new string[2];
@@ -115,6 +150,11 @@ namespace WorkstationAndonDisplay
             return warning;
         }
 
+        /// <summary>
+        /// Gets the maximum capacity for the bin given the part name
+        /// </summary>
+        /// <param name="partName">The part name</param>
+        /// <returns>The maximum capacity of the bin</returns>
         public int GetPartBinSize(string partName)
         {
             SqlConnection sqlConnection = new SqlConnection(ConnectionString);
@@ -129,6 +169,11 @@ namespace WorkstationAndonDisplay
             return binSize;
         }
 
+        /// <summary>
+        /// Gets the amount of lamps built by all the work stations for a certain order
+        /// </summary>
+        /// <param name="orderId">The ID of the order we are interestedin</param>
+        /// <returns></returns>
         public int GetWorkstationOrderFulfilled(int orderId)
         {
             SqlConnection conn = new SqlConnection(ConnectionString);
@@ -153,10 +198,10 @@ namespace WorkstationAndonDisplay
         }
 
         /// <summary>
-        /// Gets the current number 
+        /// Gets the current number of lamps built from a workstation for an order
         /// </summary>
-        /// <param name="workstationId"></param>
-        /// <param name="orderId"></param>
+        /// <param name="workstationId">The ID of the work station we are finding out about</param>
+        /// <param name="orderId">The ID of the order we are interested in</param>
         /// <returns></returns>
         public DataTable GetWorkstationOrderContribution(int workstationId, int orderId)
         {
