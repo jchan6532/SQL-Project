@@ -174,7 +174,7 @@ namespace WorkstationAndonDisplay
         /// </summary>
         /// <param name="orderId">The ID of the order we are interestedin</param>
         /// <returns></returns>
-        public int GetWorkstationOrderFulfilled(int orderId)
+        public int GetWorkstationOrderFulfilled()
         {
             SqlConnection conn = new SqlConnection(ConnectionString);
             SqlCommand cmd = conn.CreateCommand();

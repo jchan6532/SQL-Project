@@ -97,7 +97,7 @@ namespace WorkstationAndonDisplay
                 OrderId = Convert.ToInt32(row["order_id"]);
 
                 double defectRate = Convert.ToDouble(row["defect_rate"]);
-                int lampsBuilt = dbManager.GetWorkstationOrderFulfilled(OrderId);
+                int lampsBuilt = dbManager.GetWorkstationOrderFulfilled();
                 int refillAmount = dbManager.GetBinWarningAmount();
 
                 int orderAmount = Convert.ToInt32(row["order_amount"]);
