@@ -13,14 +13,32 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace WorkstationAndonDisplay
 {
+    /// <summary>
+    /// The code behind class encapsulating the business logic for the workstation andon display form
+    /// </summary>
     public partial class Form1 : Form
     {
+        /// <summary>
+        /// The ID of the work station to display onto the form
+        /// </summary>
         private int WorkstationId;
+
+        /// <summary>
+        /// The ID of the order to show on the form
+        /// </summary>
         private int OrderId;
+
+        /// <summary>
+        /// The SQL connection string
+        /// </summary>
         private string ConnectionString;
 
         private delegate void guiDelegate();
 
+        /// <summary>
+        /// Parameterized constructor
+        /// </summary>
+        /// <param name="workstationId">The workstation ID</param>
         public Form1(int workstationId)
         {
             WorkstationId = workstationId;
@@ -29,6 +47,11 @@ namespace WorkstationAndonDisplay
             InitializeComponent();
         }
 
+        /// <summary>
+        /// The event handler whenever the form has loaded
+        /// </summary>
+        /// <param name="sender">The sender of the event, in this case is the form</param>
+        /// <param name="e">The event arguments providing extra information for the event</param>
         private void Form1_Load(object sender, EventArgs e)
         {
             Task.Run(guiUpdate);
@@ -47,7 +70,9 @@ namespace WorkstationAndonDisplay
             lampsProducedHereTitleLabel.Text += WorkstationId.ToString();
         }
 
-
+        /// <summary>
+        /// Periodically updates the user interface, updates the elements and graphs
+        /// </summary>
         private void guiUpdate()
         {
             while (true)
@@ -58,6 +83,9 @@ namespace WorkstationAndonDisplay
             }
         }
 
+        /// <summary>
+        /// Updates all necessary UI elements
+        /// </summary>
         private void UpdateElements()
         {
             DatabaseManager dbManager = new DatabaseManager(ConnectionString);
@@ -112,6 +140,9 @@ namespace WorkstationAndonDisplay
             }
         }
 
+        /// <summary>
+        /// Updates the chart that represents the workstation's contributionto the order
+        /// </summary>
         private void UpdateGraph()
         { 
             DatabaseManager dbManager =
